@@ -4,14 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="SB Global Ventures - Your trusted export partner for premium global trade solutions.">
-  <title>SB Global Ventures</title>
+  <title>About | SB Global Ventures</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; line-height: 1.6; background: #f8f9fa; color: #333; }
+    .header, .footer { background: #002244; color: white; padding: 1rem 0; }
+    .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+    nav ul { list-style: none; display: flex; gap: 1rem; padding: 0; margin: 0; }
+    nav a { color: white; text-decoration: none; font-weight: 600; }
+    .hero { background: url('images/about-hero.jpg') no-repeat center center/cover; color: white; padding: 6rem 0; text-align: center; }
+    .hero h2 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .section { padding: 4rem 0; background: white; }
+    .section.dark { background: #e9ecef; }
+    .section h3 { font-size: 2rem; margin-bottom: 1rem; color: #002244; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+    .card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    .card img { width: 100%; border-radius: 8px; }
+    .footer p { text-align: center; margin: 0; }
+  </style>
 </head>
 <body>
   <header class="header">
     <div class="container">
-      <h1><a href="index.html">SB Global Ventures</a></h1>
+      <h1><a href="index.html" style="color:white; text-decoration:none;">SB Global Ventures</a></h1>
       <nav>
         <ul>
           <li><a href="index.html">Home</a></li>
@@ -25,27 +41,41 @@
 
   <section class="hero">
     <div class="container">
-      <h2>Our Products</h2>
-      <p>Explore our range of export-ready goods across multiple categories.</p>
+      <h2>About SB Global Ventures</h2>
+      <p>Your gateway to trusted global trade, powered by integrity and innovation.</p>
     </div>
   </section>
 
-  <section class="product-list">
+  <section class="section">
     <div class="container">
-      <div class="product-item">
-        <img src="images/home-decor.jpg" alt="Home Decor">
-        <h3>Home & Living</h3>
-        <p>From wall hangings to eco-friendly baskets, our curated range of artisanal decor blends culture with quality.</p>
+      <h3>Who We Are</h3>
+      <p>SB Global Ventures is an emerging global exporter based in India, focused on delivering high-quality products across a range of sectors — from artisanal handicrafts to advanced consumer electronics. We serve as a reliable link between manufacturers and international markets.</p>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="container">
+      <h3>Our Mission</h3>
+      <p>To build trusted international partnerships through quality exports, ethical sourcing, and exceptional service — helping global buyers discover the best of what India and Asia have to offer.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid">
+      <div class="card">
+        <img src="images/value-quality.jpg" alt="Quality Guarantee">
+        <h3>Unmatched Quality</h3>
+        <p>We ensure stringent quality checks for every product before shipment.</p>
       </div>
-      <div class="product-item">
-        <img src="images/electronics.jpg" alt="Electronics">
-        <h3>Consumer Electronics</h3>
-        <p>Top-selling gadgets and accessories including chargers, adapters, and power banks — sourced from leading OEMs.</p>
+      <div class="card">
+        <img src="images/value-service.jpg" alt="Customer Service">
+        <h3>Reliable Service</h3>
+        <p>Timely communication, transparent processes, and professional handling at every step.</p>
       </div>
-      <div class="product-item">
-        <img src="images/custom-sourcing.jpg" alt="Custom Sourcing">
-        <h3>Custom Sourcing</h3>
-        <p>Looking for something specific? Our sourcing specialists work with a vetted supplier network to deliver tailored solutions.</p>
+      <div class="card">
+        <img src="images/value-network.jpg" alt="Supplier Network">
+        <h3>Extensive Network</h3>
+        <p>Vetted suppliers across multiple product categories ensure variety and scale.</p>
       </div>
     </div>
   </section>
