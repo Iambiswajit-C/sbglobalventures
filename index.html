@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="SB Global Ventures - Your trusted export partner for quality Indian products across diverse categories.">
+  <meta name="description" content="SB Global Ventures - Your trusted export partner for premium global trade solutions.">
   <title>SB Global Ventures</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -12,58 +13,78 @@
       box-sizing: border-box;
     }
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Inter', sans-serif;
       line-height: 1.6;
-      background: #fdfdfd;
+      background: #f5f7fa;
       color: #333;
     }
     .container {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 20px;
     }
     .header {
-      background: #003366;
+      background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
       color: #fff;
-      padding: 20px 0;
+      padding: 30px 0;
     }
     .header h1 {
-      margin-bottom: 10px;
+      font-size: 2.2rem;
+      font-weight: 700;
     }
     nav ul {
       list-style: none;
       display: flex;
-      gap: 20px;
+      gap: 30px;
+      margin-top: 10px;
     }
     nav a {
       color: #fff;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #ffc107;
     }
     .hero {
-      background: #e8f0fe;
-      padding: 60px 20px;
+      background: url('https://images.unsplash.com/photo-1560520032-82d9faaa95cf?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+      padding: 100px 20px;
       text-align: center;
+      color: #fff;
     }
     .hero h2 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
+      font-size: 3rem;
+      font-weight: 700;
     }
-    .about, .products, .contact {
-      padding: 40px 20px;
+    .hero p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+    .section {
+      padding: 60px 20px;
       background: #fff;
       margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #0f2027;
     }
     .products ul {
-      margin-top: 10px;
-      list-style-type: square;
+      list-style-type: disc;
       padding-left: 20px;
     }
+    .products li {
+      margin-bottom: 10px;
+    }
     .footer {
-      background: #003366;
+      background: #0f2027;
       color: #fff;
       text-align: center;
-      padding: 15px 0;
+      padding: 20px 0;
     }
     @media (max-width: 768px) {
       nav ul {
@@ -89,19 +110,19 @@
 
   <section class="hero">
     <div class="container">
-      <h2>India's Premier Export House</h2>
-      <p>Delivering quality across handicrafts, home decor, lifestyle, and consumer electronics.</p>
+      <h2>Global Trade. Premium Products.</h2>
+      <p>Connecting the world with excellence in exports — home decor, electronics, and more.</p>
     </div>
   </section>
 
-  <section id="about" class="about">
+  <section id="about" class="section about">
     <div class="container">
       <h2>About Us</h2>
-      <p>SB Global Ventures is a multi-category export enterprise rooted in India. We specialize in sourcing and exporting top-quality Indian goods, starting with eco-conscious handcrafted home décor through our flagship brand <strong>Sack & Soul</strong>. Our future expansions include lifestyle products, consumer electronics, and private label solutions under diverse brand identities. We aim to be a one-stop global partner for reliable, scalable, and culturally-rich exports.</p>
+      <p>SB Global Ventures is a multi-category export company offering global buyers access to high-quality goods. Our mission is to become a trusted name in international trade across segments including home decor, consumer electronics, wellness, and private label goods. While our operations originate in South Asia, our brand maintains a global identity committed to quality, sustainability, and long-term partnerships. Our flagship brand <strong>Sack & Soul</strong> delivers premium handcrafted products with a story, while new verticals will soon cater to diverse international markets.</p>
     </div>
   </section>
 
-  <section id="products" class="products">
+  <section id="products" class="section products">
     <div class="container">
       <h2>Our Product Categories</h2>
       <ul>
@@ -109,12 +130,12 @@
         <li>Eco-Friendly Storage Solutions</li>
         <li>Lifestyle and Wellness Goods</li>
         <li>Consumer Electronics and Accessories</li>
-        <li>Custom Private Label Products</li>
+        <li>Private Label & OEM Products</li>
       </ul>
     </div>
   </section>
 
-  <section id="contact" class="contact">
+  <section id="contact" class="section contact">
     <div class="container">
       <h2>Contact Us</h2>
       <p>Email: <a href="mailto:info@sbglobalventures.com">info@sbglobalventures.com</a></p>
@@ -128,4 +149,5 @@
   </footer>
 </body>
 </html>
+
 
