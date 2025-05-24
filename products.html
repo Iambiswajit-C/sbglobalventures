@@ -1,50 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="SB Global Ventures India - Explore our product range." />
-  <title>SB Global Ventures India - Products</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore products by SB Global Ventures India - trusted global exporters of home décor and electronics.">
+  <title>Products - SB Global Ventures India</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .hero {
+      background-image: url('images/hero-products.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+  </style>
 </head>
 <body>
   <header class="header">
-    <h1><a href="index.html">SB Global Ventures India</a></h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="products.html" aria-current="page">Products</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
+    <div class="container">
+      <h1><a href="index.html">SB Global Ventures India</a></h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <section class="hero" role="banner" aria-label="Products Hero Image" style="background-image: url('images/hero-products.jpg');">
-    <div>
+  <section class="hero">
+    <div class="container">
       <h2>Our Products</h2>
-      <p>Discover our diverse multi-niche product portfolio.</p>
+      <p>Delivering quality craftsmanship and technology to the global market.</p>
     </div>
   </section>
 
-  <section class="about-section" aria-labelledby="products-list">
-    <h3 id="products-list">Product Categories</h3>
-    <ul style="list-style-type:none; padding: 0; max-width: 700px; margin: 0 auto;">
-      <li style="padding: 15px 0; border-bottom: 1px solid #ccc;">
-        <strong>Handicrafts & Home Décor:</strong> Unique artisan-crafted products, eco-friendly baskets, wall hangings, and more.
-      </li>
-      <li style="padding: 15px 0; border-bottom: 1px solid #ccc;">
-        <strong>Consumer Electronics:</strong> USB-C PD chargers, power banks, smart gadgets, and accessories.
-      </li>
-      <li style="padding: 15px 0;">
-        <strong>Home Living Essentials:</strong> Kitchenware, lifestyle tools, and everyday utilities sourced from trusted vendors.
-      </li>
-    </ul>
+  <section class="about-section">
+    <div class="container">
+      <h3>Featured Categories</h3>
+      <ul>
+        <li>Handcrafted Home Décor – Elegant, sustainable, and culturally rich pieces.</li>
+        <li>Consumer Electronics – Reliable, certified devices for everyday use.</li>
+        <li>Customized Sourcing – Tailored solutions to meet buyer specifications.</li>
+      </ul>
+    </div>
   </section>
 
-  <footer class="footer" role="contentinfo">
-    <p>&copy; 2025 SB Global Ventures India. All rights reserved.</p>
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 SB Global Ventures India. All rights reserved.</p>
+    </div>
   </footer>
 </body>
 </html>
