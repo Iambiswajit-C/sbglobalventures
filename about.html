@@ -8,20 +8,88 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      background-color: #fff;
+      color: #333;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .header {
+      background: #222;
+      color: white;
+      padding: 20px 0;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    .header nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      gap: 15px;
+    }
+    .header nav a {
+      color: #fff;
+      text-decoration: none;
+    }
     .hero {
       background-image: url('images/hero-about.jpg');
-      background-size: 120%; /* Zoomed out view */
-      background-position: center center;
-      height: 400px;
+      background-size: cover;
+      background-position: top center;
+      height: 420px;
       display: flex;
       align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+    .hero h2 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 18px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .about-section {
+      padding: 60px 20px;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+    .about-section h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .about-section p, .about-section ul {
+      max-width: 800px;
+      margin: 0 auto 30px;
+      font-size: 16px;
+    }
+    .about-section ul {
+      text-align: left;
+      padding-left: 20px;
+      display: inline-block;
+    }
+    .footer {
+      padding: 20px 0;
+      background-color: #222;
+      color: #fff;
+      text-align: center;
     }
   </style>
 </head>
 <body>
   <header class="header">
-    <div class="container">
-      <h1><a href="index.html">SB Global Ventures</a></h1>
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+      <h1><a href="index.html" style="color: white; text-decoration: none;">SB Global Ventures</a></h1>
       <nav>
         <ul>
           <li><a href="index.html">Home</a></li>
@@ -34,13 +102,13 @@
   </header>
 
   <section class="hero">
-    <div class="container">
+    <div>
       <h2>About Us</h2>
       <p>Driven by trust, powered by innovation — your global export partner.</p>
     </div>
   </section>
 
-  <section class="about-section" style="padding: 60px 20px; background-color: #f9f9f9;">
+  <section class="about-section">
     <div class="container">
       <h3>Who We Are</h3>
       <p>SB Global Ventures is a dynamic export company committed to delivering high-quality products and global sourcing solutions. From home décor to cutting-edge electronics, our multi-niche platform ensures our buyers receive tailored, reliable, and scalable offerings.</p>
@@ -49,7 +117,7 @@
       <p>To bridge the gap between premium craftsmanship and global markets by offering curated products and exceptional service that builds long-term partnerships.</p>
 
       <h3>Why Choose Us?</h3>
-      <ul style="list-style-type: disc; padding-left: 20px;">
+      <ul>
         <li>Vast supplier network with verified vendors</li>
         <li>Multi-niche expertise: Handicrafts, Electronics & more</li>
         <li>End-to-end quality assurance & logistics support</li>
@@ -57,7 +125,7 @@
     </div>
   </section>
 
-  <footer class="footer" style="padding: 20px 0; background-color: #222; color: #fff;">
+  <footer class="footer">
     <div class="container">
       <p>&copy; 2025 SB Global Ventures. All rights reserved.</p>
     </div>
