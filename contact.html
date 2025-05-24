@@ -1,54 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Contact SB Global Ventures India for inquiries, quotes, and business partnerships." />
-  <title>Contact - SB Global Ventures India</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Welcome to SB Global Ventures India - Your trusted global export partner for quality products including handicrafts, home decor, and electronics.">
+  <title>Home - SB Global Ventures India</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
   <style>
     .hero {
-      background-image: url('images/hero-contact.jpg');
+      background-image: url('images/hero-home.jpg');
       background-size: cover;
       background-position: center;
       height: 400px;
       display: flex;
       align-items: center;
-      justify-content: center;
       color: white;
+    }
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .category-card {
+      width: 30%;
       text-align: center;
     }
-    .contact-section {
-      max-width: 600px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+    .category-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
     }
-    form {
+    .features {
       display: flex;
-      flex-direction: column;
-      gap: 1rem;
+      gap: 2rem;
+      margin-top: 2rem;
     }
-    input, textarea {
-      padding: 0.75rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      resize: vertical;
-      font-family: 'Inter', sans-serif;
+    .features img {
+      width: 100%;
+      border-radius: 8px;
     }
-    button {
-      background-color: #0056b3;
-      color: white;
-      font-weight: 600;
-      padding: 0.75rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: #003d80;
+    .team-section img {
+      width: 100%;
+      margin-top: 2rem;
+      border-radius: 8px;
     }
   </style>
 </head>
@@ -61,7 +58,7 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="products.html">Products</a></li>
-          <li><a href="contact.html" class="active">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -69,25 +66,54 @@
 
   <section class="hero">
     <div class="container">
-      <h2>Contact Us</h2>
-      <p>We’d love to hear from you! Reach out with any questions or inquiries.</p>
+      <h2>Your Global Export Partner</h2>
+      <p>Connecting quality Indian products with the world.</p>
     </div>
   </section>
 
-  <section class="contact-section">
+  <section class="about-section">
     <div class="container">
-      <form id="contactForm" action="#" method="POST">
-        <label for="name">Name*</label>
-        <input type="text" id="name" name="name" required placeholder="Your full name" />
+      <h3>Why Choose Us</h3>
+      <div class="features">
+        <img src="images/home-feature-1.jpg" alt="Feature 1">
+        <img src="images/home-feature-2.jpg" alt="Feature 2">
+        <img src="images/home-feature3.jpg" alt="Feature 3">
+      </div>
+    </div>
+  </section>
 
-        <label for="email">Email*</label>
-        <input type="email" id="email" name="email" required placeholder="Your email address" />
+  <section class="about-section">
+    <div class="container">
+      <h3>Product Categories</h3>
+      <div class="categories">
+        <div class="category-card">
+          <img src="images/category-handicrafts.jpg" alt="Handicrafts">
+          <p>Handicrafts</p>
+        </div>
+        <div class="category-card">
+          <img src="images/category-home.jpg" alt="Home & Living">
+          <p>Home & Living</p>
+        </div>
+        <div class="category-card">
+          <img src="images/category-electronics.jpg" alt="Consumer Electronics">
+          <p>Consumer Electronics</p>
+        </div>
+        <div class="category-card">
+          <img src="images/kitchen-essentials.jpg" alt="Kitchen Essentials">
+          <p>Kitchen Essentials</p>
+        </div>
+        <div class="category-card">
+          <img src="images/eco-products.jpg" alt="Eco-friendly Products">
+          <p>Eco-friendly Products</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <label for="message">Message*</label>
-        <textarea id="message" name="message" rows="5" required placeholder="Write your message here"></textarea>
-
-        <button type="submit">Send Message</button>
-      </form>
+  <section class="about-section team-section">
+    <div class="container">
+      <h3>Meet Our Team</h3>
+      <img src="images/home-team.jpg" alt="Our Team">
     </div>
   </section>
 
@@ -96,14 +122,5 @@
       <p>&copy; 2025 SB Global Ventures India. All rights reserved.</p>
     </div>
   </footer>
-  
-  <script>
-    // Basic client-side validation & form submission feedback
-    document.getElementById('contactForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      alert('Thank you for reaching out! We will get back to you soon.');
-      this.reset();
-    });
-  </script>
 </body>
 </html>
