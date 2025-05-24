@@ -1,89 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="SB Global Ventures - Your trusted export partner for premium global trade solutions.">
-  <title>About | SB Global Ventures</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; line-height: 1.6; background: #f8f9fa; color: #333; }
-    .header, .footer { background: #002244; color: white; padding: 1rem 0; }
-    .container { width: 90%; max-width: 1200px; margin: 0 auto; }
-    nav ul { list-style: none; display: flex; gap: 1rem; padding: 0; margin: 0; }
-    nav a { color: white; text-decoration: none; font-weight: 600; }
-    .hero { background: url('images/about-hero.jpg') no-repeat center center/cover; color: white; padding: 6rem 0; text-align: center; }
-    .hero h2 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    .section { padding: 4rem 0; background: white; }
-    .section.dark { background: #e9ecef; }
-    .section h3 { font-size: 2rem; margin-bottom: 1rem; color: #002244; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-    .card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-    .card img { width: 100%; border-radius: 8px; }
-    .footer p { text-align: center; margin: 0; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="SB Global Ventures India - Explore our product range." />
+  <title>SB Global Ventures India - Products</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="header">
-    <div class="container">
-      <h1><a href="index.html" style="color:white; text-decoration:none;">SB Global Ventures</a></h1>
-      <nav>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="products.html">Products</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
+    <h1><a href="index.html">SB Global Ventures India</a></h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="products.html" aria-current="page">Products</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <section class="hero">
-    <div class="container">
-      <h2>About SB Global Ventures</h2>
-      <p>Your gateway to trusted global trade, powered by integrity and innovation.</p>
+  <section class="hero" role="banner" aria-label="Products Hero Image" style="background-image: url('images/hero-products.jpg');">
+    <div>
+      <h2>Our Products</h2>
+      <p>Discover our diverse multi-niche product portfolio.</p>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <h3>Who We Are</h3>
-      <p>SB Global Ventures is an emerging global exporter based in India, focused on delivering high-quality products across a range of sectors — from artisanal handicrafts to advanced consumer electronics. We serve as a reliable link between manufacturers and international markets.</p>
-    </div>
+  <section class="about-section" aria-labelledby="products-list">
+    <h3 id="products-list">Product Categories</h3>
+    <ul style="list-style-type:none; padding: 0; max-width: 700px; margin: 0 auto;">
+      <li style="padding: 15px 0; border-bottom: 1px solid #ccc;">
+        <strong>Handicrafts & Home Décor:</strong> Unique artisan-crafted products, eco-friendly baskets, wall hangings, and more.
+      </li>
+      <li style="padding: 15px 0; border-bottom: 1px solid #ccc;">
+        <strong>Consumer Electronics:</strong> USB-C PD chargers, power banks, smart gadgets, and accessories.
+      </li>
+      <li style="padding: 15px 0;">
+        <strong>Home Living Essentials:</strong> Kitchenware, lifestyle tools, and everyday utilities sourced from trusted vendors.
+      </li>
+    </ul>
   </section>
 
-  <section class="section dark">
-    <div class="container">
-      <h3>Our Mission</h3>
-      <p>To build trusted international partnerships through quality exports, ethical sourcing, and exceptional service — helping global buyers discover the best of what India and Asia have to offer.</p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container grid">
-      <div class="card">
-        <img src="images/value-quality.jpg" alt="Quality Guarantee">
-        <h3>Unmatched Quality</h3>
-        <p>We ensure stringent quality checks for every product before shipment.</p>
-      </div>
-      <div class="card">
-        <img src="images/value-service.jpg" alt="Customer Service">
-        <h3>Reliable Service</h3>
-        <p>Timely communication, transparent processes, and professional handling at every step.</p>
-      </div>
-      <div class="card">
-        <img src="images/value-network.jpg" alt="Supplier Network">
-        <h3>Extensive Network</h3>
-        <p>Vetted suppliers across multiple product categories ensure variety and scale.</p>
-      </div>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2025 SB Global Ventures. All rights reserved.</p>
-    </div>
+  <footer class="footer" role="contentinfo">
+    <p>&copy; 2025 SB Global Ventures India. All rights reserved.</p>
   </footer>
 </body>
 </html>
