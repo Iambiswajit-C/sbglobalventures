@@ -1,168 +1,107 @@
-/* General font and body */
-body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  color: #222;
-  background-color: #fff;
-  line-height: 1.65;
+/* Container for centered content and max width */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-/* Header */
-header.header {
-  background-color: white;
-  padding: 18px 40px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+/* Header layout fixes */
+header.header .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-header.header h1 a {
-  font-weight: 700;
-  font-size: 1.8rem;
-  color: #003366;
-  text-decoration: none;
 }
 
-/* Navigation styles */
-nav ul {
-  list-style: none;
+/* Nav menu */
+header.header nav ul {
   display: flex;
   gap: 30px;
+  list-style: none;
   margin: 0;
   padding: 0;
-  font-weight: 600;
-  font-size: 1.1rem;
 }
-nav ul li a {
+
+header.header nav ul li a {
   color: #003366;
   text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
   transition: color 0.3s ease;
 }
-nav ul li a:hover, nav ul li a[aria-current="page"] {
+
+header.header nav ul li a:hover,
+header.header nav ul li a[aria-current="page"] {
   color: #0077cc;
   font-weight: 700;
 }
 
-/* Hamburger menu toggle (hidden on desktop) */
+/* Responsive menu toggle button */
 .menu-toggle {
   display: none;
   font-size: 2rem;
   cursor: pointer;
-  user-select: none;
   color: #003366;
 }
 
-/* Hero Section */
-.hero {
-  background-image: url('images/hero-about.jpg');
-  background-size: cover;
-  background-position: center center;
-  height: 400px;
+/* Categories responsiveness */
+.categories {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
   justify-content: center;
-  color: white;
-  text-align: center;
-  padding: 0 20px;
-  box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.35);
-}
-.hero h2 {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 0.3em;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.7);
-}
-.hero p {
-  font-size: 1.3rem;
-  max-width: 600px;
-  margin: 0 auto;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  margin-top: 2rem;
 }
 
-/* About Section */
-.about-section {
-  max-width: 900px;
-  margin: 60px auto 80px;
-  padding: 0 20px;
+.category-card {
+  width: 30%;
   text-align: center;
 }
-.about-section h3 {
-  font-weight: 700;
-  font-size: 2rem;
-  margin-top: 50px;
-  margin-bottom: 15px;
-  color: #003366;
-}
-.about-section p {
-  font-size: 1.15rem;
-  margin-bottom: 25px;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.about-section ul {
-  list-style-type: disc;
-  padding-left: 20px;
-  max-width: 600px;
-  margin: 0 auto 40px auto;
-  text-align: left;
-  font-size: 1.15rem;
-  color: #333;
-}
-.about-section ul li {
-  margin-bottom: 12px;
-}
 
-/* Footer */
-footer.footer {
-  background-color: #003366;
-  color: white;
-  text-align: center;
-  padding: 25px 20px;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-/* Responsive Styles */
-
-@media (max-width: 768px) {
-  header.header {
-    flex-wrap: wrap;
-    padding: 10px 20px;
-  }
-  nav ul {
-    flex-direction: column;
-    width: 100%;
-    display: none; /* hide by default */
-    gap: 10px;
-    margin-top: 10px;
-  }
-  nav ul.show {
-    display: flex;
-  }
-  nav ul li {
-    text-align: center;
-  }
-  .menu-toggle {
-    display: block;
+@media (max-width: 900px) {
+  .category-card {
+    width: 45%;
   }
 }
 
 @media (max-width: 600px) {
-  .hero h2 {
-    font-size: 2rem;
+  .category-card {
+    width: 100%;
   }
-  .hero p {
-    font-size: 1rem;
-  }
-  .about-section h3 {
-    font-size: 1.5rem;
-  }
-  nav ul {
+}
+
+/* Make features images responsive */
+.features img {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Hero text centering */
+.hero .container {
+  text-align: center;
+  padding: 0 10px;
+}
+
+/* Responsive header navigation */
+@media (max-width: 768px) {
+  header.header nav ul {
+    display: none;
+    flex-direction: column;
     gap: 15px;
-    font-size: 1rem;
+    background-color: white;
+    position: absolute;
+    top: 60px; /* adjust if header height changes */
+    right: 20px;
+    padding: 15px 25px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    width: 200px;
+    z-index: 1001;
+  }
+  header.header nav ul.show {
+    display: flex;
+  }
+  .menu-toggle {
+    display: block;
   }
 }
