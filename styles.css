@@ -25,6 +25,8 @@ header.header h1 a {
   color: #003366;
   text-decoration: none;
 }
+
+/* Navigation styles */
 nav ul {
   list-style: none;
   display: flex;
@@ -42,6 +44,15 @@ nav ul li a {
 nav ul li a:hover, nav ul li a[aria-current="page"] {
   color: #0077cc;
   font-weight: 700;
+}
+
+/* Hamburger menu toggle (hidden on desktop) */
+.menu-toggle {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+  color: #003366;
 }
 
 /* Hero Section */
@@ -115,7 +126,31 @@ footer.footer {
   font-weight: 600;
 }
 
-/* Responsive */
+/* Responsive Styles */
+
+@media (max-width: 768px) {
+  header.header {
+    flex-wrap: wrap;
+    padding: 10px 20px;
+  }
+  nav ul {
+    flex-direction: column;
+    width: 100%;
+    display: none; /* hide by default */
+    gap: 10px;
+    margin-top: 10px;
+  }
+  nav ul.show {
+    display: flex;
+  }
+  nav ul li {
+    text-align: center;
+  }
+  .menu-toggle {
+    display: block;
+  }
+}
+
 @media (max-width: 600px) {
   .hero h2 {
     font-size: 2rem;
