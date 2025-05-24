@@ -1,51 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SB Global Ventures India - Home</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Welcome to SB Global Ventures India - Your trusted global export partner for quality products including handicrafts, home decor, and electronics.">
+  <title>Home - SB Global Ventures India</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .hero {
+      background-image: url('images/hero-home.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .category-card {
+      width: 30%;
+      text-align: center;
+    }
+    .category-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .features {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .features img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .team-section img {
+      width: 100%;
+      margin-top: 2rem;
+      border-radius: 8px;
+    }
+  </style>
 </head>
 <body>
   <header class="header">
-    <h1><a href="index.html">SB Global Ventures India</a></h1>
-    <nav>
-      <ul>
-        <li><a href="index.html" aria-current="page">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="products.html">Products</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-    <div class="menu-toggle" id="menuToggle">&#9776;</div>
+    <div class="container">
+      <h1><a href="index.html">SB Global Ventures India</a></h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <section class="hero" style="background-image: url('images/hero-home.jpg');">
-    <h2>Welcome to SB Global Ventures India</h2>
-    <p>Your gateway to export-quality Indian products</p>
+  <section class="hero">
+    <div class="container">
+      <h2>Your Global Export Partner</h2>
+      <p>Connecting quality Indian products with the world.</p>
+    </div>
   </section>
 
   <section class="about-section">
-    <h3>Why Choose Us?</h3>
-    <p>
-      At SB Global Ventures, we offer a diverse range of high-quality Indian products that cater to
-      international markets. From traditional handicrafts to modern consumer electronics, we connect
-      global buyers with trusted suppliers.
-    </p>
+    <div class="container">
+      <h3>Why Choose Us</h3>
+      <div class="features">
+        <img src="images/home-feature-1.jpg" alt="Feature 1">
+        <img src="images/home-feature-2.jpg" alt="Feature 2">
+        <img src="images/home-feature3.jpg" alt="Feature 3">
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section">
+    <div class="container">
+      <h3>Product Categories</h3>
+      <div class="categories">
+        <div class="category-card">
+          <img src="images/category-handicrafts.jpg" alt="Handicrafts">
+          <p>Handicrafts</p>
+        </div>
+        <div class="category-card">
+          <img src="images/category-home.jpg" alt="Home & Living">
+          <p>Home & Living</p>
+        </div>
+        <div class="category-card">
+          <img src="images/category-electronics.jpg" alt="Consumer Electronics">
+          <p>Consumer Electronics</p>
+        </div>
+        <div class="category-card">
+          <img src="images/kitchen-essentials.jpg" alt="Kitchen Essentials">
+          <p>Kitchen Essentials</p>
+        </div>
+        <div class="category-card">
+          <img src="images/eco-products.jpg" alt="Eco-friendly Products">
+          <p>Eco-friendly Products</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section team-section">
+    <div class="container">
+      <h3>Meet Our Team</h3>
+      <img src="images/home-team.jpg" alt="Our Team">
+    </div>
   </section>
 
   <footer class="footer">
-    <p>&copy; 2025 SB Global Ventures India. All rights reserved.</p>
+    <div class="container">
+      <p>&copy; 2025 SB Global Ventures India. All rights reserved.</p>
+    </div>
   </footer>
-
-  <script>
-    const menuToggle = document.getElementById('menuToggle');
-    const navMenu = document.querySelector('nav ul');
-
-    menuToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('show');
-    });
-  </script>
 </body>
 </html>
