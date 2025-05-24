@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore the wide range of products offered by SB Global Ventures India - Handicrafts, Home & Living, Electronics, and more.">
+  <meta name="description" content="Explore our range of export-quality Indian products at SB Global Ventures India. From handicrafts to electronics, find your ideal category.">
   <title>Products - SB Global Ventures India</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
@@ -15,25 +15,29 @@
       height: 400px;
       display: flex;
       align-items: center;
+      justify-content: center;
       color: white;
+      text-align: center;
     }
     .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 2rem;
       margin-top: 2rem;
     }
     .product-card {
+      width: 30%;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1rem;
       text-align: center;
     }
     .product-card img {
       width: 100%;
       height: auto;
       border-radius: 8px;
-    }
-    .product-card h4 {
-      margin-top: 0.5rem;
-      font-weight: 600;
+      margin-bottom: 0.5rem;
     }
   </style>
 </head>
@@ -54,13 +58,14 @@
 
   <section class="hero">
     <div class="container">
-      <h2>Our Product Range</h2>
-      <p>Diverse categories to meet your global sourcing needs.</p>
+      <h2>Our Products</h2>
+      <p>Discover our diverse range of export-quality Indian products</p>
     </div>
   </section>
 
   <section class="about-section">
     <div class="container">
+      <h3>Product Categories</h3>
       <div class="product-grid">
         <div class="product-card">
           <img src="images/category-handicrafts.jpg" alt="Handicrafts">
