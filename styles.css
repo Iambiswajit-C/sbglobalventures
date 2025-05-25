@@ -30,6 +30,23 @@ header.header {
   align-items: center;
   justify-content: space-between;
 }
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .logo {
   height: 60px;
