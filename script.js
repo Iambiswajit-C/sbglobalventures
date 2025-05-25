@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Load header.html dynamically
   fetch('header.html')
     .then(response => response.text())
     .then(data => {
@@ -8,10 +7,18 @@ document.addEventListener("DOMContentLoaded", function () {
         headerContainer.innerHTML = data;
         headerContainer.style.visibility = 'visible';
 
-        // Highlight the active nav link
-        highlightActiveNavLink(); // ✅ <-- ADD THIS
+        // Highlight nav AFTER DOM injection
+        const currentPage = window.location.pathname.split("/").pop() || "index.html";
+        const navLinks = headerContainer.querySelectorAll(".nav-menu a");
 
-        // Wait for the injected header to be part of the DOM
+        navLinks.forEach(link => {
+          const href = link.getAttribute("href");
+          if (href === currentPage) {
+            link.classList.add("active");
+          }
+        });
+
+        // Toggle menu (mobile)
         const menuToggle = headerContainer.querySelector(".menu-toggle");
         const navMenu = headerContainer.querySelector(".nav-menu");
 
@@ -22,16 +29,4 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
     });
-
-  function highlightActiveNavLink() {
-    const currentPage = window.location.pathname.split("/").pop(); // e.g., "contact.html"
-    const navLinks = document.querySelectorAll(".nav-menu a");
-
-    navLinks.forEach(link => {
-      const href = link.getAttribute("href");
-      if (href === currentPage || (href === "index.html" && currentPage === "")) {
-        link.classList.add("active");
-      }
-    });
-  }
 });
