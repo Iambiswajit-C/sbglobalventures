@@ -246,7 +246,7 @@ footer.footer {
   nav ul.nav-menu {
     display: none;
     flex-direction: column;
-    gap: 3rem;
+    gap: 1rem;
     background-color: white;
     position: absolute;
     top: 70px;
