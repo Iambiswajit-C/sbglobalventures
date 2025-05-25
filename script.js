@@ -8,3 +8,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+document.addEventListener("DOMContentLoaded", function () {
+  fetch('header.html')
+    .then(response => response.text())
+    .then(data => {
+      const headerContainer = document.getElementById('header');
+      if (headerContainer) {
+        headerContainer.innerHTML = data;
+      }
+    });
+});
