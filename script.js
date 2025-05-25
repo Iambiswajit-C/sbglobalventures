@@ -8,11 +8,13 @@ document.addEventListener("DOMContentLoaded", function () {
         headerContainer.innerHTML = data;
         headerContainer.style.visibility = 'visible';
 
+        // Highlight the active nav link
+        highlightActiveNavLink(); // ✅ <-- ADD THIS
+
         // Wait for the injected header to be part of the DOM
         const menuToggle = headerContainer.querySelector(".menu-toggle");
         const navMenu = headerContainer.querySelector(".nav-menu");
 
-        // If mobile toggle exists, add click event
         if (menuToggle && navMenu) {
           menuToggle.addEventListener("click", () => {
             navMenu.classList.toggle("show");
@@ -20,4 +22,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
     });
+
+  function highlightActiveNavLink() {
+    const currentPage = window.location.pathname.split("/").pop(); // e.g., "contact.html"
+    const navLinks = document.querySelectorAll(".nav-menu a");
+
+    navLinks.forEach(link => {
+      const href = link.getAttribute("href");
+      if (href === currentPage || (href === "index.html" && currentPage === "")) {
+        link.classList.add("active");
+      }
+    });
+  }
 });
