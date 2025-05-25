@@ -19,7 +19,12 @@ header.header {
   top: 0;
   z-index: 1000;
 }
-
+.logo {
+  height: 50px;  /* or whatever height you want */
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
 header.header h1 a {
   font-weight: 700;
   font-size: 1.8rem;
