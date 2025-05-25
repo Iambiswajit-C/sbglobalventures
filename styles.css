@@ -20,10 +20,14 @@ header.header {
   z-index: 1000;
 }
 .logo {
-  height: 50px;  /* or whatever height you want */
+  height: 50px;
   width: auto;
   display: block;
   object-fit: contain;
+}
+header.header img.logo {
+  margin: 0;
+  padding: 0;
 }
 header.header h1 a {
   font-weight: 700;
