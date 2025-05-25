@@ -246,11 +246,11 @@ footer.footer {
   nav ul.nav-menu {
     display: none;
     flex-direction: column;
-    gap: 1rem;
+    gap: 3rem;
     background-color: white;
     position: absolute;
     top: 70px;
-    right: 5rem;
+    right: 1rem;
     padding: 1rem;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   }
