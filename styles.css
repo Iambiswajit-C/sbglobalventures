@@ -68,10 +68,12 @@ header.header {
   transition: color 0.3s ease;
 }
 
+/* Active Nav Highlight */
 .nav-menu li a:hover,
-.nav-menu li a[aria-current="page"] {
+.nav-menu li a.active {
   color: #0077cc;
   font-weight: 700;
+  border-bottom: 2px solid #0077cc;
 }
 
 /* Toggle Button */
@@ -219,12 +221,6 @@ footer.footer {
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     border-radius: 8px;
   }
-
-  .nav-menu a.active {
-  color: #007BFF;
-  font-weight: bold;
-  border-bottom: 2px solid #007BFF;
-}
 
   .nav-menu.show {
     display: flex;
