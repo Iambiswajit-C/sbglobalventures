@@ -5,8 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Contact SB Global Ventures India for inquiries, quotes, and business partnerships." />
   <title>Contact - SB Global Ventures India</title>
+  
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" type="image/png" href="/images/favicon-sb-global-ventures.png" />
+
   <style>
     .hero {
       background-image: url('/images/hero-contact.jpg');
@@ -19,16 +22,19 @@
       color: white;
       text-align: center;
     }
+
     .contact-section {
       max-width: 600px;
       margin: 2rem auto;
       padding: 0 1rem;
     }
+
     form {
       display: flex;
       flex-direction: column;
       gap: 1rem;
     }
+
     input, textarea {
       padding: 0.75rem;
       font-size: 1rem;
@@ -37,6 +43,7 @@
       resize: vertical;
       font-family: 'Inter', sans-serif;
     }
+
     button {
       background-color: #0056b3;
       color: white;
@@ -47,14 +54,18 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
+
     button:hover {
       background-color: #003d80;
     }
   </style>
-  <link rel="icon" type="/image/png" href="images/favicon-sb-global-ventures.png">
 </head>
 <body>
-    <div id="header"></div>
+
+  <!-- Header Loader -->
+  <div id="header"></div>
+
+  <!-- Hero Section -->
   <section class="hero">
     <div class="container">
       <h2>Contact Us</h2>
@@ -62,6 +73,7 @@
     </div>
   </section>
 
+  <!-- Contact Form -->
   <section class="contact-section">
     <div class="container">
       <form id="contactForm" action="#" method="POST">
@@ -79,22 +91,39 @@
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <p>&copy; 2025 SB Global Ventures India. All rights reserved.</p>
     </div>
   </footer>
-  
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const toggleButton = document.querySelector(".menu-toggle");
-    const navMenu = document.querySelector(".nav-menu");
 
-    toggleButton.addEventListener("click", function () {
-      navMenu.classList.toggle("show");
+  <!-- Scripts -->
+  <script>
+    document.addEventListener("DOMContentLoaded", async function () {
+      const toggleButton = document.querySelector(".menu-toggle");
+      const navMenu = document.querySelector(".nav-menu");
+
+      if (toggleButton && navMenu) {
+        toggleButton.addEventListener("click", function () {
+          navMenu.classList.toggle("show");
+        });
+      }
+
+      // Load header dynamically
+      const header = document.getElementById("header");
+      if (header) {
+        try {
+          const res = await fetch("/header.html");
+          const html = await res.text();
+          header.innerHTML = html;
+        } catch (err) {
+          console.error("Failed to load header:", err);
+        }
+      }
     });
-  });
-</script>
-<script src="script.js"></script>
+  </script>
+
+  <script src="/script.js"></script>
 </body>
 </html>
