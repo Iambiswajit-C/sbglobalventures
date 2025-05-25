@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Load header.html dynamically
-  fetch('header.html')
+  fetch('/header.html')
     .then(response => response.text())
     .then(data => {
       const headerContainer = document.getElementById('header');
