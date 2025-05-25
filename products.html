@@ -97,6 +97,16 @@
       <p>&copy; 2025 SB Global Ventures India. All rights reserved.</p>
     </div>
   </footer>
-  <script src="script.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggleButton = document.querySelector(".menu-toggle");
+    const navMenu = document.querySelector(".nav-menu");
+
+    toggleButton.addEventListener("click", function () {
+      navMenu.classList.toggle("show");
+    });
+  });
+</script>
+
 </body>
 </html>
