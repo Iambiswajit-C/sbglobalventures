@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore our range of export-quality Indian products at SB Global Ventures India. From handicrafts to electronics, find your ideal category.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Explore our range of export-quality Indian products at SB Global Ventures India. From handicrafts to electronics, find your ideal category." />
   <title>Products - SB Global Ventures India</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" type="image/png" href="/images/favicon-sb-global-ventures.png" />
   <style>
     .hero {
       background-image: url('/images/hero-products.jpg');
@@ -19,6 +20,7 @@
       color: white;
       text-align: center;
     }
+
     .product-grid {
       display: flex;
       flex-wrap: wrap;
@@ -26,24 +28,41 @@
       gap: 2rem;
       margin-top: 2rem;
     }
+
     .product-card {
       width: 30%;
       border: 1px solid #ddd;
       border-radius: 8px;
       padding: 1rem;
       text-align: center;
+      transition: transform 0.3s ease;
     }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
     .product-card img {
       width: 100%;
       height: auto;
       border-radius: 8px;
       margin-bottom: 0.5rem;
     }
+
+    @media (max-width: 768px) {
+      .product-card {
+        width: 100%;
+      }
+    }
   </style>
-  <link rel="icon" type="image/png" href="/images/favicon-sb-global-ventures.png">
 </head>
 <body>
-    <div id="header"></div>
+
+  <!-- Header Placeholder -->
+  <div id="header"></div>
+
+  <!-- Hero Section -->
   <section class="hero">
     <div class="container">
       <h2>Our Products</h2>
@@ -51,49 +70,68 @@
     </div>
   </section>
 
+  <!-- Product Categories -->
   <section class="about-section">
     <div class="container">
       <h3>Product Categories</h3>
       <div class="product-grid">
-        <div class="product-card">
+        <a href="/products/handicrafts/" class="product-card">
           <img src="/images/category-handicrafts.jpg" alt="Handicrafts">
           <h4>Handicrafts</h4>
-        </div>
-        <div class="product-card">
+        </a>
+        <a href="/products/home-living/" class="product-card">
           <img src="/images/category-home.jpg" alt="Home & Living">
           <h4>Home & Living</h4>
-        </div>
-        <div class="product-card">
+        </a>
+        <a href="/products/electronics/" class="product-card">
           <img src="/images/category-electronics.jpg" alt="Consumer Electronics">
           <h4>Consumer Electronics</h4>
-        </div>
-        <div class="product-card">
+        </a>
+        <a href="/products/kitchen-essentials/" class="product-card">
           <img src="/images/kitchen-essentials.jpg" alt="Kitchen Essentials">
           <h4>Kitchen Essentials</h4>
-        </div>
-        <div class="product-card">
+        </a>
+        <a href="/products/eco-products/" class="product-card">
           <img src="/images/eco-products.jpg" alt="Eco-friendly Products">
           <h4>Eco-friendly Products</h4>
-        </div>
+        </a>
       </div>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <p>&copy; 2025 SB Global Ventures India. All rights reserved.</p>
     </div>
   </footer>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const toggleButton = document.querySelector(".menu-toggle");
-    const navMenu = document.querySelector(".nav-menu");
 
-    toggleButton.addEventListener("click", function () {
-      navMenu.classList.toggle("show");
+  <!-- Load Header Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", async function () {
+      const toggleButton = document.querySelector(".menu-toggle");
+      const navMenu = document.querySelector(".nav-menu");
+      if (toggleButton && navMenu) {
+        toggleButton.addEventListener("click", function () {
+          navMenu.classList.toggle("show");
+        });
+      }
+
+      // Load shared header.html if using dynamic inclusion
+      const header = document.getElementById("header");
+      if (header) {
+        try {
+          const res = await fetch("/header.html");
+          const html = await res.text();
+          header.innerHTML = html;
+        } catch (err) {
+          console.error("Header failed to load:", err);
+        }
+      }
     });
-  });
-</script>
-<script src="script.js"></script>
+  </script>
+
+  <!-- Main Script -->
+  <script src="/script.js"></script>
 </body>
 </html>
