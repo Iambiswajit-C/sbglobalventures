@@ -20,7 +20,7 @@ header.header {
   z-index: 1000;
 }
 .logo {
-  height: 50px;
+  height: 100px;
   width: auto;
   display: block;
   object-fit: contain;
