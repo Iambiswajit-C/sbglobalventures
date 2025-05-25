@@ -26,8 +26,8 @@ header.header {
   object-fit: contain;
 }
 header.header img.logo {
-  margin: 0;
-  padding: 0;
+  margin: 10;
+  padding: 10;
 }
 header.header h1 a {
   font-weight: 700;
