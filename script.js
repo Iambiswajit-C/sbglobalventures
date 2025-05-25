@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Load header.html dynamically
   fetch('header.html')
     .then(response => response.text())
     .then(data => {
@@ -7,18 +8,22 @@ document.addEventListener("DOMContentLoaded", function () {
         headerContainer.innerHTML = data;
         headerContainer.style.visibility = 'visible';
 
-        // Highlight nav AFTER DOM injection
-        const currentPage = window.location.pathname.split("/").pop() || "index.html";
-        const navLinks = headerContainer.querySelectorAll(".nav-menu a");
+        // Highlight active menu item
+        const currentPath = window.location.pathname.replace(/\/$/, '').toLowerCase(); // normalize
+        const navLinks = headerContainer.querySelectorAll('.nav-menu a');
 
         navLinks.forEach(link => {
-          const href = link.getAttribute("href");
-          if (href === currentPage) {
-            link.classList.add("active");
+          const linkPath = new URL(link.href).pathname.replace(/\/$/, '').toLowerCase();
+          // Match index.html to root path or current directory
+          const isIndexMatch = (linkPath.endsWith('/index.html') || linkPath === '/index') &&
+                               (currentPath === '' || currentPath === '/' || currentPath === '/index' || currentPath === '/index.html');
+
+          if (linkPath === currentPath || isIndexMatch) {
+            link.classList.add('active');
           }
         });
 
-        // Toggle menu (mobile)
+        // Setup mobile toggle menu
         const menuToggle = headerContainer.querySelector(".menu-toggle");
         const navMenu = headerContainer.querySelector(".nav-menu");
 
