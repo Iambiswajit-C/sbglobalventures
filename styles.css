@@ -5,6 +5,7 @@ body {
   color: #222;
   background-color: #fff;
   line-height: 1.65;
+  padding-top: 120px; /* To offset top-bar + header height */
 }
 
 .container {
@@ -27,11 +28,15 @@ body {
   width: 100%;
   z-index: 1200;
   transition: top 0.3s ease;
+  flex-wrap: wrap;
 }
 
 .top-bar-left {
   display: flex;
   align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .top-bar-left i {
@@ -42,6 +47,8 @@ body {
   display: flex;
   gap: 10px;
   align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .top-bar-right a {
@@ -54,21 +61,24 @@ body {
   top: -50px;
 }
 
+.top-bar.hidden {
+  display: none;
+}
+
 /* Header */
 header.header {
-  position: absolute;
+  position: fixed;
   top: 40px;
   width: 100%;
   background-color: transparent;
   height: 75px;
-  z-index: 1000;
+  z-index: 1100;
   display: flex;
   align-items: center;
   transition: background-color 0.3s ease, box-shadow 0.3s ease, top 0.3s ease;
 }
 
 header.header.sticky {
-  position: fixed;
   top: 0;
   background-color: white;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -327,6 +337,7 @@ header.header.sticky {
 .footer .social-icons {
   display: flex;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .footer .social-icons a {
@@ -380,6 +391,7 @@ header.header.sticky {
     padding: 1rem;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     border-radius: 8px;
+    z-index: 999;
   }
 
   .nav-menu.show {
