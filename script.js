@@ -12,21 +12,34 @@ document.addEventListener("DOMContentLoaded", function () {
         const menuToggle = headerContainer.querySelector(".menu-toggle");
         const navMenu = headerContainer.querySelector(".nav-menu");
 
-        // Scroll behavior
+        // Scroll behavior with direction logic
+        let lastScrollTop = 0;
         function handleScroll() {
-          if (window.scrollY > 50) {
+          const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+          // Sticky header toggle
+          if (currentScroll > 50) {
             header.classList.add('scrolled');
-            topBar && topBar.classList.add('hidden');
           } else {
             header.classList.remove('scrolled');
-            topBar && topBar.classList.remove('hidden');
           }
+
+          // Top bar hide/show on scroll direction
+          if (topBar) {
+            if (currentScroll > lastScrollTop) {
+              topBar.classList.add("hidden"); // scrolling down
+            } else {
+              topBar.classList.remove("hidden"); // scrolling up
+            }
+          }
+
+          lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
         }
 
         window.addEventListener('scroll', handleScroll);
         handleScroll();
 
-        // Active menu
+        // Active menu highlight based on path
         const currentPath = window.location.pathname.replace(/\/$/, '').toLowerCase();
         const navLinks = headerContainer.querySelectorAll('.nav-menu a');
         navLinks.forEach(link => {
@@ -38,13 +51,14 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
 
-        // Toggle menu fix
+        // Mobile menu toggle
         let menuVisible = false;
         menuToggle.addEventListener("click", () => {
           navMenu.classList.toggle("show");
           menuVisible = !menuVisible;
         });
 
+        // Close menu when clicking outside
         document.addEventListener("click", (event) => {
           if (menuVisible && !navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
             navMenu.classList.remove("show");
