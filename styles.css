@@ -282,34 +282,80 @@ header.header.sticky {
   border-radius: 8px;
 }
 
-<footer class="footer">
-  <div class="footer-container">
-    <!-- Left: Logo -->
-    <div class="footer-left">
-      <img src="images/logo-colored.png" alt="SB Global Ventures Logo" class="footer-logo">
-    </div>
+/* Footer Styles */
+.footer {
+  background-color: #003366;
+  color: white;
+  padding: 40px 20px;
+  font-family: Arial, sans-serif;
+}
 
-    <!-- Right: Contact Info -->
-    <div class="footer-right">
-      <a href="mailto:info@sbglobalventures.com" class="footer-email">info@sbglobalventures.com</a>
-      
-      <div class="footer-social">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-      </div>
-      
-      <div class="footer-address">
-        SB Global Ventures Pvt. Ltd.<br>
-        123 Export Lane, New Delhi, India
-      </div>
-    </div>
-  </div>
+.footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
 
-  <div class="footer-bottom">
-    &copy; 2025 SB Global Ventures. All rights reserved.
-  </div>
-</footer>
+.footer-left .logo {
+  height: 50px;
+  filter: brightness(0) invert(1);
+}
+
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.footer .contact-info {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.footer .contact-info a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer .social-icons {
+  display: flex;
+  gap: 12px;
+}
+
+.footer .social-icons a {
+  color: white;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer .container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-right {
+    align-items: center;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .footer-left {
+    margin-bottom: 20px;
+  }
+}
 
 /* Responsive Styles */
 @media (max-width: 768px) {
