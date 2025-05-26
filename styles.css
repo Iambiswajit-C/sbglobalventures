@@ -282,42 +282,34 @@ header.header.sticky {
   border-radius: 8px;
 }
 
-/* Footer */
-footer.footer {
-  background-color: #003366;
-  color: white;
-  padding: 40px 20px;
-}
+<footer class="footer">
+  <div class="footer-container">
+    <!-- Left: Logo -->
+    <div class="footer-left">
+      <img src="images/logo-colored.png" alt="SB Global Ventures Logo" class="footer-logo">
+    </div>
 
-.footer .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
+    <!-- Right: Contact Info -->
+    <div class="footer-right">
+      <a href="mailto:info@sbglobalventures.com" class="footer-email">info@sbglobalventures.com</a>
+      
+      <div class="footer-social">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      
+      <div class="footer-address">
+        SB Global Ventures Pvt. Ltd.<br>
+        123 Export Lane, New Delhi, India
+      </div>
+    </div>
+  </div>
 
-.footer .logo {
-  height: 50px;
-  margin-bottom: 10px;
-  filter: brightness(0) invert(1);
-}
-
-.footer .contact-info {
-  margin: 10px 0;
-  font-size: 0.95rem;
-}
-
-.footer .social-icons {
-  display: flex;
-  gap: 12px;
-  margin-top: 10px;
-}
-
-.footer .social-icons a {
-  color: white;
-  font-size: 1.2rem;
-  text-decoration: none;
-}
+  <div class="footer-bottom">
+    &copy; 2025 SB Global Ventures. All rights reserved.
+  </div>
+</footer>
 
 /* Responsive Styles */
 @media (max-width: 768px) {
