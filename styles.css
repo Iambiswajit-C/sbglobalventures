@@ -13,21 +13,58 @@ body {
   padding: 0 20px;
 }
 
+/* Top Bar */
+.top-bar {
+  background-color: #003366;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 20px;
+  transition: top 0.3s ease;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1200;
+}
+
+.top-bar.hidden {
+  top: -40px;
+}
+
+.top-bar .email {
+  font-size: 0.9rem;
+}
+
+.top-bar .social-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.top-bar .social-icons a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
 /* Header */
 header.header {
   position: absolute;
-  top: 0;
+  top: 40px;
   width: 100%;
   background-color: transparent;
   height: 75px;
   z-index: 1000;
   display: flex;
   align-items: center;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, top 0.3s ease;
 }
 
 header.header.sticky {
   position: fixed;
+  top: 0;
   background-color: white;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
@@ -49,6 +86,11 @@ header.header.sticky {
   width: auto;
   object-fit: contain;
   display: block;
+  transition: filter 0.3s ease;
+}
+
+.logo.sticky {
+  filter: brightness(0) saturate(100%) invert(18%) sepia(98%) saturate(745%) hue-rotate(176deg) brightness(93%) contrast(87%);
 }
 
 .header-right {
@@ -174,6 +216,38 @@ header.header.sticky {
   margin-bottom: 12px;
 }
 
+/* About Company Section */
+.about-company {
+  background-color: #f9f9f9;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.about-company .container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.about-company h3 {
+  font-size: 2rem;
+  color: #003366;
+  margin-bottom: 20px;
+}
+
+.about-company p {
+  font-size: 1.15rem;
+  margin-bottom: 30px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-company img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
 /* Category Cards */
 .categories {
   display: flex;
@@ -212,10 +286,37 @@ header.header.sticky {
 footer.footer {
   background-color: #003366;
   color: white;
+  padding: 40px 20px;
+}
+
+.footer .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  padding: 25px 20px;
-  font-size: 1rem;
-  font-weight: 600;
+}
+
+.footer .logo {
+  height: 50px;
+  margin-bottom: 10px;
+  filter: brightness(0) invert(1);
+}
+
+.footer .contact-info {
+  margin: 10px 0;
+  font-size: 0.95rem;
+}
+
+.footer .social-icons {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.footer .social-icons a {
+  color: white;
+  font-size: 1.2rem;
+  text-decoration: none;
 }
 
 /* Responsive Styles */
@@ -279,5 +380,11 @@ footer.footer {
   .features img {
     width: 100%;
     max-width: 300px;
+  }
+
+  .top-bar {
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
   }
 }
