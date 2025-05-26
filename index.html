@@ -3,82 +3,112 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SB Global Ventures</title>
-  <link rel="stylesheet" href="style.css"/>
-  <script defer src="script.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <title>SB Global Ventures - Home</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/favicon-sb-global-ventures.png">
+  <link rel="canonical" href="https://sbglobalventures.com/" />
 </head>
 <body>
-
-  <!-- Top Bar -->
-  <div class="top-bar" id="topBar">
+    <div id="header"></div>
+  <!-- Hero -->
+  <section class="hero" style="background-image: url('images/hero-home.jpg');">
     <div class="container">
-      <div class="top-email">📧 contact@sbglobalventures.com</div>
-      <div class="social-icons">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-      </div>
+      <h2>Global Quality. Local Trust.</h2>
+      <p>Connecting India’s finest products with the world.</p>
+    </div>
+  </section>
+<section class="about-company">
+  <div class="container about-container">
+    <div class="about-text">
+      <h2>About SB Global Ventures</h2>
+      <p>SB Global Ventures is a forward-thinking enterprise focused on delivering quality consumer products across global markets. We specialize in sustainable sourcing, elegant home décor, and modern utility products that blend functionality with design.</p>
+      <p>Our mission is to bridge quality craftsmanship with international demand, ensuring both customer satisfaction and ethical practices across the supply chain.</p>
+    </div>
+    <div class="about-image">
+      <img src="/images/home-team.jpg" alt="About SB Global Ventures">
     </div>
   </div>
-
-  <!-- Header -->
-  <header id="mainHeader">
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-      <a href="#" class="logo-link">
-        <img src="images/logo-colored.png" alt="SB Global Ventures" class="logo" id="logo"/>
-      </a>
-      <i class="fas fa-bars menu-toggle" id="menuToggle"></i>
-      <nav>
-        <ul class="nav-menu" id="navMenu">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Products</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Hero Section -->
-  <section class="hero" style="background-image: url('images/hero-home.jpg');">
-    <div class="hero-content">
-      <h1>Welcome to SB Global Ventures</h1>
-      <p>Exporting quality. Delivering trust.</p>
+</section>
+  <!-- Categories -->
+  <section class="about-section">
+    <h3>Explore Our Categories</h3>
+    <div class="categories">
+      <div class="category-card">
+        <img src="images/category-electronics.jpg" alt="Electronics" style="width:100%; border-radius:8px;">
+        <h4>Electronics</h4>
+      </div>
+      <div class="category-card">
+        <img src="images/category-handicrafts.jpg" alt="Handicrafts" style="width:100%; border-radius:8px;">
+        <h4>Handicrafts</h4>
+      </div>
+      <div class="category-card">
+        <img src="images/category-home.jpg" alt="Home Essentials" style="width:100%; border-radius:8px;">
+        <h4>Home Essentials</h4>
+      </div>
+      <div class="category-card">
+        <img src="images/eco-products.jpg" alt="Eco-Friendly Products" style="width:100%; border-radius:8px;">
+        <h4>Eco Products</h4>
+      </div>
+      <div class="category-card">
+        <img src="images/kitchen-essentials.jpg" alt="Kitchen Essentials" style="width:100%; border-radius:8px;">
+        <h4>Kitchen Essentials</h4>
+      </div>
     </div>
   </section>
 
-  <!-- About Company Section -->
-  <section class="about-company">
-    <div class="container about-content">
-      <div class="about-text">
-        <h2>About Our Company</h2>
-        <p>SB Global Ventures is a dynamic export company based in India, committed to delivering high-quality products to international markets. Our focus is on handcrafted and eco-conscious home décor that tells a story of Indian craftsmanship.</p>
-        <p>We take pride in our curated product line and strong relationships with local artisans. Our mission is to bridge the gap between tradition and global demand with sustainability at the core.</p>
-      </div>
-      <div class="about-image">
-        <img src="images/hero-about.jpg" alt="About SB Global Ventures"/>
-      </div>
+  <!-- Features -->
+  <section class="about-section">
+    <h3>Why Choose Us</h3>
+    <div class="features" style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+      <img src="images/home-feature-1.jpg" alt="Quality Assurance" style="width:300px;">
+      <img src="images/home-feature-2.jpg" alt="Sustainable Practices" style="width:300px;">
+      <img src="images/home-feature3.jpg" alt="Global Network" style="width:300px;">
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="footer">
-    <div class="container">
-      <div class="footer-logo">
-        <img src="images/logo-colored.png" alt="SB Global Ventures Logo"/>
-      </div>
-      <div class="footer-contact">
-        <p>📍 Kolkata, India</p>
-        <p>📧 contact@sbglobalventures.com</p>
-      </div>
-      <div class="footer-social">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-      </div>
-    </div>
+    <p>© 2025 SB Global Ventures. All rights reserved.</p>
   </footer>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggleButton = document.querySelector(".menu-toggle");
+    const navMenu = document.querySelector(".nav-menu");
+
+    toggleButton.addEventListener("click", function () {
+      navMenu.classList.toggle("show");
+    });
+  });
+</script>
+<script src="script.js"></script>
+  <script>
+  // Sticky header toggle
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector('.header');
+    if (window.scrollY > 50) {
+      header.classList.add('sticky');
+    } else {
+      header.classList.remove('sticky');
+    }
+  });
+
+  // Mobile menu toggle
+  const toggleBtn = document.querySelector('.menu-toggle');
+  const navMenu = document.querySelector('.nav-menu');
+
+  toggleBtn.addEventListener('click', () => {
+    navMenu.classList.toggle('show');
+  });
+
+  // Optional: Close menu after clicking a link (mobile)
+  document.querySelectorAll('.nav-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('show');
+    });
+  });
+</script>
 
 </body>
 </html>
