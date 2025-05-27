@@ -419,10 +419,4 @@ header.header.sticky {
     width: 100%;
     max-width: 300px;
   }
-
-  .top-bar {
-    flex-direction: column;
-    gap: 5px;
-    text-align: center;
-  }
 }
