@@ -13,26 +13,20 @@ document.addEventListener("DOMContentLoaded", () => {
       const menuToggle = headerContainer.querySelector('.menu-toggle');
       const navMenu = headerContainer.querySelector('.nav-menu');
 
-      // Handle sticky header and top bar visibility on scroll
+      // Handle sticky header and top bar visibility
       let lastScrollTop = 0;
       const handleScroll = () => {
         const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-        // Sticky header effect
         if (header) {
-          if (currentScroll > 50) {
-            header.classList.add('sticky');
-          } else {
-            header.classList.remove('sticky');
-          }
+          header.classList.toggle('sticky', currentScroll > 50);
         }
 
-        // Hide/show top bar based on scroll direction
         if (topBar) {
           if (currentScroll > lastScrollTop) {
-            topBar.classList.add('hide'); // Scrolling down
+            topBar.classList.add('hide');
           } else {
-            topBar.classList.remove('hide'); // Scrolling up
+            topBar.classList.remove('hide');
           }
         }
 
@@ -42,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
       window.addEventListener('scroll', handleScroll);
       handleScroll(); // initial call
 
-      // Highlight current nav link
+      // Highlight active nav link
       const currentPath = window.location.pathname.replace(/\/$/, '').toLowerCase();
       const navLinks = headerContainer.querySelectorAll('.nav-menu a');
       navLinks.forEach(link => {
@@ -54,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
 
-      // Mobile menu toggle logic
+      // Mobile menu toggle
       let menuVisible = false;
       if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', () => {
@@ -62,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
           menuVisible = !menuVisible;
         });
 
-        // Close the menu on clicking outside
         document.addEventListener('click', (e) => {
           if (menuVisible && !navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
             navMenu.classList.remove('show');
