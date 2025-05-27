@@ -15,38 +15,26 @@ body {
 
 /* Top Bar */
 .top-bar {
-  background-color: #003366;
-  color: white;
-  font-size: 0.9rem;
-  font-weight: 500;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 20px;
-  transition: top 0.3s ease;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1200;
-}
-
-.top-bar.hidden {
-  top: -40px;
-}
-
-.top-bar .email {
+  padding: 5px 20px;
+  background-color: #f8f8f8;
+  position: relative;
+  z-index: 1000;
   font-size: 0.9rem;
+  flex-wrap: wrap;
 }
 
+.top-bar .email,
 .top-bar .social-icons {
-  display: flex;
-  gap: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.top-bar .social-icons a {
-  color: white;
-  text-decoration: none;
-  font-size: 1rem;
+.top-bar .social-icons i {
+  margin-left: 10px;
 }
 
 /* Header */
