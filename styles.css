@@ -25,17 +25,23 @@ body {
   font-size: 0.9rem;
   flex-wrap: wrap;
 }
-
 .top-bar .email,
 .top-bar .social-icons {
-  color: #f8f8f8;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 .top-bar .social-icons i {
   margin-left: 10px;
+}
+
+.top-bar-left a {
+  color: white;
+  text-decoration: none;
+}
+.top-bar-right a {
+  color: white;
+  text-decoration: none;
 }
 
 /* Header */
