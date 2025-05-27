@@ -31,7 +31,7 @@ body {
 }
 
 .top-bar.hidden {
-  top: -40px;
+  top: -80px;
 }
 
 .top-bar .email {
@@ -40,7 +40,7 @@ body {
 
 .top-bar .social-icons {
   display: flex;
-  gap: 05px;
+  gap: 10px;
 }
 
 .top-bar .social-icons a {
