@@ -28,6 +28,7 @@ body {
 
 .top-bar .email,
 .top-bar .social-icons {
+  color: white;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
