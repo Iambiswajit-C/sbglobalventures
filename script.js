@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const navMenu = headerContainer.querySelector('.nav-menu');
 
       // Handle sticky header and top bar visibility
-      let lastScrollTop = 0;
+      let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const handleScroll = () => {
         const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
@@ -23,14 +23,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (topBar) {
-          if (currentScroll > lastScrollTop) {
+          if (currentScroll > lastScrollTop && currentScroll > 80) {
             topBar.classList.add('hide');
           } else {
             topBar.classList.remove('hide');
           }
         }
 
-        lastScrollTop = Math.max(currentScroll, 0);
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
       };
 
       window.addEventListener('scroll', handleScroll);
