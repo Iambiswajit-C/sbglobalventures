@@ -82,30 +82,34 @@
   </section>
 
   <!-- Contact Form -->
-  <form id="contactForm">
-  <label for="name">Name*</label>
-  <input type="text" id="name" name="name" required placeholder="Your full name" />
+  <section class="contact-section">
+  <div class="container">
+    <form id="contactForm" action="#" method="POST">
+      <label for="name">Name*</label>
+      <input type="text" id="name" name="name" required placeholder="Your full name" />
 
-  <label for="email">Email*</label>
-  <input type="email" id="email" name="email" required placeholder="Your email address" />
+      <label for="email">Email*</label>
+      <input type="email" id="email" name="email" required placeholder="Your email address" />
 
-  <label for="message">Message*</label>
-  <textarea id="message" name="message" rows="5" required placeholder="Write your message here"></textarea>
+      <label for="message">Message*</label>
+      <textarea id="message" name="message" rows="5" required placeholder="Write your message here"></textarea>
 
-  <!-- Hidden anti-spam honeypot field -->
-  <input type="text" name="_honey" style="display:none">
+      <!-- Formsubmit anti-bot honeypot field -->
+      <input type="text" name="_honey" style="display:none">
 
-  <!-- Disable CAPTCHA -->
-  <input type="hidden" name="_captcha" value="false">
+      <!-- Formsubmit disable CAPTCHA bypass -->
+      <input type="hidden" name="_captcha" value="true">
 
-  <!-- Custom subject -->
-  <input type="hidden" name="_subject" value="New Contact Form Submission - SB Global Ventures">
+      <!-- Optional: Formsubmit redirection disabled (we're showing message instead) -->
+      <input type="hidden" name="_next" value="#">
 
-  <button type="submit">Send Message</button>
-</form>
-<div id="formMessage" style="margin-top: 1rem; font-weight: 600;"></div>
-<!-- Success Message Placeholder -->
-<div id="formMessage" style="margin-top:1rem;font-weight:600;color:green;"></div>
+      <button type="submit">Send Message</button>
+
+      <!-- Success/Error message will appear here -->
+      <div id="formMessage" style="margin-top: 1rem; font-weight: 600;"></div>
+    </form>
+  </div>
+</section>
 
 <div id="footer-placeholder"></div>
 <script>
