@@ -12,6 +12,38 @@ document.addEventListener("DOMContentLoaded", function () {
         const menuToggle = headerContainer.querySelector(".menu-toggle");
         const navMenu = headerContainer.querySelector(".nav-menu");
 
+        // Contact Form Submission with Formsubmit
+const contactForm = document.getElementById("contactForm");
+const formMessage = document.getElementById("formMessage");
+
+if (contactForm && formMessage) {
+  contactForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(contactForm);
+
+    fetch("https://formsubmit.co/ajax/info@sbglobalventures.com", {
+      method: "POST",
+      body: formData,
+    })
+    .then(response => {
+      if (response.ok) {
+        contactForm.reset();
+        formMessage.textContent = "Thanks for contacting us! We will be in touch with you shortly.";
+        formMessage.style.color = "green";
+      } else {
+        throw new Error("Formsubmit request failed");
+      }
+    })
+    .catch(error => {
+      formMessage.textContent = "Oops! Something went wrong. Please try again later.";
+      formMessage.style.color = "red";
+      console.error("Formsubmit error:", error);
+    });
+  });
+}
+
+
         // Scroll behavior
         function handleScroll() {
           if (window.scrollY > 50) {
