@@ -82,22 +82,30 @@
   </section>
 
   <!-- Contact Form -->
-  <section class="contact-section">
-    <div class="container">
-      <form id="contactForm" action="#" method="POST">
-        <label for="name">Name*</label>
-        <input type="text" id="name" name="name" required placeholder="Your full name" />
+  <form id="contactForm">
+  <label for="name">Name*</label>
+  <input type="text" id="name" name="name" required placeholder="Your full name" />
 
-        <label for="email">Email*</label>
-        <input type="email" id="email" name="email" required placeholder="Your email address" />
+  <label for="email">Email*</label>
+  <input type="email" id="email" name="email" required placeholder="Your email address" />
 
-        <label for="message">Message*</label>
-        <textarea id="message" name="message" rows="5" required placeholder="Write your message here"></textarea>
+  <label for="message">Message*</label>
+  <textarea id="message" name="message" rows="5" required placeholder="Write your message here"></textarea>
 
-        <button type="submit">Send Message</button>
-      </form>
-    </div>
-  </section>
+  <!-- Hidden anti-spam honeypot field -->
+  <input type="text" name="_honey" style="display:none">
+
+  <!-- Disable CAPTCHA -->
+  <input type="hidden" name="_captcha" value="false">
+
+  <!-- Custom subject -->
+  <input type="hidden" name="_subject" value="New Contact Form Submission - SB Global Ventures">
+
+  <button type="submit">Send Message</button>
+</form>
+
+<!-- Success Message Placeholder -->
+<div id="formMessage" style="margin-top:1rem;font-weight:600;color:green;"></div>
 
 <div id="footer-placeholder"></div>
 <script>
