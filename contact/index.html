@@ -145,6 +145,41 @@
         });
       }
 
+        <!-- Contact Form Handling -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const contactForm = document.getElementById("contactForm");
+      const formMessage = document.getElementById("formMessage");
+
+      if (contactForm && formMessage) {
+        contactForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const formData = new FormData(contactForm);
+
+          fetch("https://formsubmit.co/ajax/info@sbglobalventures.com", {
+            method: "POST",
+            body: formData,
+          })
+          .then(response => {
+            if (response.ok) {
+              contactForm.style.display = 'none';
+              formMessage.innerHTML = "Thanks for contacting us! We will be in touch with you shortly.";
+              formMessage.style.color = "green";
+            } else {
+              throw new Error("Formsubmit request failed");
+            }
+          })
+          .catch(error => {
+            formMessage.textContent = "Oops! Something went wrong. Please try again later.";
+            formMessage.style.color = "red";
+            console.error("Formsubmit error:", error);
+          });
+        });
+      }
+    });
+  </script>
+    
       // Load header dynamically
       const header = document.getElementById("header");
       if (header) {
