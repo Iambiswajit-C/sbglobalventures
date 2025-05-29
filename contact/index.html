@@ -170,6 +170,16 @@
   <!-- Load Header -->
   <script>
     document.addEventListener("DOMContentLoaded", async function () {
+      const toggleButton = document.querySelector(".menu-toggle");
+      const navMenu = document.querySelector(".nav-menu");
+
+      if (toggleButton && navMenu) {
+        toggleButton.addEventListener("click", function () {
+          navMenu.classList.toggle("show");
+        });
+      }
+
+      // Load header dynamically
       const header = document.getElementById("header");
       if (header) {
         try {
