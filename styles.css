@@ -277,30 +277,40 @@ header.header.sticky {
   border-radius: 8px;
 }
 
-.hero-title {
-  font-size: 3.5rem;
-  font-weight: 800;
-  margin-bottom: 0.6rem;
-  color: #fff;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+/* Layout and responsiveness */
+.contact-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
 }
 
-.hero-contact-btn {
-  display: inline-block;
-  padding: 12px 28px;
-  margin-bottom: 1.8rem;
-  background-color: #0077cc;
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+.contact-info,
+.contact-form-wrapper {
+  flex: 1 1 300px;
 }
 
-.hero-contact-btn:hover {
-  background-color: #005fa3;
-  transform: translateY(-2px);
+.contact-info {
+  max-width: 400px;
+}
+
+/* Mobile layout (stacked) */
+@media (max-width: 768px) {
+  .contact-flex {
+    flex-direction: column;
+  }
+
+  .contact-info,
+  .contact-form-wrapper {
+    max-width: 100%;
+  }
+}
+
+/* Thank you message */
+.thank-you-message {
+  font-size: 1.2rem;
+  color: green;
+  margin-top: 1rem;
 }
 
 /* Footer Styles */
@@ -440,44 +450,30 @@ header.header.sticky {
     width: 100%;
     max-width: 300px;
   }
+
   .hero-title {
-  font-size: 3.5rem;
-  font-weight: 800;
-  margin-bottom: 0.6rem;
-  color: #fff;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 0.6rem;
+    color: #fff;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
   }
 
-.hero-contact-btn {
-  display: inline-block;
-  padding: 12px 28px;
-  margin-bottom: 1.8rem;
-  background-color: #0077cc;
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  .hero-contact-btn {
+    display: inline-block;
+    padding: 12px 28px;
+    margin-bottom: 1.8rem;
+    background-color: #0077cc;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
   }
 
-.hero-contact-btn:hover {
-  background-color: #005fa3;
-  transform: translateY(-2px);
+  .hero-contact-btn:hover {
+    background-color: #005fa3;
+    transform: translateY(-2px);
   }
-  .contact-flex {
-    flex-direction: column;
-  }
-
-  .contact-info,
-  .contact-form-wrapper {
-    max-width: 100%;
-  }
-}
-
-/* Thank you message */
-.thank-you-message {
-  font-size: 1.2rem;
-  color: green;
-  margin-top: 1rem;
 }
