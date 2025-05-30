@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () { 
+document.addEventListener("DOMContentLoaded", function () {
   fetch('/header.html')
     .then(response => response.text())
     .then(data => {
@@ -26,22 +26,22 @@ document.addEventListener("DOMContentLoaded", function () {
               method: "POST",
               body: formData,
             })
-            .then(response => {
-              if (response.ok) {
-                contactForm.style.display = "none";
-                formMessage.textContent = "Thanks for contacting us! We will be in touch with you shortly.";
-                formMessage.style.color = "green";
+              .then(response => {
+                if (response.ok) {
+                  contactForm.style.display = "none";
+                  formMessage.textContent = "Thanks for contacting us! We will be in touch with you shortly.";
+                  formMessage.style.color = "green";
+                  formMessage.style.display = "block";
+                } else {
+                  throw new Error("Formsubmit request failed");
+                }
+              })
+              .catch(error => {
+                formMessage.textContent = "Oops! Something went wrong. Please try again later.";
+                formMessage.style.color = "red";
                 formMessage.style.display = "block";
-              } else {
-                throw new Error("Formsubmit request failed");
-              }
-            })
-            .catch(error => {
-              formMessage.textContent = "Oops! Something went wrong. Please try again later.";
-              formMessage.style.color = "red";
-              formMessage.style.display = "block";
-              console.error("Formsubmit error:", error);
-            });
+                console.error("Formsubmit error:", error);
+              });
           });
         }
 
@@ -71,19 +71,22 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
 
-        // Toggle menu fix
-        let menuVisible = false;
-        menuToggle.addEventListener("click", () => {
-          navMenu.classList.toggle("show");
-          menuVisible = !menuVisible;
-        });
+        // MENU TOGGLE LOGIC (Improved)
+        if (menuToggle && navMenu) {
+          menuToggle.addEventListener("click", function (e) {
+            e.stopPropagation(); // Prevent event from bubbling up to document
+            navMenu.classList.toggle("show");
+          });
 
-        document.addEventListener("click", (event) => {
-          if (menuVisible && !navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
-            navMenu.classList.remove("show");
-            menuVisible = false;
-          }
-        });
+          document.addEventListener("click", function (e) {
+            const isClickInsideMenu = navMenu.contains(e.target);
+            const isClickOnToggle = menuToggle.contains(e.target);
+
+            if (!isClickInsideMenu && !isClickOnToggle) {
+              navMenu.classList.remove("show");
+            }
+          });
+        }
       }
     });
 });
