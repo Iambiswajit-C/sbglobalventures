@@ -330,12 +330,12 @@ header.header.sticky {
   text-align: right;
 }
 
-.footer .contact-section {
+.footer .contact-area {
   margin-bottom: 10px;
   font-size: 0.95rem;
 }
 
-.footer .contact-section a {
+.footer .contact-area a {
   color: white;
   text-decoration: none;
 }
