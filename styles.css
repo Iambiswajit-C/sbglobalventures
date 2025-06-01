@@ -175,40 +175,53 @@ header.header.sticky {
 }
 
 /* About Section */
-.about-section {
-  max-width: 1100px;
-  margin: 60px auto 80px;
-  padding: 0 20px;
+.why-choose-us {
+  background: url('images/home-feature-1.jpg') no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+  padding: 100px 20px;
+  color: white;
   text-align: center;
 }
 
-.about-section h3 {
-  font-weight: 700;
-  font-size: 2rem;
-  margin: 40px 0 20px;
-  color: #003366;
+.why-choose-us::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+  z-index: 1;
 }
 
-.about-section p {
-  font-size: 1.15rem;
-  margin-bottom: 25px;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.about-section ul {
-  list-style-type: disc;
-  padding-left: 20px;
-  max-width: 600px;
-  margin: 0 auto 40px auto;
+.why-choose-us .overlay {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
   text-align: left;
-  font-size: 1.15rem;
-  color: #333;
 }
 
-.about-section ul li {
-  margin-bottom: 12px;
+.why-choose-us h3 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.features-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.feature-item h4 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #ffcc66; /* Highlight color */
+}
+
+.feature-item p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
 }
 
 /* About Company Section */
@@ -425,10 +438,6 @@ header.header.sticky {
 
   .hero p {
     font-size: 1rem;
-  }
-
-  .about-section h3 {
-    font-size: 1.5rem;
   }
 
   .category-card {
