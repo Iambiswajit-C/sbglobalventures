@@ -107,16 +107,16 @@ header.header.sticky {
 }
 
 .nav-menu li a {
-  color: #003366;
+  color: #8c6f1f;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .nav-menu li a:hover,
 .nav-menu li a.active {
-  color: #0077cc;
+  color: #f9b700;
   font-weight: 700;
-  border-bottom: 2px solid #0077cc;
+  border-bottom: 2px solid #f9b700;
 }
 
 /* Toggle Button */
