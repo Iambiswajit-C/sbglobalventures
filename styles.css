@@ -224,6 +224,42 @@ header.header.sticky {
   margin: 0;
 }
 
+.about-section {
+  max-width: 1100px;
+  margin: 60px auto 80px;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.about-section h3 {
+  font-weight: 700;
+  font-size: 2rem;
+  margin: 40px 0 20px;
+  color: #003366;
+}
+
+.about-section p {
+  font-size: 1.15rem;
+  margin-bottom: 25px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-section ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  max-width: 600px;
+  margin: 0 auto 40px auto;
+  text-align: left;
+  font-size: 1.15rem;
+  color: #333;
+}
+
+.about-section ul li {
+  margin-bottom: 12px;
+}
+
 /* About Company Section */
 .about-company {
   background-color: #e7e4db;
