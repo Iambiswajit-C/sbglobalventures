@@ -71,21 +71,28 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
 
-        // MENU TOGGLE LOGIC (Improved)
+        // MENU TOGGLE LOGIC WITH TOUCH SUPPORT
         if (menuToggle && navMenu) {
-          menuToggle.addEventListener("click", function (e) {
-            e.stopPropagation(); // Prevent event from bubbling up to document
+          function toggleMenu(e) {
+            e.stopPropagation();
             navMenu.classList.toggle("show");
-          });
+          }
 
-          document.addEventListener("click", function (e) {
+          function closeMenuIfClickedOutside(e) {
             const isClickInsideMenu = navMenu.contains(e.target);
             const isClickOnToggle = menuToggle.contains(e.target);
-
             if (!isClickInsideMenu && !isClickOnToggle) {
               navMenu.classList.remove("show");
             }
-          });
+          }
+
+          // Support both click and touch for menu toggle
+          menuToggle.addEventListener("click", toggleMenu);
+          menuToggle.addEventListener("touchstart", toggleMenu);
+
+          // Close menu on outside click or touch
+          document.addEventListener("click", closeMenuIfClickedOutside);
+          document.addEventListener("touchstart", closeMenuIfClickedOutside);
         }
       }
     });
