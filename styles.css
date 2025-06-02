@@ -12,7 +12,10 @@ body {
   margin: 0 auto;
   padding: 0 20px;
 }
-
+body {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
 /* Top Bar */
 .top-bar {
   display: flex;
