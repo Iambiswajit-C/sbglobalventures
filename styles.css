@@ -510,12 +510,10 @@ header.header.sticky {
   background-color: #005fa3;
   transform: translateY(-2px);
   }
-}
 
-@media (max-width: 768px) {
-.why-choose-us {
-  background: url('images/home-feature-1.jpg');
-  background-position: center center;
-  background-attachment: scroll;
+  .why-choose-us {
+    background-attachment: scroll;
+    background-position: center center;
   }
 }
+
