@@ -15,6 +15,10 @@
   integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOM5E4z9X1Gq0E6V5k5x3N5V5k5x3N5V5k5x3N5V"
   crossorigin="anonymous"
 />
+
+  <!-- AOS CSS -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
 </head>
 <body>
     <div id="header"></div>
@@ -44,23 +48,23 @@
    <!-- Features -->
 <section class="why-choose-us">
   <div class="overlay">
-    <h3>Why Choose Us</h3>
+    <h3 data-aos="fade-up">Why Choose Us</h3>
     <div class="features-list">
       <div class="feature-item">
-        <h4>🌱 Eco-Friendly & Handmade Products</h4>
-        <p>Our products are crafted using natural materials by skilled artisans, minimizing environmental impact while maximizing charm.</p>
+        <h4 class="why-points" data-aos="fade-up" data-aos-delay="100">🌱 Eco-Friendly & Handmade Products</h4>
+        <p data-aos="fade-down" data-aos-duration="1000">Our products are crafted using natural materials by skilled artisans, minimizing environmental impact while maximizing charm.</p>
       </div>
       <div class="feature-item">
-        <h4>🚀 Fast & Reliable International Shipping</h4>
-        <p>With optimized logistics and global partnerships, we ensure timely delivery and real-time tracking for all orders.</p>
+        <h4 class="why-points" data-aos="fade-up" data-aos-delay="100">🚀 Fast & Reliable International Shipping</h4>
+        <p data-aos="fade-down" data-aos-duration="1000">With optimized logistics and global partnerships, we ensure timely delivery and real-time tracking for all orders.</p>
       </div>
       <div class="feature-item">
-        <h4>💬 Dedicated Customer Support</h4>
-        <p>Our friendly support team is here 24/7 to assist you — from inquiries to post-purchase follow-ups, we’ve got your back.</p>
+        <h4 class="why-points" data-aos="fade-up" data-aos-delay="100">💬 Dedicated Customer Support</h4>
+        <p data-aos="fade-down" data-aos-duration="1000">Our friendly support team is here 24/7 to assist you — from inquiries to post-purchase follow-ups, we’ve got your back.</p>
       </div>
       <div class="feature-item">
-        <h4>🌍 Sustainable & Ethical Sourcing</h4>
-        <p>We partner with artisans and eco-conscious suppliers to ensure every product supports responsible trade and environmental care.</p>
+        <h4 class="why-points" data-aos="fade-up" data-aos-delay="100">🌍 Sustainable & Ethical Sourcing</h4>
+        <p data-aos="fade-down" data-aos-duration="1000">We partner with artisans and eco-conscious suppliers to ensure every product supports responsible trade and environmental care.</p>
       </div>
     </div>
   </div>
@@ -131,6 +135,13 @@
     });
   });
 </script>
+
+  <!-- AOS JS -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+
 
 </body>
 </html>
