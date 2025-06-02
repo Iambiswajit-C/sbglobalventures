@@ -206,12 +206,6 @@ header.header.sticky {
   text-align: center;
 }
 
-.why-choose-us {
-  background-size: cover;
-  background-position: center top;
-  background-attachment: fixed;
-}
-
 .features-list {
   display: grid;
   grid-template-columns: 1fr;
@@ -481,6 +475,12 @@ header.header.sticky {
   .hero p {
     font-size: 1rem;
   }
+
+  .why-choose-us {
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+ }
 
   .category-card {
     width: 100%;
