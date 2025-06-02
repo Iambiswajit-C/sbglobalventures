@@ -476,12 +476,6 @@ header.header.sticky {
     font-size: 1rem;
   }
 
-  .why-choose-us {
-  background-size: cover;
-  background-position: center top;
-  background-attachment: fixed;
- }
-
   .category-card {
     width: 100%;
     max-width: 300px;
@@ -515,5 +509,13 @@ header.header.sticky {
 .hero-contact-btn:hover {
   background-color: #005fa3;
   transform: translateY(-2px);
+  }
+}
+
+@media (max-width: 768px) {
+.why-choose-us {
+  background: url('images/home-feature-1.jpg');
+  background-position: center center;
+  background-attachment: scroll;
   }
 }
