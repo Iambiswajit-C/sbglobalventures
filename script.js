@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
   fetch('/header.html')
     .then(response => response.text())
@@ -71,21 +72,26 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
 
-        // MENU TOGGLE LOGIC (Improved)
+        // MENU TOGGLE LOGIC with touch support
         if (menuToggle && navMenu) {
-          menuToggle.addEventListener("click", function (e) {
-            e.stopPropagation(); // Prevent event from bubbling up to document
+          const toggleMenu = function (e) {
+            e.stopPropagation();
             navMenu.classList.toggle("show");
-          });
+          };
 
-          document.addEventListener("click", function (e) {
+          menuToggle.addEventListener("click", toggleMenu);
+          menuToggle.addEventListener("touchstart", toggleMenu);
+
+          const closeMenu = function (e) {
             const isClickInsideMenu = navMenu.contains(e.target);
             const isClickOnToggle = menuToggle.contains(e.target);
-
             if (!isClickInsideMenu && !isClickOnToggle) {
               navMenu.classList.remove("show");
             }
-          });
+          };
+
+          document.addEventListener("click", closeMenu);
+          document.addEventListener("touchstart", closeMenu);
         }
       }
     });
