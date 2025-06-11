@@ -71,26 +71,21 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
 
-        // MENU TOGGLE LOGIC with touch support
+        // MENU TOGGLE LOGIC (Improved)
         if (menuToggle && navMenu) {
-          const toggleMenu = function (e) {
-            e.stopPropagation();
+          menuToggle.addEventListener("click", function (e) {
+            e.stopPropagation(); // Prevent event from bubbling up to document
             navMenu.classList.toggle("show");
-          };
+          });
 
-          menuToggle.addEventListener("click", toggleMenu);
-          menuToggle.addEventListener("touchstart", toggleMenu);
-
-          const closeMenu = function (e) {
+          document.addEventListener("click", function (e) {
             const isClickInsideMenu = navMenu.contains(e.target);
             const isClickOnToggle = menuToggle.contains(e.target);
+
             if (!isClickInsideMenu && !isClickOnToggle) {
               navMenu.classList.remove("show");
             }
-          };
-
-          document.addEventListener("click", closeMenu);
-          document.addEventListener("touchstart", closeMenu);
+          });
         }
       }
     });
