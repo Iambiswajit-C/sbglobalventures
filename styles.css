@@ -145,6 +145,7 @@ header.header.sticky {
   text-align: center;
   padding: 0 20px;
   position: relative;
+  overflow: hidden;
 }
 
 .hero::before {
@@ -172,6 +173,38 @@ header.header.sticky {
   max-width: 600px;
   margin: 0 auto;
   text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
+
+.hero-slide {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-slide::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.hero-slide .container {
+  position: relative;
+  z-index: 2;
+  color: white;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  z-index: 2;
 }
 
 /* About Section */
