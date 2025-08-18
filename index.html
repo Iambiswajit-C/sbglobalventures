@@ -183,24 +183,5 @@
   AOS.init();
 </script>
 
-  <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const slides = document.querySelectorAll(".hero-slide");
-    let current = 0;
-
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.remove("active");
-        if (i === index) slide.classList.add("active");
-      });
-    }
-
-    setInterval(() => {
-      current = (current + 1) % slides.length;
-      showSlide(current);
-    }, 3000); // 3 seconds
-  });
-</script>
-
 </body>
 </html>
