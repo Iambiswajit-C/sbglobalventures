@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const dotsContainer = document.querySelector(".hero-dots");
   let current = 0;
   let slideInterval;
+  let autoSlidePaused = false;
 
   if (slides.length > 0) {
     // Create dots dynamically
@@ -71,7 +72,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function startAutoSlide() {
-      slideInterval = setInterval(nextSlide, 3000);
+      if (!autoSlidePaused) {
+        slideInterval = setInterval(nextSlide, 3000);
+      }
     }
 
     function resetAutoSlide() {
@@ -79,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
       startAutoSlide();
     }
 
-    // Button events
+    // Button events (make sure buttons exist)
     if (nextBtn) {
       nextBtn.addEventListener("click", () => {
         nextSlide();
@@ -99,6 +102,14 @@ document.addEventListener("DOMContentLoaded", function () {
         current = i;
         showSlide(current);
         resetAutoSlide();
+      });
+    });
+
+    // Clicking on any slide pauses auto rotation
+    slides.forEach((slide) => {
+      slide.addEventListener("click", () => {
+        clearInterval(slideInterval);
+        autoSlidePaused = true;
       });
     });
 
