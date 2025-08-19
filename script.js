@@ -173,72 +173,89 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --- CERTIFICATIONS CAROUSEL ---
-  const certTrack = document.querySelector(".cert-track");
-  const certSlides = document.querySelectorAll(".cert-slide");
-  const certPrev = document.querySelector(".cert-arrow.prev");
-  const certNext = document.querySelector(".cert-arrow.next");
-  const certDotsContainer = document.querySelector(".cert-dots");
+  // --- CERTIFICATIONS CAROUSEL ---
+const certViewport = document.querySelector(".cert-viewport");
+const certTrack = document.querySelector(".cert-track");
+const certSlides = document.querySelectorAll(".cert-slide");
+const certPrev = document.querySelector(".cert-arrow.prev");
+const certNext = document.querySelector(".cert-arrow.next");
+const certDotsContainer = document.querySelector(".cert-dots");
 
-  let certCurrent = 0;
-  let certInterval;
+let certCurrent = 0;
+let certInterval;
 
-  if (certTrack && certSlides.length > 0) {
-    // Create dots dynamically
-    certSlides.forEach((_, i) => {
-      const dot = document.createElement("span");
-      if (i === 0) dot.classList.add("active");
-      certDotsContainer.appendChild(dot);
-    });
-    const certDots = certDotsContainer.querySelectorAll("span");
+if (certTrack && certSlides.length > 0) {
+  // Create dots dynamically
+  certSlides.forEach((_, i) => {
+    const dot = document.createElement("span");
+    if (i === 0) dot.classList.add("active");
+    certDotsContainer.appendChild(dot);
+  });
+  const certDots = certDotsContainer.querySelectorAll("span");
 
-    function showCertSlide(index) {
-      certSlides.forEach((slide, i) => {
-        slide.classList.remove("active");
-        certDots[i].classList.remove("active");
-      });
-
-      certSlides[index].classList.add("active");
-      certDots[index].classList.add("active");
-
-      const slideWidth = certSlides[0].offsetWidth + 30; 
-      let visibleCount = window.innerWidth <= 480 ? 1 : 3;
-      const offset = -index * slideWidth + (visibleCount === 1 
-        ? (certTrack.offsetWidth / 2 - slideWidth / 2)
-        : (certTrack.offsetWidth / 2 - slideWidth * 1.5));
-
-      certTrack.style.transform = `translateX(${offset}px)`;
-    }
-
-    function nextCert() {
-      certCurrent = (certCurrent + 1) % certSlides.length;
-      showCertSlide(certCurrent);
-    }
-
-    function prevCert() {
-      certCurrent = (certCurrent - 1 + certSlides.length) % certSlides.length;
-      showCertSlide(certCurrent);
-    }
-
-    function resetCertInterval() {
-      clearInterval(certInterval);
-      certInterval = setInterval(nextCert, 5000);
-    }
-
-    certNext && certNext.addEventListener("click", () => { nextCert(); resetCertInterval(); });
-    certPrev && certPrev.addEventListener("click", () => { prevCert(); resetCertInterval(); });
-    certDots.forEach((dot, i) => {
-      dot.addEventListener("click", () => {
-        certCurrent = i;
-        showCertSlide(certCurrent);
-        resetCertInterval();
-      });
+  function showCertSlide(index, animate = true) {
+    certSlides.forEach((slide, i) => {
+      slide.classList.toggle("active", i === index);
+      certDots[i].classList.toggle("active", i === index);
     });
 
-    function startCertAutoSlide() {
-      certInterval = setInterval(nextCert, 5000);
+    const slideWidth = certSlides[0].offsetWidth + 30; // width + margin
+    const visibleCount = window.innerWidth <= 480 ? 1 : 3;
+
+    // Center offset calculation
+    let offset;
+    if (visibleCount === 1) {
+      // Mobile: one slide centered
+      offset = -(index * slideWidth) + (certViewport.offsetWidth / 2 - slideWidth / 2);
+    } else {
+      // Desktop/tablet: 3 visible, keep active in middle
+      offset = -(index * slideWidth) + (certViewport.offsetWidth / 2 - slideWidth / 2);
     }
 
-    showCertSlide(certCurrent);
-    startCertAutoSlide();
+    if (!animate) certTrack.style.transition = "none";
+    certTrack.style.transform = `translateX(${offset}px)`;
+    if (!animate) {
+      requestAnimationFrame(() => {
+        certTrack.style.transition = "transform 0.6s ease";
+      });
+    }
   }
-});
+
+  function nextCert() {
+    certCurrent = (certCurrent + 1) % certSlides.length;
+    showCertSlide(certCurrent);
+  }
+
+  function prevCert() {
+    certCurrent = (certCurrent - 1 + certSlides.length) % certSlides.length;
+    showCertSlide(certCurrent);
+  }
+
+  function resetCertInterval() {
+    clearInterval(certInterval);
+    certInterval = setInterval(nextCert, 5000);
+  }
+
+  // Events
+  certNext && certNext.addEventListener("click", () => { nextCert(); resetCertInterval(); });
+  certPrev && certPrev.addEventListener("click", () => { prevCert(); resetCertInterval(); });
+  certDots.forEach((dot, i) => {
+    dot.addEventListener("click", () => {
+      certCurrent = i;
+      showCertSlide(certCurrent);
+      resetCertInterval();
+    });
+  });
+
+  // Auto-slide always forward
+  function startCertAutoSlide() {
+    certInterval = setInterval(nextCert, 5000);
+  }
+
+  // Init
+  showCertSlide(certCurrent, false);
+  startCertAutoSlide();
+
+  // Recenter on resize
+  window.addEventListener("resize", () => showCertSlide(certCurrent, false));
+}
