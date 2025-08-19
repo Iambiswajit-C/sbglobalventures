@@ -335,6 +335,90 @@ header.header.sticky {
   margin-bottom: 12px;
 }
 
+.certifications {
+  text-align: center;
+  padding: 50px 20px;
+  background: #f9f9f9;
+}
+
+.cert-carousel {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.cert-track {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.5s ease-in-out;
+}
+
+.cert-slide {
+  flex: 0 0 150px;
+  margin: 0 15px;
+  opacity: 0.5;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
+}
+
+.cert-slide.active {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.cert-slide img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: white;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.cert-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  padding: 10px 16px;
+  cursor: pointer;
+  z-index: 2;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.cert-arrow:hover {
+  background: rgba(0,0,0,0.8);
+}
+
+.cert-arrow.prev { left: -50px; }
+.cert-arrow.next { right: -50px; }
+
+.cert-dots {
+  margin-top: 20px;
+}
+
+.cert-dots span {
+  height: 12px;
+  width: 12px;
+  margin: 0 5px;
+  background: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.cert-dots span.active {
+  background: #333;
+}
+
 /* About Company Section */
 .about-company {
   background-color: #e7e4db;
