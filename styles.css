@@ -444,12 +444,14 @@ margin: 0 auto;
 /* Responsive tweaks */
 @media (max-width: 900px) {
   .cert-slide { flex: 0 0 calc(33.333% - 20px); height: 130px; margin: 0 10px; }
+  .cert-arrow.prev { left: 0px; }
+  .cert-arrow.next { right: 0px; }
 }
 @media (max-width: 768px) {
   .cert-slide { flex: 0 0 calc(33.333% - 15px); height: 120px; margin: 0 8px; }
   .cert-arrow { font-size: 1.6rem; padding: 10px 12px; }
-  .cert-arrow.prev { left: -30px; }
-  .cert-arrow.next { right: -30px; }
+  .cert-arrow.prev { left: 0px; }
+  .cert-arrow.next { right: 0px; }
 }
 @media (max-width: 480px) {
   .cert-slide { flex: 0 0 100%; height: 100px; margin: 0 6px; }
