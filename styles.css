@@ -300,19 +300,31 @@ header.header.sticky {
 }
 
 .about-section {
-  max-width: 1100px;
-  margin: 60px auto 80px;
-  padding: 0 20px;
-  text-align: center;
+margin: 0px auto 80px;
+padding: 40px 20px;
+text-align: center;
+background: rgba(231,228,219); /* same translucent white base */
+border-radius: 12px; /* optional: soften edges */
+box-shadow: 0 4px 20px rgba(0,0,0,0.08); /* subtle lift */
 }
 
 .about-section h3 {
-  font-weight: 700;
-  font-size: 2rem;
-  margin: 40px 0 20px;
-  color: #003366;
+font-weight: 700;
+font-size: 2rem;
+margin: 40px 0 20px;
+color: #003366;
+position: relative;
 }
 
+.about-section h3::after {
+content: '';
+display: block;
+width: 60px;
+height: 4px;
+background: #f9b700; /* golden accent from hero-dots */
+margin: 12px auto 0;
+border-radius: 2px;
+}
 .about-section p {
   font-size: 1.15rem;
   margin-bottom: 25px;
