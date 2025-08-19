@@ -455,7 +455,7 @@ margin: 0 auto;
 }
 @media (max-width: 480px) {
 .cert-slide {
-flex: 0 0 100%; /* one full-width slide per view */
+flex: 0 0 97%; /* one full-width slide per view */
 height: 110px;
 margin: 0 6px;
 }
