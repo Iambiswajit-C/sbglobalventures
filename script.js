@@ -226,28 +226,27 @@ document.addEventListener("DOMContentLoaded", function () {
  dots[realIdx()].classList.add("active");
  }
 
- function goTo(i, animate = true) {
+function goTo(i, animate = true) {
 index = i;
 const vw = viewport.getBoundingClientRect().width;
 
 let tx;
 if (visible === 1) {
-// mobile → center 1 slide
+// Mobile → center 1 slide
 tx = vw / 2 - slideW / 2 - index * slideW;
-} else {
-// desktop/tablet → center 3 slides (left, center, right)
-tx = vw / 2 - (slideW * 1.5) - index * slideW;
+} else if (visible === 3) {
+// Desktop/Tablet → center middle slide
+tx = vw / 2 - (slideW * visible) / 2 - index * slideW;
 }
 
 if (!animate) track.style.transition = "none";
 track.style.transform = `translateX(${tx}px)`;
 if (!animate) {
-void track.offsetHeight;
+void track.offsetHeight; // reflow
 track.style.transition = "";
 }
 updateActive();
 }
-
 
  function next() { goTo(index + 1, true); }
  function prev() { goTo(index - 1, true); }
