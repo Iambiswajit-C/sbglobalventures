@@ -173,145 +173,72 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --- CERTIFICATIONS CAROUSEL ---
-const viewport = document.querySelector(".cert-viewport");
-const track = document.querySelector(".cert-track");
-const prevBtn = document.querySelector(".cert-arrow.prev");
-const nextBtn = document.querySelector(".cert-arrow.next");
-const dotsWrap = document.querySelector(".cert-dots");
+  const certTrack = document.querySelector(".cert-track");
+  const certSlides = document.querySelectorAll(".cert-slide");
+  const certPrev = document.querySelector(".cert-arrow.prev");
+  const certNext = document.querySelector(".cert-arrow.next");
+  const certDotsContainer = document.querySelector(".cert-dots");
 
-if (viewport && track) {
-let originalSlides = Array.from(track.querySelectorAll(".cert-slide"));
+  let certCurrent = 0;
+  let certInterval;
 
-// --- Build clones for seamless loop (no visible reverse) ---
-const firstClone = originalSlides[0].cloneNode(true);
-const lastClone = originalSlides[originalSlides.length - 1].cloneNode(true);
-firstClone.classList.add("clone");
-lastClone.classList.add("clone");
-track.insertBefore(lastClone, originalSlides[0]);
-track.appendChild(firstClone);
+  if (certTrack && certSlides.length > 0) {
+    // Create dots dynamically
+    certSlides.forEach((_, i) => {
+      const dot = document.createElement("span");
+      if (i === 0) dot.classList.add("active");
+      certDotsContainer.appendChild(dot);
+    });
+    const certDots = certDotsContainer.querySelectorAll("span");
 
-// After cloning, work with the new children list
-let allSlides = Array.from(track.children);
+    function showCertSlide(index) {
+      certSlides.forEach((slide, i) => {
+        slide.classList.remove("active");
+        certDots[i].classList.remove("active");
+      });
 
-// --- State ---
-let index = 1; // start at first real slide (after left clone)
-let slidesPerView = 3; // will be recalculated on resize
-let slideSize = 0; // width + horizontal margins
-let autoTimer = null;
+      certSlides[index].classList.add("active");
+      certDots[index].classList.add("active");
 
-// --- Helpers ---
-function computeSlideSize() {
-// Use a real (non-clone) slide to get consistent size
-const probe = originalSlides[0];
-const cs = getComputedStyle(probe);
-const ml = parseFloat(cs.marginLeft) || 0;
-const mr = parseFloat(cs.marginRight) || 0;
-slideSize = probe.offsetWidth + ml + mr;
+      const slideWidth = certSlides[0].offsetWidth + 30; 
+      let visibleCount = window.innerWidth <= 480 ? 1 : 3;
+      const offset = -index * slideWidth + (visibleCount === 1 
+        ? (certTrack.offsetWidth / 2 - slideWidth / 2)
+        : (certTrack.offsetWidth / 2 - slideWidth * 1.5));
 
-slidesPerView = window.innerWidth <= 480 ? 1 : 3;
+      certTrack.style.transform = `translateX(${offset}px)`;
+    }
 
-// Force the viewport to show exactly slidesPerView items
-viewport.style.width = (slidesPerView * slideSize) + "px";
-}
+    function nextCert() {
+      certCurrent = (certCurrent + 1) % certSlides.length;
+      showCertSlide(certCurrent);
+    }
 
-function setTransition(on) {
-track.style.transition = on ? "transform 0.6s ease" : "none";
-}
+    function prevCert() {
+      certCurrent = (certCurrent - 1 + certSlides.length) % certSlides.length;
+      showCertSlide(certCurrent);
+    }
 
-function currentIsClone() {
-return allSlides[index].classList.contains("clone");
-}
+    function resetCertInterval() {
+      clearInterval(certInterval);
+      certInterval = setInterval(nextCert, 5000);
+    }
 
-function goToIndex(withAnim = true) {
-setTransition(withAnim);
-// center the current slide based on the *viewport* width
-const offset = viewport.offsetWidth / 2 - (index + 0.5) * slideSize;
-track.style.transform = `translateX(${offset}px)`;
-updateActiveClasses();
-updateDots();
-}
+    certNext && certNext.addEventListener("click", () => { nextCert(); resetCertInterval(); });
+    certPrev && certPrev.addEventListener("click", () => { prevCert(); resetCertInterval(); });
+    certDots.forEach((dot, i) => {
+      dot.addEventListener("click", () => {
+        certCurrent = i;
+        showCertSlide(certCurrent);
+        resetCertInterval();
+      });
+    });
 
-function updateActiveClasses() {
-allSlides.forEach(s => s.classList.remove("active"));
-if (!allSlides[index].classList.contains("clone")) {
-allSlides[index].classList.add("active");
-}
-}
+    function startCertAutoSlide() {
+      certInterval = setInterval(nextCert, 5000);
+    }
 
-function next() { index++; goToIndex(true); }
-function prev() { index--; goToIndex(true); }
-
-function startAuto() {
-stopAuto();
-autoTimer = setInterval(next, 5000);
-}
-function stopAuto() {
-if (autoTimer) clearInterval(autoTimer);
-autoTimer = null;
-}
-
-// --- Dots (based on original slides only) ---
-function buildDots() {
-if (!dotsWrap) return;
-dotsWrap.innerHTML = "";
-for (let i = 0; i < originalSlides.length; i++) {
-const dot = document.createElement("span");
-dotsWrap.appendChild(dot);
-dot.addEventListener("click", () => {
-index = i + 1; // +1 because of left clone
-goToIndex(true);
-startAuto();
+    showCertSlide(certCurrent);
+    startCertAutoSlide();
+  }
 });
-}
-}
-function updateDots() {
-if (!dotsWrap) return;
-const dots = Array.from(dotsWrap.querySelectorAll("span"));
-dots.forEach(d => d.classList.remove("active"));
-const realIndex = (index - 1 + originalSlides.length) % originalSlides.length;
-if (dots[realIndex]) dots[realIndex].classList.add("active");
-}
-
-// --- Wrap handling: jump over clones without animation ---
-track.addEventListener("transitionend", () => {
-if (currentIsClone()) {
-setTransition(false);
-if (index === allSlides.length - 1) {
-// we were on the right clone -> jump to first real
-index = 1;
-} else if (index === 0) {
-// we were on the left clone -> jump to last real
-index = allSlides.length - 2;
-}
-goToIndex(false); // instant jump; next tick will keep moving left
-}
-});
-
-// --- Controls ---
-nextBtn && nextBtn.addEventListener("click", () => { next(); startAuto(); });
-prevBtn && prevBtn.addEventListener("click", () => { prev(); startAuto(); });
-
-// Recalculate sizes on resize (debounced)
-let rAF;
-window.addEventListener("resize", () => {
-cancelAnimationFrame(rAF);
-rAF = requestAnimationFrame(() => {
-computeSlideSize();
-goToIndex(false);
-});
-});
-
-// --- Init after everything is laid out ---
-function init() {
-computeSlideSize();
-buildDots();
-goToIndex(false); // center first real slide
-startAuto();
-}
-// Use load to ensure images (if any) and widths are stable
-if (document.readyState === "complete") {
-init();
-} else {
-window.addEventListener("load", init);
-}
-}
