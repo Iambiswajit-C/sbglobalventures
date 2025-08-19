@@ -418,8 +418,8 @@ margin: 0 auto;
   transition: background 0.25s ease;
 }
 .cert-arrow:hover { background: rgba(0,0,0,0.8); }
-.cert-arrow.prev { left: -50px; }  /* farther out */
-.cert-arrow.next { right: -50px; }
+.cert-arrow.prev { left: 0px; }  /* farther out */
+.cert-arrow.next { right: 0px; }
 
 /* Dots */
 .cert-dots {
@@ -438,7 +438,7 @@ margin: 0 auto;
 }
 .cert-dots span.active {
   background: #003366;
-  transform: scale(1.25);
+  transform: scale(1);
 }
 
 /* Responsive tweaks */
