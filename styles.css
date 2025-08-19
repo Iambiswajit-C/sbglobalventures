@@ -454,9 +454,10 @@ margin: 0 auto;
   .cert-arrow.next { right: 0px; }
 }
 @media (max-width: 480px) {
-  .cert-slide { flex: 0 0 100%; height: 100px; margin: 0 6px; }
-  .cert-arrow.prev { left: 10px; }
-  .cert-arrow.next { right: 10px; }
+  .cert-slide { flex: 0 0 calc(33.333% - 15px); height: 110px; margin: 0 6px; }
+  .cert-arrow { font-size: 1.6rem; padding: 8px 10px; }
+  .cert-arrow.prev { left: 0px; }
+  .cert-arrow.next { right: 0px; }
 }
 
 /* About Company Section */
