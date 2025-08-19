@@ -227,18 +227,27 @@ document.addEventListener("DOMContentLoaded", function () {
  }
 
  function goTo(i, animate = true) {
- index = i;
- const vw = viewport.getBoundingClientRect().width;
- const tx = vw / 2 - slideW / 2 - index * slideW; // center current card
- if (!animate) track.style.transition = "none";
- track.style.transform = `translateX(${tx}px)`;
- if (!animate) {
- // force reflow, then restore transition
- void track.offsetHeight;
- track.style.transition = "";
- }
- updateActive();
- }
+index = i;
+const vw = viewport.getBoundingClientRect().width;
+
+let tx;
+if (visible === 1) {
+// mobile → center 1 slide
+tx = vw / 2 - slideW / 2 - index * slideW;
+} else {
+// desktop/tablet → center 3 slides (left, center, right)
+tx = vw / 2 - (slideW * 1.5) - index * slideW;
+}
+
+if (!animate) track.style.transition = "none";
+track.style.transform = `translateX(${tx}px)`;
+if (!animate) {
+void track.offsetHeight;
+track.style.transition = "";
+}
+updateActive();
+}
+
 
  function next() { goTo(index + 1, true); }
  function prev() { goTo(index - 1, true); }
