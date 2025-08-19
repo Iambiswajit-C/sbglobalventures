@@ -207,6 +207,7 @@ header.header.sticky {
   z-index: 2;
 }
 
+/* Arrows */
 .hero-arrow {
   position: absolute;
   top: 50%;
@@ -246,6 +247,7 @@ header.header.sticky {
 .hero-dots span.active {
   background: #f9b700;
 }
+
 
 /* About Section */
 .why-choose-us {
@@ -589,4 +591,3 @@ header.header.sticky {
     background-position: center center;
   }
 }
-
