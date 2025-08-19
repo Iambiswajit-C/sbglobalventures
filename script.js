@@ -173,38 +173,40 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --- CERTIFICATIONS CAROUSEL ---
+  const certViewport = document.querySelector(".cert-viewport");
   const certTrack = document.querySelector(".cert-track");
-  const certSlides = document.querySelectorAll(".cert-slide");
+  const certSlides = certTrack ? certTrack.querySelectorAll(".cert-slide") : [];
   const certPrev = document.querySelector(".cert-arrow.prev");
   const certNext = document.querySelector(".cert-arrow.next");
   const certDotsContainer = document.querySelector(".cert-dots");
-
   let certCurrent = 0;
   let certInterval;
 
-  if (certTrack && certSlides.length > 0) {
-    // Create dots dynamically
-    certSlides.forEach((_, i) => {
-      const dot = document.createElement("span");
-      if (i === 0) dot.classList.add("active");
-      certDotsContainer.appendChild(dot);
-    });
-    const certDots = certDotsContainer.querySelectorAll("span");
+  if (certViewport && certTrack && certSlides.length > 0) {
+    // Build dots
+    if (certDotsContainer) {
+      certSlides.forEach((_, i) => {
+        const d = document.createElement("span");
+        if (i === 0) d.classList.add("active");
+        certDotsContainer.appendChild(d);
+      });
+    }
+    const certDots = certDotsContainer
+      ? certDotsContainer.querySelectorAll("span")
+      : [];
 
     function showCertSlide(index) {
-      certSlides.forEach((slide, i) => {
-        slide.classList.remove("active");
-        certDots[i].classList.remove("active");
-      });
+      certCurrent = index;
 
-      certSlides[index].classList.add("active");
-      certDots[index].classList.add("active");
+      // active state
+      certSlides.forEach((s, i) => s.classList.toggle("active", i === index));
+      certDots.forEach((d, i) => d.classList.toggle("active", i === index));
 
-      const slideWidth = certSlides[0].offsetWidth + 30; 
-      let visibleCount = window.innerWidth <= 480 ? 1 : 3;
-      const offset = -index * slideWidth + (visibleCount === 1 
-        ? (certTrack.offsetWidth / 2 - slideWidth / 2)
-        : (certTrack.offsetWidth / 2 - slideWidth * 1.5));
+      const slideWidth = certSlides[0].offsetWidth + 30;
+      let visibleCount = window.innerWidth <= 768 ? 1 : 3;
+
+      // Proper centering for 1 or 3 visible slides
+      const offset = -(index * slideWidth) + (certViewport.offsetWidth / visibleCount / 2 - slideWidth / 2);
 
       certTrack.style.transform = `translateX(${offset}px)`;
     }
@@ -213,7 +215,6 @@ document.addEventListener("DOMContentLoaded", function () {
       certCurrent = (certCurrent + 1) % certSlides.length;
       showCertSlide(certCurrent);
     }
-
     function prevCert() {
       certCurrent = (certCurrent - 1 + certSlides.length) % certSlides.length;
       showCertSlide(certCurrent);
@@ -226,6 +227,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     certNext && certNext.addEventListener("click", () => { nextCert(); resetCertInterval(); });
     certPrev && certPrev.addEventListener("click", () => { prevCert(); resetCertInterval(); });
+
     certDots.forEach((dot, i) => {
       dot.addEventListener("click", () => {
         certCurrent = i;
@@ -234,11 +236,14 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
+    // Auto-slide every 5s
     function startCertAutoSlide() {
       certInterval = setInterval(nextCert, 5000);
     }
 
-    showCertSlide(certCurrent);
+    window.addEventListener("resize", () => showCertSlide(certCurrent));
+
+    showCertSlide(0);
     startCertAutoSlide();
   }
 });
