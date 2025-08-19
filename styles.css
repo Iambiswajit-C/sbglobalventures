@@ -396,6 +396,7 @@ header.header.sticky {
 }
 .cert-viewport {
 position: flex;
+justify-content: center;
 overflow: hidden;
 width: 100%;
 margin: 0 auto;
