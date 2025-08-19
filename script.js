@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
 
-        // MENU TOGGLE LOGIC (Improved)
+        // MENU TOGGLE LOGIC
         if (menuToggle && navMenu) {
           menuToggle.addEventListener("click", function (e) {
             e.stopPropagation();
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const dotsContainer = document.querySelector(".hero-dots");
   let current = 0;
   let slideInterval;
-  let isPaused = false; // Pause flag
+  let isPaused = false;
 
   if (slides.length > 0 && dotsContainer) {
     // Create dots dynamically
@@ -136,7 +136,6 @@ document.addEventListener("DOMContentLoaded", function () {
       isPaused = true;
     }
 
-    // Button events
     nextBtn && nextBtn.addEventListener("click", () => {
       nextSlide();
       if (!isPaused) {
@@ -152,7 +151,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    // Dot click events
     dots.forEach((dot, i) => {
       dot.addEventListener("click", () => {
         current = i;
@@ -164,91 +162,83 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
-    // Pause auto-slide when clicking on slide
     slides.forEach(slide => {
       slide.addEventListener("click", () => {
         stopAutoSlide();
       });
     });
 
-    // Initialize
     showSlide(current);
     startAutoSlide();
   }
 
   // --- CERTIFICATIONS CAROUSEL ---
-  const certViewport = document.querySelector(".cert-viewport");
   const certTrack = document.querySelector(".cert-track");
-  const certSlides = certTrack ? certTrack.querySelectorAll(".cert-slide") : [];
+  const certSlides = document.querySelectorAll(".cert-slide");
   const certPrev = document.querySelector(".cert-arrow.prev");
   const certNext = document.querySelector(".cert-arrow.next");
   const certDotsContainer = document.querySelector(".cert-dots");
+
   let certCurrent = 0;
+  let certInterval;
 
-  if (certViewport && certTrack && certSlides.length > 0) {
-    // Build dots
-    if (certDotsContainer) {
-      certSlides.forEach((_, i) => {
-        const d = document.createElement("span");
-        if (i === 0) d.classList.add("active");
-        certDotsContainer.appendChild(d);
+  if (certTrack && certSlides.length > 0) {
+    // Create dots dynamically
+    certSlides.forEach((_, i) => {
+      const dot = document.createElement("span");
+      if (i === 0) dot.classList.add("active");
+      certDotsContainer.appendChild(dot);
+    });
+    const certDots = certDotsContainer.querySelectorAll("span");
+
+    function showCertSlide(index) {
+      certSlides.forEach((slide, i) => {
+        slide.classList.remove("active");
+        certDots[i].classList.remove("active");
       });
-    }
-    const certDots = certDotsContainer
-      ? certDotsContainer.querySelectorAll("span")
-      : [];
 
-    function centerOffsetFor(index) {
-      const slide = certSlides[index];
-      const containerWidth = certViewport.clientWidth;
-      const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
-      // Translate track so the chosen slide center aligns with viewport center
-      return (containerWidth / 2) - slideCenter;
-    }
+      certSlides[index].classList.add("active");
+      certDots[index].classList.add("active");
 
-    function showCertSlide(index, animate = true) {
-      certCurrent = index;
-      certSlides.forEach((s, i) => s.classList.toggle("active", i === index));
-      certDots.forEach((d, i) => d.classList.toggle("active", i === index));
+      const slideWidth = certSlides[0].offsetWidth + 30; 
+      let visibleCount = window.innerWidth <= 480 ? 1 : 3;
+      const offset = -index * slideWidth + (visibleCount === 1 
+        ? (certTrack.offsetWidth / 2 - slideWidth / 2)
+        : (certTrack.offsetWidth / 2 - slideWidth * 1.5));
 
-      const x = centerOffsetFor(index);
-      if (!animate) certTrack.style.transition = "none";
-      certTrack.style.transform = `translateX(${x}px)`;
-      if (!animate) {
-        // Re-enable smooth transition for subsequent moves
-        requestAnimationFrame(() => {
-          certTrack.style.transition = "transform 500ms ease";
-        });
-      }
+      certTrack.style.transform = `translateX(${offset}px)`;
     }
 
     function nextCert() {
-      const next = (certCurrent + 1) % certSlides.length;
-      showCertSlide(next);
+      certCurrent = (certCurrent + 1) % certSlides.length;
+      showCertSlide(certCurrent);
     }
+
     function prevCert() {
-      const prev = (certCurrent - 1 + certSlides.length) % certSlides.length;
-      showCertSlide(prev);
+      certCurrent = (certCurrent - 1 + certSlides.length) % certSlides.length;
+      showCertSlide(certCurrent);
     }
 
-    // Arrows
-    certNext && certNext.addEventListener("click", nextCert);
-    certPrev && certPrev.addEventListener("click", prevCert);
+    function resetCertInterval() {
+      clearInterval(certInterval);
+      certInterval = setInterval(nextCert, 5000);
+    }
 
-    // Dots
+    certNext && certNext.addEventListener("click", () => { nextCert(); resetCertInterval(); });
+    certPrev && certPrev.addEventListener("click", () => { prevCert(); resetCertInterval(); });
     certDots.forEach((dot, i) => {
-      dot.addEventListener("click", () => showCertSlide(i));
+      dot.addEventListener("click", () => {
+        certCurrent = i;
+        showCertSlide(certCurrent);
+        resetCertInterval();
+      });
     });
 
-    // Auto-slide every 5s (keeps running regardless of clicks)
-    setInterval(nextCert, 5000);
+    function startCertAutoSlide() {
+      certInterval = setInterval(nextCert, 5000);
+    }
 
-    // Recenter on resize (no animation to avoid jump)
-    window.addEventListener("resize", () => showCertSlide(certCurrent, false));
-
-    // Init
-    // Ensure starting transform is correct and the active styling is applied
-    certTrack.style.transition = "transform 500ms ease";
-    showCertSlide(0, false);
+    showCertSlide(certCurrent);
+    startCertAutoSlide();
   }
 });
