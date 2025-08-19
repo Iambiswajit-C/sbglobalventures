@@ -173,72 +173,79 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --- CERTIFICATIONS CAROUSEL ---
-  const certTrack = document.querySelector(".cert-track");
-  const certSlides = document.querySelectorAll(".cert-slide");
-  const certPrev = document.querySelector(".cert-arrow.prev");
-  const certNext = document.querySelector(".cert-arrow.next");
-  const certDotsContainer = document.querySelector(".cert-dots");
+// --- CERTIFICATIONS CAROUSEL ---
+const certTrack = document.querySelector(".cert-track");
+const certSlides = document.querySelectorAll(".cert-slide");
+const certPrev = document.querySelector(".cert-arrow.prev");
+const certNext = document.querySelector(".cert-arrow.next");
+const certDotsContainer = document.querySelector(".cert-dots");
 
-  let certCurrent = 0;
-  let certInterval;
+let certCurrent = 0;
+let certInterval;
 
-  if (certTrack && certSlides.length > 0) {
-    // Create dots dynamically
-    certSlides.forEach((_, i) => {
-      const dot = document.createElement("span");
-      if (i === 0) dot.classList.add("active");
-      certDotsContainer.appendChild(dot);
-    });
-    const certDots = certDotsContainer.querySelectorAll("span");
-
-    function showCertSlide(index) {
-      certSlides.forEach((slide, i) => {
-        slide.classList.remove("active");
-        certDots[i].classList.remove("active");
-      });
-
-      certSlides[index].classList.add("active");
-      certDots[index].classList.add("active");
-
-      const slideWidth = certSlides[0].offsetWidth + 30; 
-      let visibleCount = window.innerWidth <= 480 ? 1 : 3;
-      const offset = -index * slideWidth + (visibleCount === 1 
-        ? (certTrack.offsetWidth / 2 - slideWidth / 2)
-        : (certTrack.offsetWidth / 2 - slideWidth * 1.5));
-
-      certTrack.style.transform = `translateX(${offset}px)`;
-    }
-
-    function nextCert() {
-      certCurrent = (certCurrent + 1) % certSlides.length;
-      showCertSlide(certCurrent);
-    }
-
-    function prevCert() {
-      certCurrent = (certCurrent - 1 + certSlides.length) % certSlides.length;
-      showCertSlide(certCurrent);
-    }
-
-    function resetCertInterval() {
-      clearInterval(certInterval);
-      certInterval = setInterval(nextCert, 5000);
-    }
-
-    certNext && certNext.addEventListener("click", () => { nextCert(); resetCertInterval(); });
-    certPrev && certPrev.addEventListener("click", () => { prevCert(); resetCertInterval(); });
-    certDots.forEach((dot, i) => {
-      dot.addEventListener("click", () => {
-        certCurrent = i;
-        showCertSlide(certCurrent);
-        resetCertInterval();
-      });
-    });
-
-    function startCertAutoSlide() {
-      certInterval = setInterval(nextCert, 5000);
-    }
-
-    showCertSlide(certCurrent);
-    startCertAutoSlide();
-  }
+// Create dots dynamically
+certSlides.forEach((_, i) => {
+  const dot = document.createElement("span");
+  if (i === 0) dot.classList.add("active");
+  certDotsContainer.appendChild(dot);
 });
+const certDots = certDotsContainer.querySelectorAll("span");
+
+// Show slides
+function showCertSlide(index) {
+  // remove all states
+  certSlides.forEach((slide, i) => {
+    slide.classList.remove("active");
+    certDots[i].classList.remove("active");
+  });
+
+  // Add active to center
+  certSlides[index].classList.add("active");
+  certDots[index].classList.add("active");
+
+  // Calculate offset
+  const slideWidth = certSlides[0].offsetWidth + 30; // width + margin
+  let visibleCount = window.innerWidth <= 480 ? 1 : 3;
+  const offset = -index * slideWidth + (visibleCount === 1 
+    ? (certTrack.offsetWidth / 2 - slideWidth / 2)
+    : (certTrack.offsetWidth / 2 - slideWidth * 1.5));
+
+  certTrack.style.transform = `translateX(${offset}px)`;
+}
+
+function nextCert() {
+  certCurrent = (certCurrent + 1) % certSlides.length;
+  showCertSlide(certCurrent);
+}
+
+function prevCert() {
+  certCurrent = (certCurrent - 1 + certSlides.length) % certSlides.length;
+  showCertSlide(certCurrent);
+}
+
+// Restart interval on manual click
+function resetCertInterval() {
+  clearInterval(certInterval);
+  certInterval = setInterval(nextCert, 5000);
+}
+
+// Events
+if (certNext) certNext.addEventListener("click", () => { nextCert(); resetCertInterval(); });
+if (certPrev) certPrev.addEventListener("click", () => { prevCert(); resetCertInterval(); });
+certDots.forEach((dot, i) => {
+  dot.addEventListener("click", () => {
+    certCurrent = i;
+    showCertSlide(certCurrent);
+    resetCertInterval();
+  });
+});
+
+// Auto-slide every 5s
+function startCertAutoSlide() {
+  certInterval = setInterval(nextCert, 5000);
+}
+
+// Initialize
+showCertSlide(certCurrent);
+startCertAutoSlide();
+
