@@ -393,11 +393,9 @@ header.header.sticky {
   box-shadow: 0 6px 18px rgba(0,0,0,0.15);
   z-index: 2;
 }
-/* Make the viewport a real window we can size & center from JS */
 .cert-viewport {
 overflow: hidden;
 margin: 0 auto;
-/* width is set by JS so only 3 (or 1) slides are visible */
 }
 
 /* Arrows */
