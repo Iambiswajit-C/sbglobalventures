@@ -226,27 +226,19 @@ document.addEventListener("DOMContentLoaded", function () {
  dots[realIdx()].classList.add("active");
  }
 
-function goTo(i, animate = true) {
-index = i;
-const vw = viewport.getBoundingClientRect().width;
-
-let tx;
-if (visible === 1) {
-// Mobile → center 1 slide
-tx = vw / 2 - slideW / 2 - index * slideW;
-} else if (visible === 3) {
-// Desktop/Tablet → center middle slide
-tx = vw / 2 - (slideW * visible) / 2 - index * slideW;
-}
-
-if (!animate) track.style.transition = "none";
-track.style.transform = `translateX(${tx}px)`;
-if (!animate) {
-void track.offsetHeight; // reflow
-track.style.transition = "";
-}
-updateActive();
-}
+ function goTo(i, animate = true) {
+ index = i;
+ const vw = viewport.getBoundingClientRect().width;
+ const tx = vw / 2 - slideW / 2 - index * slideW; // center current card
+ if (!animate) track.style.transition = "none";
+ track.style.transform = `translateX(${tx}px)`;
+ if (!animate) {
+ // force reflow, then restore transition
+ void track.offsetHeight;
+ track.style.transition = "";
+ }
+ updateActive();
+ }
 
  function next() { goTo(index + 1, true); }
  function prev() { goTo(index - 1, true); }
