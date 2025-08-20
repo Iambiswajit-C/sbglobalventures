@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
  // ================= HEADER LOAD =================
- fetch('/header.html')
+ fetch('header.html') // relative path works on homepage & other pages
  .then(response => response.text())
  .then(data => {
  const headerContainer = document.getElementById('header');
@@ -72,31 +72,33 @@ document.addEventListener("DOMContentLoaded", function () {
  }
  });
 
- // === MENU TOGGLE ===
-if (menuToggle && navMenu) {
-menuToggle.addEventListener("click", function (e) {
-e.preventDefault();
-e.stopPropagation();
-navMenu.classList.toggle("show");
-menuToggle.classList.toggle("active"); // optional
-});
+ // === MENU TOGGLE (MOBILE) ===
+ if (menuToggle && navMenu) {
+ menuToggle.addEventListener("click", function (e) {
+ e.preventDefault();
+ e.stopPropagation();
+ navMenu.classList.toggle("show");
+ menuToggle.classList.toggle("active");
+ });
 
-// Close menu when a link is clicked
-navMenu.querySelectorAll("a").forEach(link => {
-link.addEventListener("click", () => {
-navMenu.classList.remove("show");
-menuToggle.classList.remove("active");
-});
-});
+ // Close menu when clicking a link
+ navMenu.querySelectorAll("a").forEach(link => {
+ link.addEventListener("click", () => {
+ navMenu.classList.remove("show");
+ menuToggle.classList.remove("active");
+ });
+ });
+ }
 
-// Close when clicking outside
-document.addEventListener("click", function (e) {
-if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-navMenu.classList.remove("show");
-menuToggle.classList.remove("active");
-}
-});
-}
+ // === ADD DROPDOWN ARROWS ON DESKTOP ===
+ headerContainer.querySelectorAll(".nav-menu li:has(ul)").forEach(item => {
+ const arrow = document.createElement("span");
+ arrow.classList.add("dropdown-arrow");
+ arrow.innerHTML = "▼";
+ item.querySelector("a").appendChild(arrow);
+ });
+ }
+ });
 
  // ================= HERO SLIDER =================
  const slides = document.querySelectorAll(".hero-slide");
@@ -208,11 +210,10 @@ menuToggle.classList.remove("active");
  let timer = null;
 
  // Helpers
-function computeSlideW() {
-// Instead of dynamic width, use a fixed percentage of viewport width
-const viewportWidth = viewport.getBoundingClientRect().width;
-return viewportWidth / visible; // ensures equal distribution
-}
+ function computeSlideW() {
+ const viewportWidth = viewport.getBoundingClientRect().width;
+ return viewportWidth / visible; // equal share
+ }
 
  function setViewportWidth() {
  visible = window.innerWidth <= 480 ? 1 : 3;
@@ -222,7 +223,6 @@ return viewportWidth / visible; // ensures equal distribution
  }
 
  function realIdx() {
- // map current 'index' (including clones) to 0..realCount-1
  return ((index - cloneCount) % realCount + realCount) % realCount;
  }
 
@@ -236,11 +236,10 @@ return viewportWidth / visible; // ensures equal distribution
  function goTo(i, animate = true) {
  index = i;
  const vw = viewport.getBoundingClientRect().width;
- const tx = vw / 2 - slideW / 2 - index * slideW; // center current card
+ const tx = vw / 2 - slideW / 2 - index * slideW;
  if (!animate) track.style.transition = "none";
  track.style.transform = `translateX(${tx}px)`;
  if (!animate) {
- // force reflow, then restore transition
  void track.offsetHeight;
  track.style.transition = "";
  }
@@ -254,67 +253,57 @@ return viewportWidth / visible; // ensures equal distribution
  function stop() { if (timer) clearInterval(timer), (timer = null); }
 
  function buildClones() {
- // remove existing clones
  track.querySelectorAll(".cert-slide.is-clone").forEach(n => n.remove());
-
- // rebuild from current real slides
  realSlides = Array.from(track.querySelectorAll(".cert-slide:not(.is-clone)"));
 
- // left clones
  for (let i = realCount - cloneCount; i < realCount; i++) {
  const c = realSlides[i].cloneNode(true);
  c.classList.add("is-clone");
  track.insertBefore(c, track.firstChild);
  }
- // right clones
  for (let i = 0; i < cloneCount; i++) {
  const c = realSlides[i].cloneNode(true);
  c.classList.add("is-clone");
  track.appendChild(c);
  }
-
  slides = Array.from(track.querySelectorAll(".cert-slide"));
  }
 
- // Keep the illusion of infinity: snap when we pass the edges.
  track.addEventListener("transitionend", () => {
  if (index >= realCount + cloneCount) {
- goTo(index - realCount, false); // jumped past the right edge -> snap back
+ goTo(index - realCount, false);
  } else if (index < cloneCount) {
- goTo(index + realCount, false); // jumped past the left edge -> snap forward
+ goTo(index + realCount, false);
  }
  });
 
- // Controls
  nextBtn && nextBtn.addEventListener("click", () => { next(); start(); });
  prevBtn && prevBtn.addEventListener("click", () => { prev(); start(); });
  dots.forEach((d, i) => d.addEventListener("click", () => { goTo(i + cloneCount, true); start(); }));
 
- // Resize: keep current real slide centered, rebuild clones if visible count changed
-window.addEventListener("resize", () => {
-const oldVisible = visible;
-const keepReal = realIdx();
+ window.addEventListener("resize", () => {
+ const oldVisible = visible;
+ const keepReal = realIdx();
 
-visible = window.innerWidth <= 480 ? 1 : 3;
-cloneCount = visible;
+ visible = window.innerWidth <= 480 ? 1 : 3;
+ cloneCount = visible;
 
-if (oldVisible !== visible) {
-buildClones();
-index = cloneCount + keepReal;
-} else {
-slides = Array.from(track.querySelectorAll(".cert-slide"));
-}
+ if (oldVisible !== visible) {
+ buildClones();
+ index = cloneCount + keepReal;
+ } else {
+ slides = Array.from(track.querySelectorAll(".cert-slide"));
+ }
 
-slideW = computeSlideW(); // <-- new calculation
-viewport.style.maxWidth = (slideW * visible) + "px";
-goTo(index, false);
-});
+ slideW = computeSlideW();
+ viewport.style.maxWidth = (slideW * visible) + "px";
+ goTo(index, false);
+ });
 
- // Init after images load to get correct sizes
  function init() {
  cloneCount = visible;
  buildClones();
- index = cloneCount; // start on the first real slide
+ index = cloneCount;
  slideW = computeSlideW();
  setViewportWidth();
  goTo(index, false);
@@ -337,10 +326,12 @@ goTo(index, false);
  }
  })();
 
+ // ================= MOBILE DROPDOWN TOGGLES =================
  document.querySelectorAll(".mobile-dropdown-toggle").forEach(toggle => {
-toggle.addEventListener("click", e => {
-e.preventDefault();
-const parent = toggle.parentElement;
-parent.classList.toggle("open");
-});
+ toggle.addEventListener("click", e => {
+ e.preventDefault();
+ const parent = toggle.parentElement;
+ parent.classList.toggle("open");
+ });
+ });
 });
