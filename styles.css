@@ -548,6 +548,13 @@ padding: 8px 10px;
  }
  }
 
+.category-card,
+.product-card {
+text-decoration: none;
+color: inherit;
+display: block; /* ensures clickable area covers entire card */
+}
+
 /* Contact us Page */
 .contact-wrapper {
       display: flex;
