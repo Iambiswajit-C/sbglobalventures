@@ -846,6 +846,23 @@ display: block; /* ensures clickable area covers entire card */
     font-size: 1rem;
   }
 
+  {
+.dropdown .dropdown-menu {
+display: none;
+flex-direction: column;
+background: #f9f9f9;
+padding-left: 15px;
+}
+.dropdown.open .dropdown-menu {
+display: flex;
+}
+.mobile-dropdown-toggle {
+display: block;
+padding: 10px;
+cursor: pointer;
+}
+}
+
   .hero h2 {
     font-size: 2rem;
   }
