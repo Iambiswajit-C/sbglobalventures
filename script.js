@@ -73,15 +73,15 @@ document.addEventListener("DOMContentLoaded", function () {
  });
 
  // === MENU TOGGLE ===
- if (menuToggle && navMenu) {
+if (menuToggle && navMenu) {
 menuToggle.addEventListener("click", function (e) {
 e.preventDefault();
 e.stopPropagation();
 navMenu.classList.toggle("show");
-menuToggle.classList.toggle("active"); // optional: animate hamburger
+menuToggle.classList.toggle("active"); // optional
 });
 
-// Close menu when a link is clicked (important for mobile UX)
+// Close menu when a link is clicked
 navMenu.querySelectorAll("a").forEach(link => {
 link.addEventListener("click", () => {
 navMenu.classList.remove("show");
@@ -89,7 +89,7 @@ menuToggle.classList.remove("active");
 });
 });
 
-// Close menu if clicking outside both menu and toggle
+// Close when clicking outside
 document.addEventListener("click", function (e) {
 if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
 navMenu.classList.remove("show");
@@ -343,6 +343,4 @@ e.preventDefault();
 const parent = toggle.parentElement;
 parent.classList.toggle("open");
 });
-});
-
 });
