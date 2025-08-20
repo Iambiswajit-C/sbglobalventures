@@ -74,21 +74,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
  // === MENU TOGGLE ===
  if (menuToggle && navMenu) {
- menuToggle.addEventListener("click", function (e) {
- e.stopPropagation();
- navMenu.classList.toggle("show");
- });
+menuToggle.addEventListener("click", function (e) {
+e.preventDefault();
+e.stopPropagation();
+navMenu.classList.toggle("show");
+menuToggle.classList.toggle("active"); // optional: animate hamburger
+});
 
- document.addEventListener("click", function (e) {
- const isClickInsideMenu = navMenu.contains(e.target);
- const isClickOnToggle = menuToggle.contains(e.target);
- if (!isClickInsideMenu && !isClickOnToggle) {
- navMenu.classList.remove("show");
- }
- });
- }
- }
- });
+// Close menu when a link is clicked (important for mobile UX)
+navMenu.querySelectorAll("a").forEach(link => {
+link.addEventListener("click", () => {
+navMenu.classList.remove("show");
+menuToggle.classList.remove("active");
+});
+});
+
+// Close menu if clicking outside both menu and toggle
+document.addEventListener("click", function (e) {
+if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+navMenu.classList.remove("show");
+menuToggle.classList.remove("active");
+}
+});
+}
 
  // ================= HERO SLIDER =================
  const slides = document.querySelectorAll(".hero-slide");
