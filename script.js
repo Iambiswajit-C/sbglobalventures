@@ -200,12 +200,11 @@ document.addEventListener("DOMContentLoaded", function () {
  let timer = null;
 
  // Helpers
- function computeSlideW() {
- const s = slides[index];
- const cs = getComputedStyle(s);
- const margin = parseFloat(cs.marginLeft) + parseFloat(cs.marginRight);
- return s.getBoundingClientRect().width + margin;
- }
+function computeSlideW() {
+// Instead of dynamic width, use a fixed percentage of viewport width
+const viewportWidth = viewport.getBoundingClientRect().width;
+return viewportWidth / visible; // ensures equal distribution
+}
 
  function setViewportWidth() {
  visible = window.innerWidth <= 480 ? 1 : 3;
@@ -284,24 +283,24 @@ document.addEventListener("DOMContentLoaded", function () {
  dots.forEach((d, i) => d.addEventListener("click", () => { goTo(i + cloneCount, true); start(); }));
 
  // Resize: keep current real slide centered, rebuild clones if visible count changed
- window.addEventListener("resize", () => {
- const oldVisible = visible;
- const keepReal = realIdx();
+window.addEventListener("resize", () => {
+const oldVisible = visible;
+const keepReal = realIdx();
 
- visible = window.innerWidth <= 480 ? 1 : 3;
- cloneCount = visible;
+visible = window.innerWidth <= 480 ? 1 : 3;
+cloneCount = visible;
 
- if (oldVisible !== visible) {
- buildClones();
- index = cloneCount + keepReal;
- } else {
- slides = Array.from(track.querySelectorAll(".cert-slide"));
- }
+if (oldVisible !== visible) {
+buildClones();
+index = cloneCount + keepReal;
+} else {
+slides = Array.from(track.querySelectorAll(".cert-slide"));
+}
 
- slideW = computeSlideW();
- viewport.style.maxWidth = (slideW * visible) + "px";
- goTo(index, false);
- });
+slideW = computeSlideW(); // <-- new calculation
+viewport.style.maxWidth = (slideW * visible) + "px";
+goTo(index, false);
+});
 
  // Init after images load to get correct sizes
  function init() {
