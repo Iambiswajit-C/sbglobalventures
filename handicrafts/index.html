@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Explore our range of export-quality Indian products at SB Global Ventures India. From handicrafts to electronics, find your ideal category." />
-  <title>SB Global Ventures - Handicrafts</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css" />
-  <link rel="icon" type="image/png" href="/images/favicon-sb-global-ventures.png" />
-  <style>
-    .hero {
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <meta name="description" content="Export-quality eco-friendly handicrafts from India – water hyacinth baskets, jute bags, cotton products, bamboo hanging décor. Discover sustainable handmade crafts." />
+ <title>SB Global Ventures - Handicrafts</title>
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+ <link rel="stylesheet" href="/styles.css" />
+ <link rel="icon" type="image/png" href="/images/favicon-sb-global-ventures.png" />
+
+ <!-- Hero Section Styles (unique per page) -->
+ <style>
+ .hero {
       background-image: url('/images/handicrafts.jpg');
       background-size: cover;
       background-position: center;
@@ -20,7 +22,7 @@
       color: white;
       text-align: center;
     }
-  </style>
+ </style>
   <link rel="canonical" href="https://sbglobalventures.com/handicrafts/" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
 <link
@@ -30,73 +32,97 @@
   crossorigin="anonymous"
 />
 </head>
+<body>
 
-  <!-- Header Placeholder -->
-  <div id="header"></div>
+ <!-- Header Placeholder -->
+ <div id="header"></div>
 
+ <!-- Hero -->
+ <section class="hero-handicrafts">
+ <h1>Eco-Friendly Indian Handicrafts</h1>
+ </section>
 
-  <div id="footer-placeholder"></div>
-<script>
-  fetch('/footer.html')
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById('footer-placeholder').innerHTML = data;
-    });
-</script>
+ <main class="product-page">
 
-  <!-- Load Header Script -->
-  <script>
-    document.addEventListener("DOMContentLoaded", async function () {
-      const toggleButton = document.querySelector(".menu-toggle");
-      const navMenu = document.querySelector(".nav-menu");
-      if (toggleButton && navMenu) {
-        toggleButton.addEventListener("click", function () {
-          navMenu.classList.toggle("show");
-        });
-      }
+ <!-- ============ Water Hyacinth Section ============ -->
+ <section class="product-category">
+ <div class="category-content">
+ <div class="category-image">
+ <img src="/images/water-hyacinth.jpg" alt="Water Hyacinth Handicrafts">
+ </div>
+ <div class="category-text">
+ <h2>Water Hyacinth Handicrafts</h2>
+ <p>
+ Discover our <strong>eco-friendly water hyacinth handicrafts</strong> – a perfect blend of sustainability and traditional artistry. Our collection includes baskets, trays, and home décor items that are handwoven by skilled artisans. These <em>natural fiber products</em> are lightweight, durable, and ideal for <strong>export-quality home décor</strong>. Perfect for buyers seeking <strong>sustainable Indian handicrafts</strong> with modern utility.
+ </p>
+ </div>
+ </div>
 
-      // Load shared header.html if using dynamic inclusion
-      const header = document.getElementById("header");
-      if (header) {
-        try {
-          const res = await fetch("/header.html");
-          const html = await res.text();
-          header.innerHTML = html;
-        } catch (err) {
-          console.error("Header failed to load:", err);
-        }
-      }
-    });
-  </script>
+ <div class="product-gallery">
+ <img src="/images/hyacinth-basket1.jpg" alt="Water Hyacinth Basket 1">
+ <img src="/images/hyacinth-basket2.jpg" alt="Water Hyacinth Basket 2">
+ <img src="/images/hyacinth-basket3.jpg" alt="Water Hyacinth Basket 3">
+ <img src="/images/hyacinth-basket4.jpg" alt="Water Hyacinth Basket 4">
+ </div>
+ </section>
 
-  <!-- Main Script -->
-  <script src="/script.js"></script>
-  <script>
-  // Sticky header toggle
-  window.addEventListener('scroll', () => {
-    const header = document.querySelector('.header');
-    if (window.scrollY > 50) {
-      header.classList.add('sticky');
-    } else {
-      header.classList.remove('sticky');
-    }
-  });
+ <!-- ============ Jute Section ============ -->
+ <section class="product-category">
+ <div class="category-content">
+ <div class="category-image">
+ <img src="/images/jute-products.jpg" alt="Jute Handicrafts">
+ </div>
+ <div class="category-text">
+ <h2>Jute Products</h2>
+ <p>
+ Our <strong>jute handicrafts</strong> include rugs, baskets, and eco-friendly bags. Known as the "golden fiber," jute is completely biodegradable and one of the most popular <em>sustainable materials</em>. Our jute products combine durability with traditional Indian weaving techniques, making them ideal for <strong>export markets seeking eco-conscious products</strong>.
+ </p>
+ </div>
+ </div>
 
-  // Mobile menu toggle
-  const toggleBtn = document.querySelector('.menu-toggle');
-  const navMenu = document.querySelector('.nav-menu');
+ <div class="product-gallery">
+ <img src="/images/jute-rug.jpg" alt="Jute Rug">
+ <img src="/images/jute-basket.jpg" alt="Jute Basket">
+ <img src="/images/jute-bag1.jpg" alt="Jute Bag">
+ <img src="/images/jute-bag2.jpg" alt="Jute Bag">
+ </div>
+ </section>
 
-  toggleBtn.addEventListener('click', () => {
-    navMenu.classList.toggle('show');
-  });
+ <!-- ============ Bamboo Section ============ -->
+ <section class="product-category">
+ <div class="category-content">
+ <div class="category-image">
+ <img src="/images/bamboo-products.jpg" alt="Bamboo Handicrafts">
+ </div>
+ <div class="category-text">
+ <h2>Bamboo Products</h2>
+ <p>
+ Our <strong>bamboo handicrafts</strong> feature ceiling hangings, baskets, and elegant home décor items. Bamboo is a fast-growing, renewable material that represents <em>eco-friendly living</em>. Handcrafted by rural artisans, these products are lightweight yet strong, giving your customers a chance to embrace <strong>sustainable lifestyle products</strong> from India.
+ </p>
+ </div>
+ </div>
 
-  // Optional: Close menu after clicking a link (mobile)
-  document.querySelectorAll('.nav-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-      navMenu.classList.remove('show');
-    });
-  });
-</script>
+ <div class="product-gallery">
+ <img src="/images/bamboo-hanging1.jpg" alt="Bamboo Hanging Décor 1">
+ <img src="/images/bamboo-hanging2.jpg" alt="Bamboo Hanging Décor 2">
+ <img src="/images/bamboo-basket.jpg" alt="Bamboo Basket">
+ <img src="/images/bamboo-decor.jpg" alt="Bamboo Décor">
+ </div>
+ </section>
 
+ </main>
+
+ <!-- Footer Placeholder -->
+ <div id="footer-placeholder"></div>
+ <script>
+ fetch('/footer.html')
+ .then(res => res.text())
+ .then(data => {
+ document.getElementById('footer-placeholder').innerHTML = data;
+ });
+ </script>
+
+ <!-- Scripts -->
+ <script src="/script.js"></script>
 </body>
 </html>
