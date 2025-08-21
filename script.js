@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
  // ================= HEADER LOAD =================
- fetch('/header.html') // fixed relative path
+ fetch('/header.html')
  .then(response => response.text())
  .then(data => {
  const headerContainer = document.getElementById('header');
@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
  const header = document.querySelector('header.header');
  const topBar = document.querySelector('.top-bar');
- const menuToggle = headerContainer.querySelector(".menu-toggle");
- const navMenu = headerContainer.querySelector(".nav-menu");
+ let menuToggle = headerContainer.querySelector(".menu-toggle");
+ let navMenu = headerContainer.querySelector(".nav-menu");
 
  // === CONTACT FORM SUBMISSION ===
  const contactForm = document.getElementById("contactForm");
@@ -72,17 +72,27 @@ document.addEventListener("DOMContentLoaded", function () {
  }
  });
 
- // === MENU TOGGLE (mobile) ===
+ // === MENU TOGGLE (fixed version) ===
  if (menuToggle && navMenu) {
+ // Replace old nodes to remove duplicate listeners
+ menuToggle.replaceWith(menuToggle.cloneNode(true));
+ navMenu.replaceWith(navMenu.cloneNode(true));
+
+ // Re-query fresh elements
+ menuToggle = headerContainer.querySelector(".menu-toggle");
+ navMenu = headerContainer.querySelector(".nav-menu");
+
+ // Toggle open/close
  menuToggle.addEventListener("click", function (e) {
- e.preventDefault();
  e.stopPropagation();
  navMenu.classList.toggle("show");
  });
 
- // Close menu when clicking outside
+ // Close when clicking outside
  document.addEventListener("click", function (e) {
- if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+ const isClickInsideMenu = navMenu.contains(e.target);
+ const isClickOnToggle = menuToggle.contains(e.target);
+ if (!isClickInsideMenu && !isClickOnToggle) {
  navMenu.classList.remove("show");
  }
  });
@@ -90,8 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
  }
  });
 
- // === HERO SLIDER ===
- // (unchanged, keeping your version)
+ // ================= HERO SLIDER =================
  const slides = document.querySelectorAll(".hero-slide");
  const prevBtn = document.querySelector(".hero-arrow.prev");
  const nextBtn = document.querySelector(".hero-arrow.next");
@@ -101,6 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
  let isPaused = false;
 
  if (slides.length > 0 && dotsContainer) {
+ // Create dots dynamically
  slides.forEach((_, i) => {
  const dot = document.createElement("span");
  if (i === 0) dot.classList.add("active");
@@ -170,8 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
  startAutoSlide();
  }
 
- // === CERTIFICATIONS CAROUSEL ===
- // (unchanged, keeping your version)
+ // ================= CERTIFICATIONS CAROUSEL =================
  (function () {
  const viewport = document.querySelector(".cert-viewport");
  const track = document.querySelector(".cert-track");
@@ -180,6 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
  const dotsWrap = document.querySelector(".cert-dots");
  if (!viewport || !track) return;
 
+ // Real slides & dots
  let realSlides = Array.from(track.querySelectorAll(".cert-slide:not(.is-clone)"));
  const realCount = realSlides.length;
 
@@ -191,16 +201,18 @@ document.addEventListener("DOMContentLoaded", function () {
  }
  const dots = Array.from(dotsWrap.children);
 
+ // State
  let visible = window.innerWidth <= 480 ? 1 : 3;
- let cloneCount = visible;
- let index;
- let slides;
- let slideW = 0;
+ let cloneCount = visible; // clones on each side = visible count
+ let index; // current index in the full (cloned) list
+ let slides; // all slides including clones
+ let slideW = 0; // width incl. margins
  let timer = null;
 
+ // Helpers
  function computeSlideW() {
  const viewportWidth = viewport.getBoundingClientRect().width;
- return viewportWidth / visible;
+ return viewportWidth / visible; // ensures equal distribution
  }
 
  function setViewportWidth() {
@@ -224,7 +236,7 @@ document.addEventListener("DOMContentLoaded", function () {
  function goTo(i, animate = true) {
  index = i;
  const vw = viewport.getBoundingClientRect().width;
- const tx = vw / 2 - slideW / 2 - index * slideW;
+ const tx = vw / 2 - slideW / 2 - index * slideW; // center current card
  if (!animate) track.style.transition = "none";
  track.style.transform = `translateX(${tx}px)`;
  if (!animate) {
@@ -243,6 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
  function buildClones() {
  track.querySelectorAll(".cert-slide.is-clone").forEach(n => n.remove());
  realSlides = Array.from(track.querySelectorAll(".cert-slide:not(.is-clone)"));
+
  for (let i = realCount - cloneCount; i < realCount; i++) {
  const c = realSlides[i].cloneNode(true);
  c.classList.add("is-clone");
@@ -253,6 +266,7 @@ document.addEventListener("DOMContentLoaded", function () {
  c.classList.add("is-clone");
  track.appendChild(c);
  }
+
  slides = Array.from(track.querySelectorAll(".cert-slide"));
  }
 
@@ -313,7 +327,6 @@ document.addEventListener("DOMContentLoaded", function () {
  }
  })();
 
- // === MOBILE DROPDOWN TOGGLES ===
  document.querySelectorAll(".mobile-dropdown-toggle").forEach(toggle => {
  toggle.addEventListener("click", e => {
  e.preventDefault();
@@ -321,4 +334,5 @@ document.addEventListener("DOMContentLoaded", function () {
  parent.classList.toggle("open");
  });
  });
+
 });
