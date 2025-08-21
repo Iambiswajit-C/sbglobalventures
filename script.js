@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
  // ================= HEADER LOAD =================
- fetch('/header.html')
+ fetch('header.html') // fixed relative path
  .then(response => response.text())
  .then(data => {
  const headerContainer = document.getElementById('header');
@@ -72,17 +72,17 @@ document.addEventListener("DOMContentLoaded", function () {
  }
  });
 
- // === MENU TOGGLE ===
+ // === MENU TOGGLE (mobile) ===
  if (menuToggle && navMenu) {
  menuToggle.addEventListener("click", function (e) {
+ e.preventDefault();
  e.stopPropagation();
  navMenu.classList.toggle("show");
  });
 
+ // Close menu when clicking outside
  document.addEventListener("click", function (e) {
- const isClickInsideMenu = navMenu.contains(e.target);
- const isClickOnToggle = menuToggle.contains(e.target);
- if (!isClickInsideMenu && !isClickOnToggle) {
+ if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
  navMenu.classList.remove("show");
  }
  });
@@ -90,7 +90,8 @@ document.addEventListener("DOMContentLoaded", function () {
  }
  });
 
- // ================= HERO SLIDER =================
+ // === HERO SLIDER ===
+ // (unchanged, keeping your version)
  const slides = document.querySelectorAll(".hero-slide");
  const prevBtn = document.querySelector(".hero-arrow.prev");
  const nextBtn = document.querySelector(".hero-arrow.next");
@@ -100,7 +101,6 @@ document.addEventListener("DOMContentLoaded", function () {
  let isPaused = false;
 
  if (slides.length > 0 && dotsContainer) {
- // Create dots dynamically
  slides.forEach((_, i) => {
  const dot = document.createElement("span");
  if (i === 0) dot.classList.add("active");
@@ -170,7 +170,8 @@ document.addEventListener("DOMContentLoaded", function () {
  startAutoSlide();
  }
 
- // ================= CERTIFICATIONS CAROUSEL =================
+ // === CERTIFICATIONS CAROUSEL ===
+ // (unchanged, keeping your version)
  (function () {
  const viewport = document.querySelector(".cert-viewport");
  const track = document.querySelector(".cert-track");
@@ -179,7 +180,6 @@ document.addEventListener("DOMContentLoaded", function () {
  const dotsWrap = document.querySelector(".cert-dots");
  if (!viewport || !track) return;
 
- // Real slides & dots
  let realSlides = Array.from(track.querySelectorAll(".cert-slide:not(.is-clone)"));
  const realCount = realSlides.length;
 
@@ -191,20 +191,17 @@ document.addEventListener("DOMContentLoaded", function () {
  }
  const dots = Array.from(dotsWrap.children);
 
- // State
  let visible = window.innerWidth <= 480 ? 1 : 3;
- let cloneCount = visible; // clones on each side = visible count
- let index; // current index in the full (cloned) list
- let slides; // all slides including clones
- let slideW = 0; // width incl. margins
+ let cloneCount = visible;
+ let index;
+ let slides;
+ let slideW = 0;
  let timer = null;
 
- // Helpers
-function computeSlideW() {
-// Instead of dynamic width, use a fixed percentage of viewport width
-const viewportWidth = viewport.getBoundingClientRect().width;
-return viewportWidth / visible; // ensures equal distribution
-}
+ function computeSlideW() {
+ const viewportWidth = viewport.getBoundingClientRect().width;
+ return viewportWidth / visible;
+ }
 
  function setViewportWidth() {
  visible = window.innerWidth <= 480 ? 1 : 3;
@@ -214,7 +211,6 @@ return viewportWidth / visible; // ensures equal distribution
  }
 
  function realIdx() {
- // map current 'index' (including clones) to 0..realCount-1
  return ((index - cloneCount) % realCount + realCount) % realCount;
  }
 
@@ -228,11 +224,10 @@ return viewportWidth / visible; // ensures equal distribution
  function goTo(i, animate = true) {
  index = i;
  const vw = viewport.getBoundingClientRect().width;
- const tx = vw / 2 - slideW / 2 - index * slideW; // center current card
+ const tx = vw / 2 - slideW / 2 - index * slideW;
  if (!animate) track.style.transition = "none";
  track.style.transform = `translateX(${tx}px)`;
  if (!animate) {
- // force reflow, then restore transition
  void track.offsetHeight;
  track.style.transition = "";
  }
@@ -246,67 +241,56 @@ return viewportWidth / visible; // ensures equal distribution
  function stop() { if (timer) clearInterval(timer), (timer = null); }
 
  function buildClones() {
- // remove existing clones
  track.querySelectorAll(".cert-slide.is-clone").forEach(n => n.remove());
-
- // rebuild from current real slides
  realSlides = Array.from(track.querySelectorAll(".cert-slide:not(.is-clone)"));
-
- // left clones
  for (let i = realCount - cloneCount; i < realCount; i++) {
  const c = realSlides[i].cloneNode(true);
  c.classList.add("is-clone");
  track.insertBefore(c, track.firstChild);
  }
- // right clones
  for (let i = 0; i < cloneCount; i++) {
  const c = realSlides[i].cloneNode(true);
  c.classList.add("is-clone");
  track.appendChild(c);
  }
-
  slides = Array.from(track.querySelectorAll(".cert-slide"));
  }
 
- // Keep the illusion of infinity: snap when we pass the edges.
  track.addEventListener("transitionend", () => {
  if (index >= realCount + cloneCount) {
- goTo(index - realCount, false); // jumped past the right edge -> snap back
+ goTo(index - realCount, false);
  } else if (index < cloneCount) {
- goTo(index + realCount, false); // jumped past the left edge -> snap forward
+ goTo(index + realCount, false);
  }
  });
 
- // Controls
  nextBtn && nextBtn.addEventListener("click", () => { next(); start(); });
  prevBtn && prevBtn.addEventListener("click", () => { prev(); start(); });
  dots.forEach((d, i) => d.addEventListener("click", () => { goTo(i + cloneCount, true); start(); }));
 
- // Resize: keep current real slide centered, rebuild clones if visible count changed
-window.addEventListener("resize", () => {
-const oldVisible = visible;
-const keepReal = realIdx();
+ window.addEventListener("resize", () => {
+ const oldVisible = visible;
+ const keepReal = realIdx();
 
-visible = window.innerWidth <= 480 ? 1 : 3;
-cloneCount = visible;
+ visible = window.innerWidth <= 480 ? 1 : 3;
+ cloneCount = visible;
 
-if (oldVisible !== visible) {
-buildClones();
-index = cloneCount + keepReal;
-} else {
-slides = Array.from(track.querySelectorAll(".cert-slide"));
-}
+ if (oldVisible !== visible) {
+ buildClones();
+ index = cloneCount + keepReal;
+ } else {
+ slides = Array.from(track.querySelectorAll(".cert-slide"));
+ }
 
-slideW = computeSlideW(); // <-- new calculation
-viewport.style.maxWidth = (slideW * visible) + "px";
-goTo(index, false);
-});
+ slideW = computeSlideW();
+ viewport.style.maxWidth = (slideW * visible) + "px";
+ goTo(index, false);
+ });
 
- // Init after images load to get correct sizes
  function init() {
  cloneCount = visible;
  buildClones();
- index = cloneCount; // start on the first real slide
+ index = cloneCount;
  slideW = computeSlideW();
  setViewportWidth();
  goTo(index, false);
@@ -328,11 +312,13 @@ goTo(index, false);
  init();
  }
  })();
+
+ // === MOBILE DROPDOWN TOGGLES ===
  document.querySelectorAll(".mobile-dropdown-toggle").forEach(toggle => {
-toggle.addEventListener("click", e => {
-e.preventDefault();
-const parent = toggle.parentElement;
-parent.classList.toggle("open");
-});
-});
+ toggle.addEventListener("click", e => {
+ e.preventDefault();
+ const parent = toggle.parentElement;
+ parent.classList.toggle("open");
+ });
+ });
 });
