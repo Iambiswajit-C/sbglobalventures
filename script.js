@@ -72,33 +72,33 @@ document.addEventListener("DOMContentLoaded", function () {
  }
  });
 
- // === MENU TOGGLE (fixed version) ===
- if (menuToggle && navMenu) {
- // Replace old nodes to remove duplicate listeners
- menuToggle.replaceWith(menuToggle.cloneNode(true));
- navMenu.replaceWith(navMenu.cloneNode(true));
+// === MENU TOGGLE (fixed for all pages) ===
+if (menuToggle && navMenu) {
+// Clear old state
+navMenu.classList.remove("show");
 
- // Re-query fresh elements
- menuToggle = headerContainer.querySelector(".menu-toggle");
- navMenu = headerContainer.querySelector(".nav-menu");
+// Toggle open/close
+menuToggle.addEventListener("click", function (e) {
+e.stopPropagation();
+navMenu.classList.toggle("show");
+});
 
- // Toggle open/close
- menuToggle.addEventListener("click", function (e) {
- e.stopPropagation();
- navMenu.classList.toggle("show");
- });
+// Close when clicking outside
+document.addEventListener("click", function (e) {
+const isClickInsideMenu = navMenu.contains(e.target);
+const isClickOnToggle = menuToggle.contains(e.target);
+if (!isClickInsideMenu && !isClickOnToggle) {
+navMenu.classList.remove("show");
+}
+});
 
- // Close when clicking outside
- document.addEventListener("click", function (e) {
- const isClickInsideMenu = navMenu.contains(e.target);
- const isClickOnToggle = menuToggle.contains(e.target);
- if (!isClickInsideMenu && !isClickOnToggle) {
- navMenu.classList.remove("show");
- }
- });
- }
- }
- });
+// Close when clicking any link (important fix!)
+navMenu.querySelectorAll("a").forEach(link => {
+link.addEventListener("click", () => {
+navMenu.classList.remove("show");
+});
+});
+}
 
  // ================= HERO SLIDER =================
  const slides = document.querySelectorAll(".hero-slide");
