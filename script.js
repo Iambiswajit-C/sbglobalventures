@@ -345,19 +345,4 @@ const parent = toggle.parentElement;
 parent.classList.toggle("open");
 });
 });
-
- fetch('footer.html')
- .then(res => res.text())
- .then(data => {
-  document.getElementById('footer-placeholder').innerHTML = data;
-  });
-
- document.addEventListener("DOMContentLoaded", function () {
- const toggleButton = document.querySelector(".menu-toggle");
- const navMenu = document.querySelector(".nav-menu");
-
- toggleButton.addEventListener("click", function () {
- navMenu.classList.toggle("show");
-});
-});
 });
