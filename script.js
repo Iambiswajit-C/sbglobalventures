@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
  // ================= HEADER LOAD =================
- fetch('header.html') // fixed relative path
+ fetch('/header.html') // fixed relative path
  .then(response => response.text())
  .then(data => {
  const headerContainer = document.getElementById('header');
