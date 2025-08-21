@@ -90,6 +90,16 @@ document.addEventListener("DOMContentLoaded", function () {
  }
  });
 
+ // Sticky header toggle
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector('.header');
+    if (window.scrollY > 50) {
+      header.classList.add('sticky');
+    } else {
+      header.classList.remove('sticky');
+    }
+  });
+
  // ================= HERO SLIDER =================
  const slides = document.querySelectorAll(".hero-slide");
  const prevBtn = document.querySelector(".hero-arrow.prev");
