@@ -335,3 +335,4 @@ const parent = toggle.parentElement;
 parent.classList.toggle("open");
 });
 });
+});
