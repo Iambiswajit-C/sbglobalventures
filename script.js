@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
  const header = document.querySelector('header.header');
  const topBar = document.querySelector('.top-bar');
- let menuToggle = headerContainer.querySelector(".menu-toggle");
- let navMenu = headerContainer.querySelector(".nav-menu");
+ const menuToggle = headerContainer.querySelector(".menu-toggle");
+ const navMenu = headerContainer.querySelector(".nav-menu");
 
  // === CONTACT FORM SUBMISSION ===
  const contactForm = document.getElementById("contactForm");
@@ -72,33 +72,23 @@ document.addEventListener("DOMContentLoaded", function () {
  }
  });
 
-// === MENU TOGGLE (fixed for all pages) ===
-if (menuToggle && navMenu) {
-// Clear old state
-navMenu.classList.remove("show");
+ // === MENU TOGGLE ===
+ if (menuToggle && navMenu) {
+ menuToggle.addEventListener("click", function (e) {
+ e.stopPropagation();
+ navMenu.classList.toggle("show");
+ });
 
-// Toggle open/close
-menuToggle.addEventListener("click", function (e) {
-e.stopPropagation();
-navMenu.classList.toggle("show");
-});
-
-// Close when clicking outside
-document.addEventListener("click", function (e) {
-const isClickInsideMenu = navMenu.contains(e.target);
-const isClickOnToggle = menuToggle.contains(e.target);
-if (!isClickInsideMenu && !isClickOnToggle) {
-navMenu.classList.remove("show");
-}
-});
-
-// Close when clicking any link (important fix!)
-navMenu.querySelectorAll("a").forEach(link => {
-link.addEventListener("click", () => {
-navMenu.classList.remove("show");
-});
-});
-}
+ document.addEventListener("click", function (e) {
+ const isClickInsideMenu = navMenu.contains(e.target);
+ const isClickOnToggle = menuToggle.contains(e.target);
+ if (!isClickInsideMenu && !isClickOnToggle) {
+ navMenu.classList.remove("show");
+ }
+ });
+ }
+ }
+ });
 
  // ================= HERO SLIDER =================
  const slides = document.querySelectorAll(".hero-slide");
@@ -210,10 +200,11 @@ navMenu.classList.remove("show");
  let timer = null;
 
  // Helpers
- function computeSlideW() {
- const viewportWidth = viewport.getBoundingClientRect().width;
- return viewportWidth / visible; // ensures equal distribution
- }
+function computeSlideW() {
+// Instead of dynamic width, use a fixed percentage of viewport width
+const viewportWidth = viewport.getBoundingClientRect().width;
+return viewportWidth / visible; // ensures equal distribution
+}
 
  function setViewportWidth() {
  visible = window.innerWidth <= 480 ? 1 : 3;
@@ -223,6 +214,7 @@ navMenu.classList.remove("show");
  }
 
  function realIdx() {
+ // map current 'index' (including clones) to 0..realCount-1
  return ((index - cloneCount) % realCount + realCount) % realCount;
  }
 
@@ -240,6 +232,7 @@ navMenu.classList.remove("show");
  if (!animate) track.style.transition = "none";
  track.style.transform = `translateX(${tx}px)`;
  if (!animate) {
+ // force reflow, then restore transition
  void track.offsetHeight;
  track.style.transition = "";
  }
@@ -253,14 +246,19 @@ navMenu.classList.remove("show");
  function stop() { if (timer) clearInterval(timer), (timer = null); }
 
  function buildClones() {
+ // remove existing clones
  track.querySelectorAll(".cert-slide.is-clone").forEach(n => n.remove());
+
+ // rebuild from current real slides
  realSlides = Array.from(track.querySelectorAll(".cert-slide:not(.is-clone)"));
 
+ // left clones
  for (let i = realCount - cloneCount; i < realCount; i++) {
  const c = realSlides[i].cloneNode(true);
  c.classList.add("is-clone");
  track.insertBefore(c, track.firstChild);
  }
+ // right clones
  for (let i = 0; i < cloneCount; i++) {
  const c = realSlides[i].cloneNode(true);
  c.classList.add("is-clone");
@@ -270,41 +268,45 @@ navMenu.classList.remove("show");
  slides = Array.from(track.querySelectorAll(".cert-slide"));
  }
 
+ // Keep the illusion of infinity: snap when we pass the edges.
  track.addEventListener("transitionend", () => {
  if (index >= realCount + cloneCount) {
- goTo(index - realCount, false);
+ goTo(index - realCount, false); // jumped past the right edge -> snap back
  } else if (index < cloneCount) {
- goTo(index + realCount, false);
+ goTo(index + realCount, false); // jumped past the left edge -> snap forward
  }
  });
 
+ // Controls
  nextBtn && nextBtn.addEventListener("click", () => { next(); start(); });
  prevBtn && prevBtn.addEventListener("click", () => { prev(); start(); });
  dots.forEach((d, i) => d.addEventListener("click", () => { goTo(i + cloneCount, true); start(); }));
 
- window.addEventListener("resize", () => {
- const oldVisible = visible;
- const keepReal = realIdx();
+ // Resize: keep current real slide centered, rebuild clones if visible count changed
+window.addEventListener("resize", () => {
+const oldVisible = visible;
+const keepReal = realIdx();
 
- visible = window.innerWidth <= 480 ? 1 : 3;
- cloneCount = visible;
+visible = window.innerWidth <= 480 ? 1 : 3;
+cloneCount = visible;
 
- if (oldVisible !== visible) {
- buildClones();
- index = cloneCount + keepReal;
- } else {
- slides = Array.from(track.querySelectorAll(".cert-slide"));
- }
+if (oldVisible !== visible) {
+buildClones();
+index = cloneCount + keepReal;
+} else {
+slides = Array.from(track.querySelectorAll(".cert-slide"));
+}
 
- slideW = computeSlideW();
- viewport.style.maxWidth = (slideW * visible) + "px";
- goTo(index, false);
- });
+slideW = computeSlideW(); // <-- new calculation
+viewport.style.maxWidth = (slideW * visible) + "px";
+goTo(index, false);
+});
 
+ // Init after images load to get correct sizes
  function init() {
  cloneCount = visible;
  buildClones();
- index = cloneCount;
+ index = cloneCount; // start on the first real slide
  slideW = computeSlideW();
  setViewportWidth();
  goTo(index, false);
@@ -326,13 +328,11 @@ navMenu.classList.remove("show");
  init();
  }
  })();
-
  document.querySelectorAll(".mobile-dropdown-toggle").forEach(toggle => {
- toggle.addEventListener("click", e => {
- e.preventDefault();
- const parent = toggle.parentElement;
- parent.classList.toggle("open");
- });
- });
-
+toggle.addEventListener("click", e => {
+e.preventDefault();
+const parent = toggle.parentElement;
+parent.classList.toggle("open");
+});
+});
 });
