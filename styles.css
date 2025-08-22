@@ -671,7 +671,6 @@ display: block; /* ensures clickable area covers entire card */
     }
 
 /* Product Category Section */
-/* Product Category Section */
 .product-category {
  margin: 60px auto;
  max-width: 1200px;
@@ -727,9 +726,21 @@ display: block; /* ensures clickable area covers entire card */
  transform: scale(1.05);
 }
 
+/* ALTERNATING SECTIONS - Desktop/iPad only */
+.product-category.alt {
+ background-color: rgba(231,228,219,0.8);
+ border-radius: 8px;
+ padding: 40px 20px;
+}
+
+.product-category.alt .category-content {
+ flex-direction: row-reverse;
+}
+
 /* Responsive (mobile <768px) */
 @media (max-width: 768px) {
- .category-content {
+ .category-content,
+ .product-category.alt .category-content {
  flex-direction: column;
  text-align: center;
  }
