@@ -371,3 +371,4 @@ lightbox.classList.remove("active");
 }
 });
 });
+});
