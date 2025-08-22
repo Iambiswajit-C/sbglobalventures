@@ -345,4 +345,30 @@ const parent = toggle.parentElement;
 parent.classList.toggle("open");
 });
 });
+ 
+// Lightbox functionality (only for product gallery images)
+document.addEventListener("DOMContentLoaded", () => {
+const galleryImages = document.querySelectorAll(".product-gallery img");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const closeBtn = document.querySelector(".lightbox-close");
+
+galleryImages.forEach(img => {
+img.addEventListener("click", () => {
+lightbox.classList.add("active");
+lightboxImg.src = img.src;
+});
+});
+
+closeBtn.addEventListener("click", () => {
+lightbox.classList.remove("active");
+});
+
+// Close on background click
+lightbox.addEventListener("click", (e) => {
+if (e.target === lightbox) {
+lightbox.classList.remove("active");
+}
+});
+});
 });
