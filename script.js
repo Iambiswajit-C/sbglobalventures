@@ -346,29 +346,31 @@ parent.classList.toggle("open");
 });
 });
  
-// Lightbox functionality (only for product gallery images)
+// Lightbox functionality
 document.addEventListener("DOMContentLoaded", () => {
-const galleryImages = document.querySelectorAll(".product-gallery img");
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightbox-img");
-const closeBtn = document.querySelector(".lightbox-close");
+ const lightbox = document.getElementById("lightbox");
+ const lightboxImg = lightbox.querySelector("img");
+ const closeBtn = document.querySelector(".lightbox-close");
 
-galleryImages.forEach(img => {
-img.addEventListener("click", () => {
-lightbox.classList.add("active");
-lightboxImg.src = img.src;
-});
-});
+ // Open on product gallery img click
+ document.querySelectorAll(".product-gallery img").forEach(img => {
+ img.addEventListener("click", () => {
+ lightbox.classList.add("active");
+ lightboxImg.src = img.src;
+ lightboxImg.alt = img.alt;
+ });
+ });
 
-closeBtn.addEventListener("click", () => {
-lightbox.classList.remove("active");
-});
+ // Close
+ closeBtn.addEventListener("click", () => {
+ lightbox.classList.remove("active");
+ });
 
-// Close on background click
-lightbox.addEventListener("click", (e) => {
-if (e.target === lightbox) {
-lightbox.classList.remove("active");
-}
-});
+ // Close on outside click
+ lightbox.addEventListener("click", e => {
+ if (e.target === lightbox) {
+ lightbox.classList.remove("active");
+ }
+ });
 });
 });
