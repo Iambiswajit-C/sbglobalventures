@@ -345,9 +345,8 @@ const parent = toggle.parentElement;
 parent.classList.toggle("open");
 });
 });
- 
-// Lightbox functionality
-(function () {
+ //lightbox
+ (function () {
  function ready(fn){ 
  if (document.readyState !== 'loading') fn();
  else document.addEventListener('DOMContentLoaded', fn);
@@ -399,5 +398,4 @@ parent.classList.toggle("open");
  });
  });
 })();
-});
 });
