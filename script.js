@@ -347,30 +347,57 @@ parent.classList.toggle("open");
 });
  
 // Lightbox functionality
-document.addEventListener("DOMContentLoaded", () => {
- const lightbox = document.getElementById("lightbox");
- const lightboxImg = lightbox.querySelector("img");
- const closeBtn = document.querySelector(".lightbox-close");
+(function () {
+ function ready(fn){ 
+ if (document.readyState !== 'loading') fn();
+ else document.addEventListener('DOMContentLoaded', fn);
+ }
 
- // Open on product gallery img click
- document.querySelectorAll(".product-gallery img").forEach(img => {
- img.addEventListener("click", () => {
- lightbox.classList.add("active");
- lightboxImg.src = img.src;
- lightboxImg.alt = img.alt;
- });
+ ready(function () {
+ const lightbox = document.getElementById('lightbox');
+ if (!lightbox) return; // safety
+
+ const imgEl = lightbox.querySelector('img');
+ const closeBtn = lightbox.querySelector('.lightbox-close');
+
+ // Open on click of any product-gallery image
+ document.addEventListener('click', function (e) {
+ const img = e.target.closest('.product-gallery img');
+ if (!img) return;
+
+ const full = img.getAttribute('data-full') || img.src;
+ imgEl.src = full;
+ imgEl.alt = img.alt || '';
+ lightbox.classList.add('active');
+ lightbox.setAttribute('aria-hidden', 'false');
+ // focus the close button for accessibility
+ if (closeBtn) closeBtn.focus();
  });
 
- // Close
- closeBtn.addEventListener("click", () => {
- lightbox.classList.remove("active");
+ // Close handlers
+ function closeLightbox() {
+ lightbox.classList.remove('active');
+ lightbox.setAttribute('aria-hidden', 'true');
+ imgEl.src = '';
+ imgEl.alt = '';
+ }
+
+ if (closeBtn) {
+ closeBtn.addEventListener('click', closeLightbox);
+ }
+
+ // Click backdrop to close (but not when clicking the image)
+ lightbox.addEventListener('click', function (e) {
+ if (e.target === lightbox) closeLightbox();
  });
 
- // Close on outside click
- lightbox.addEventListener("click", e => {
- if (e.target === lightbox) {
- lightbox.classList.remove("active");
+ // Keyboard support
+ document.addEventListener('keydown', function (e) {
+ if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+ closeLightbox();
  }
  });
+ });
+})();
 });
 });
