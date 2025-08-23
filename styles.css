@@ -765,7 +765,7 @@ display: block; /* ensures clickable area covers entire card */
  font-weight: 500;
  color: #222;
  border-top: 1px solid #ccc;
- line-height: 1.35;
+ line-height: 3.5;
  display: -webkit-box;
  -webkit-line-clamp: 2; /* max 2 lines */
  -webkit-box-orient: vertical;
