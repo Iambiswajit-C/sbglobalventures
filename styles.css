@@ -671,7 +671,6 @@ display: block; /* ensures clickable area covers entire card */
     }
 
 /* Product Category Section */
-/* Base styling */
 .product-category {
  margin: 60px auto;
  max-width: 1200px;
@@ -709,27 +708,35 @@ display: block; /* ensures clickable area covers entire card */
  color: #444;
 }
 
-/* ---- Product Gallery ---- */
+/* ==== Product Gallery Section ==== */
 .product-gallery {
  display: flex;
  flex-wrap: wrap;
- justify-content: center; /* centers items */
- gap: 25px; /* space between items */
+ justify-content: center;
+ gap: 25px;
  margin-top: 20px;
 }
 
+/* Each product card */
 .product-gallery figure {
- text-align: center;
- width: 220px; /* fixed width for neat alignment */
- margin: 0; /* remove default figure margin */
+ width: 240px; /* fixed width */
+ height: 300px; /* fixed height for uniformity */
+ border: 2px solid #333;
+ border-radius: 6px;
+ margin: 0;
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+ background: #f9f9f9; /* light background inside border */
+ overflow: hidden;
 }
 
+/* Image inside product card */
 .product-gallery img {
+ flex: 1;
  width: 100%;
- height: auto;
- border: 2px solid #333; /* sharp border */
- border-radius: 0; /* removes roundness for sharp look */
- object-fit: cover;
+ object-fit: contain; /* fits inside without cutting */
+ padding: 8px; /* keeps space from border */
  transition: transform 0.3s ease;
  cursor: pointer;
 }
@@ -738,16 +745,39 @@ display: block; /* ensures clickable area covers entire card */
  transform: scale(1.05);
 }
 
+/* Caption inside border */
 .product-gallery figcaption {
- margin-top: 8px;
+ background: #e7e4db; /* caption background */
+ padding: 8px;
  font-size: 0.95rem;
  font-weight: 500;
  color: #222;
+ text-align: center;
+ border-top: 1px solid #ccc;
 }
 
-/* ---- Alternating Layout ---- */
+/* Gallery heading */
+.gallery-heading {
+ font-size: 1.6rem;
+ font-weight: 600;
+ text-align: center;
+ color: #003366;
+ margin: 40px 0 20px;
+ position: relative;
+}
 
-/* Even sections → reverse image/text + background color */
+/* Decorative underline for heading */
+.gallery-heading::after {
+ content: "";
+ display: block;
+ width: 60px;
+ height: 3px;
+ background: #003366;
+ margin: 10px auto 0;
+ border-radius: 2px;
+}
+
+/* ==== Alternating Layout ==== */
 .product-category:nth-of-type(even) {
  background-color: rgba(231,228,219,0.8);
  border-radius: 8px;
@@ -758,7 +788,7 @@ display: block; /* ensures clickable area covers entire card */
  flex-direction: row-reverse;
 }
 
-/* ---- Lightbox overlay (for product gallery only) ---- */
+/* ==== Lightbox overlay (for product gallery only) ==== */
 .lightbox {
  display: none;
  position: fixed;
@@ -792,7 +822,7 @@ display: block; /* ensures clickable area covers entire card */
  cursor: pointer;
 }
 
-/* ---- Responsive (mobile <768px) ---- */
+/* ==== Responsive (mobile <768px) ==== */
 @media (max-width: 768px) {
  .category-content {
  flex-direction: column;
@@ -807,12 +837,17 @@ display: block; /* ensures clickable area covers entire card */
  justify-content: center;
  }
 
+ .product-gallery figure {
+ width: 100%;
+ max-width: 300px;
+ height: auto; /* relax height on mobile */
+ }
+
  /* On mobile → always normal stacked layout */
  .product-category:nth-of-type(even) .category-content {
  flex-direction: column;
  }
 }
-
 /* Category Cards */
 .categories {
   display: flex;
