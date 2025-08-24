@@ -1090,6 +1090,10 @@ margin-top: 10px;
     font-size: 1rem;
   }
 
+  header.header .nav-menu li a {
+  color: #0b0c0c; /* darker/navy when sticky */
+}
+
   {
 .dropdown .dropdown-menu {
 display: none;
