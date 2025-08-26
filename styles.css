@@ -679,7 +679,7 @@ display: block; /* ensures clickable area covers entire card */
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 3rem auto;
       gap: 2rem;
       padding: 0 1rem;
