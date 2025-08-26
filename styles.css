@@ -584,6 +584,7 @@ padding: 8px 10px;
  }
  }
 
+.category-card,
 .product-card {
 text-decoration: none;
 color: inherit;
@@ -933,6 +934,17 @@ display: block; /* ensures clickable area covers entire card */
   margin-top: 20px;
 }
 
+.category-card {
+  width: 200px;
+  text-align: center;
+}
+
+.category-card h4 {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  color: #003366;
+}
+
 /* Features Section */
 .features {
   display: flex;
@@ -1160,6 +1172,11 @@ cursor: pointer;
 
   .hero p {
     font-size: 1rem;
+  }
+
+  .category-card {
+    width: 100%;
+    max-width: 300px;
   }
 
   .features img {
