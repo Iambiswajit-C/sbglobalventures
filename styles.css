@@ -1118,7 +1118,6 @@ margin-top: 10px;
   color: #0b0c0c; /* darker/navy when sticky */
 }
 
-  {
 .dropdown .dropdown-menu {
 display: none;
 flex-direction: column;
@@ -1132,7 +1131,6 @@ display: flex;
 display: block;
 padding: 10px;
 cursor: pointer;
-}
 }
 
   .hero h2 {
