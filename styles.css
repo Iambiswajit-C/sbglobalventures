@@ -584,13 +584,6 @@ padding: 8px 10px;
  }
  }
 
-.category-card,
-.product-card {
-text-decoration: none;
-color: inherit;
-display: block; /* ensures clickable area covers entire card */
-}
-
 /* Contact us Page */
 .contact-wrapper {
       display: flex;
@@ -934,15 +927,38 @@ display: block; /* ensures clickable area covers entire card */
   margin-top: 20px;
 }
 
+/* Home Page category cards styled like boxes */
 .category-card {
   width: 200px;
+  border: 1px solid #ddd;        /* box look always */
+  border-radius: 8px;
+  padding: 1rem;
   text-align: center;
+  background: #fff;              /* white background always */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.category-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
 }
 
 .category-card h4 {
   margin-top: 10px;
   font-size: 1.1rem;
   color: #003366;
+  font-weight: 600;
+}
+
+/* Hover just adds shadow + lift */
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 /* Features Section */
@@ -1172,11 +1188,6 @@ cursor: pointer;
 
   .hero p {
     font-size: 1rem;
-  }
-
-  .category-card {
-    width: 100%;
-    max-width: 300px;
   }
 
   .features img {
