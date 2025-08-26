@@ -675,6 +675,18 @@ display: block; /* ensures clickable area covers entire card */
 
 /* New Contact Form */
 
+.contact-form-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 3rem auto;
+      gap: 2rem;
+      padding: 0 1rem;
+      position: relative;
+      z-index: 2;
+    }
+
 .contact-image-info {
   flex: 1 1 100%;
   max-width: 100%;
