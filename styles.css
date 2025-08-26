@@ -336,7 +336,6 @@ display: flex;
 }
 
 .about-section {
-margin: 40px auto 40px;
 padding: 40px 20px;
 text-align: center;
 background: rgba(231,228,219); /* same translucent white base */
