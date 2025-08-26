@@ -715,16 +715,11 @@ display: block; /* ensures clickable area covers entire card */
   );
 }
 
-.contact-form-wrapper {
-  position: relative;
-  z-index: 2;
-}
-
 /* Responsive layout */
 @media (min-width: 768px) {
   .contact-image-info, .contact-form-section {
     flex: 1 1 45%;
-    max-width: 45%;
+    max-width: 55%;
   }
 }
 
