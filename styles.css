@@ -1162,11 +1162,6 @@ cursor: pointer;
     font-size: 1rem;
   }
 
-  .category-card {
-    width: 100%;
-    max-width: 300px;
-  }
-
   .features img {
     width: 100%;
     max-width: 300px;
