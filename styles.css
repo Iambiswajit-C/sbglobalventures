@@ -548,6 +548,48 @@ padding: 8px 10px;
   border-radius: 8px;
 }
 
+/* Products page */
+ .product-grid {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-around;
+   gap: 2rem;
+   margin-top: 2rem;
+ }
+
+ .product-card {
+   width: 30%;
+   border: 1px solid #ddd;
+   border-radius: 8px;
+   padding: 1rem;
+   text-align: center;
+   transition: transform 0.3s ease;
+ }
+
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+ }
+
+  .product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+ }
+
+ @media (max-width: 768px) {
+   .product-card {
+    width: 100%;
+ }
+ }
+
+.product-card {
+text-decoration: none;
+color: inherit;
+display: block; /* ensures clickable area covers entire card */
+}
+
 /* Contact us Page */
 .contact-wrapper {
       display: flex;
@@ -891,22 +933,28 @@ padding: 8px 10px;
   margin-top: 20px;
 }
 
-/* Home Page category cards & Product page styled like boxes */
-.product-card,
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Home Page category cards styled like boxes */
 .category-card {
-  width: 200px; /* or 30% for product page */
-  border: 1px solid #ddd;       /* always show border */
+  width: 200px;
+  border: 1px solid #ddd;        /* box look always */
   border-radius: 8px;
   padding: 1rem;
   text-align: center;
-  background: #fff;             /* white box background always */
+  background: #fff;              /* white background always */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-decoration: none;
   color: inherit;
   display: block;
 }
 
-.product-card img,
 .category-card img {
   width: 100%;
   height: auto;
@@ -914,7 +962,6 @@ padding: 8px 10px;
   margin-bottom: 0.5rem;
 }
 
-.product-card h4,
 .category-card h4 {
   margin-top: 10px;
   font-size: 1.1rem;
@@ -922,19 +969,11 @@ padding: 8px 10px;
   font-weight: 600;
 }
 
-.product-card:hover,
+/* Hover just adds shadow + lift */
 .category-card:hover {
-  transform: translateY(-5px);   /* hover lift only */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* hover shadow */
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
-
- .product-grid {
-   display: flex;
-   flex-wrap: wrap;
-   justify-content: space-around;
-   gap: 2rem;
-   margin-top: 2rem;
- }
 
 /* Features Section */
 .features {
