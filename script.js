@@ -339,22 +339,54 @@ goTo(index, false);
  }
  })();
  
-document.querySelectorAll(".mobile-dropdown-toggle").forEach(toggle => {
-  toggle.addEventListener("click", function (e) {
-    const parent = this.parentElement;
+// Mobile-first dropdown behavior for "Products"
+(function () {
+  // Click handler (delegated) so it works even if header is loaded dynamically
+  document.addEventListener("click", function (e) {
+    const toggle = e.target.closest(".mobile-dropdown-toggle");
+    if (!toggle) return;
 
-    // Mobile / Tablet only
-    if (window.innerWidth <= 1024) {
-      if (!parent.classList.contains("open")) {
-        e.preventDefault(); // stop navigation
-        parent.classList.add("open"); // open dropdown
-      } else {
-        // second tap → allow navigation
-        parent.classList.remove("open"); // optional: close after navigation
-      }
+    // Only intercept on mobile/tablet (adjust 1024px if your breakpoint differs)
+    const isMobile = window.matchMedia("(max-width: 1024px)").matches;
+    if (!isMobile) return; // desktop: let normal link behavior happen
+
+    const dropdown = toggle.closest(".dropdown");
+    if (!dropdown) return;
+
+    // If not open, open and block navigation
+    if (!dropdown.classList.contains("open")) {
+      e.preventDefault();
+      dropdown.classList.add("open");
+      toggle.setAttribute("aria-expanded", "true");
+    } 
+    // If open, allow navigation to /products/
+    else {
+      toggle.setAttribute("aria-expanded", "false");
+      // no preventDefault -> browser follows the link
     }
   });
-});
+
+  // Close if user taps/clicks outside
+  document.addEventListener("click", function (e) {
+    const anyOpen = document.querySelector(".dropdown.open");
+    if (!anyOpen) return;
+    if (!e.target.closest(".dropdown")) {
+      anyOpen.classList.remove("open");
+      const t = anyOpen.querySelector(".mobile-dropdown-toggle");
+      t && t.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  // Close on ESC
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    const anyOpen = document.querySelector(".dropdown.open");
+    if (!anyOpen) return;
+    anyOpen.classList.remove("open");
+    const t = anyOpen.querySelector(".mobile-dropdown-toggle");
+    t && t.setAttribute("aria-expanded", "false");
+  });
+})();
  //lightbox
  (function () {
  function ready(fn){ 
