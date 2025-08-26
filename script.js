@@ -339,11 +339,18 @@ goTo(index, false);
  }
  })();
  document.querySelectorAll(".mobile-dropdown-toggle").forEach(toggle => {
-toggle.addEventListener("click", e => {
-e.preventDefault();
-const parent = toggle.parentElement;
-parent.classList.toggle("open");
-});
+  toggle.addEventListener("click", e => {
+    const parent = toggle.parentElement;
+
+    // If dropdown is already open, allow normal navigation
+    if (parent.classList.contains("open")) {
+      return; // do not preventDefault, allow link to /products/
+    }
+
+    // Otherwise, prevent navigation and open dropdown
+    e.preventDefault();
+    parent.classList.add("open");
+  });
 });
  //lightbox
  (function () {
