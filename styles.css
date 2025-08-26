@@ -933,17 +933,6 @@ display: block; /* ensures clickable area covers entire card */
   margin-top: 20px;
 }
 
-.category-card {
-  width: 200px;
-  text-align: center;
-}
-
-.category-card h4 {
-  margin-top: 10px;
-  font-size: 1.1rem;
-  color: #003366;
-}
-
 /* Features Section */
 .features {
   display: flex;
