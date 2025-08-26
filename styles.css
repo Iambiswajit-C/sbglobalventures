@@ -557,25 +557,18 @@ padding: 8px 10px;
    margin-top: 2rem;
  }
 
- .product-card {
+.product-card {
    width: 30%;
    border: 1px solid #ddd;
+   padding: 1rem;
    border-radius: 8px;
+   background: #fff; 
    padding: 1rem;
    text-align: center;
-   transition: transform 0.3s ease;
- }
-
-  .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
- }
-
-  .product-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 0.5rem;
+   transition: transform 0.3s ease, box-shadow 0.3s ease;
+   text-decoration: none;
+   color: inherit;
+   display: block;
  }
 
  @media (max-width: 768px) {
@@ -583,12 +576,6 @@ padding: 8px 10px;
     width: 100%;
  }
  }
-
-.product-card {
-text-decoration: none;
-color: inherit;
-display: block; /* ensures clickable area covers entire card */
-}
 
 /* Contact us Page */
 .contact-wrapper {
@@ -955,6 +942,7 @@ display: block; /* ensures clickable area covers entire card */
   display: block;
 }
 
+.product-card img,
 .category-card img {
   width: 100%;
   height: auto;
@@ -962,6 +950,7 @@ display: block; /* ensures clickable area covers entire card */
   margin-bottom: 0.5rem;
 }
 
+.product-card h4,
 .category-card h4 {
   margin-top: 10px;
   font-size: 1.1rem;
@@ -970,6 +959,7 @@ display: block; /* ensures clickable area covers entire card */
 }
 
 /* Hover just adds shadow + lift */
+.product-card:hover,
 .category-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
