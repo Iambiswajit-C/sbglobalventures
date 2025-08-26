@@ -619,6 +619,22 @@ display: block; /* ensures clickable area covers entire card */
       line-height: 1.6;
       color: #333;
     }
+/* New Section For Contact us Form */
+    .contact-image-info {
+  flex: 1 1 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  /* subtle shadow on the left */
+  box-shadow: -10px 0 20px rgba(0,0,0,0.1);
+}
 
     .contact-section {
       flex: 1 1 100%;
@@ -635,6 +651,14 @@ display: block; /* ensures clickable area covers entire card */
   @media (max-width: 768px) {
   .contact-info h2 {
     text-align: center;
+  }
+}
+
+@media (min-width: 768px) {
+  .contact-image-info {
+    flex: 1 1 45%;
+    max-width: 45%;
+    margin-bottom: 2rem;
   }
 }
     
