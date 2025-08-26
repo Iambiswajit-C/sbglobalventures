@@ -26,6 +26,7 @@
  </style>
   <link rel="canonical" href="https://sbglobalventures.com/products/handicrafts/" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -192,6 +193,45 @@
 
  </main>
 
+  <section class="contact-form">
+  <div class="contact-form-wrapper">
+
+    <!-- Image instead of text -->
+    <div class="contact-image-info">
+      <img src="images/contact-image.png" alt="Contact image" class="contact-image"/>
+    </div>
+
+    <!-- Contact Form -->
+    <section class="contact-form-section">
+      <h2>PRODUCTS ENQUIRY</h2>
+      <form id="contactForm" action="#" method="POST">
+        <label for="name">Name*</label>
+        <input type="text" id="name" name="name" required placeholder="Your full name" />
+
+        <label for="email">Email*</label>
+        <input type="email" id="email" name="email" required placeholder="Your email address" />
+
+        <label for="message">Message*</label>
+        <textarea id="message" name="message" rows="5" required placeholder="Write your message here"></textarea>
+
+        <!-- Honeypot field -->
+        <input type="text" name="_honey" style="display:none">
+
+        <!-- CAPTCHA enabled -->
+        <input type="hidden" name="_captcha" value="true">
+
+        <!-- Prevent redirection -->
+        <input type="hidden" name="_next" value="#">
+
+        <div class="g-recaptcha" data-sitekey="6LfStU0rAAAAAApOhgXKS08n-7-pk-bv5sWsjFlQ"></div>
+
+        <button type="submit">Send Message</button>
+      </form>
+      <p id="formMessage" style="display: none;"></p>
+    </section>
+
+  </div>
+</section>
  <!-- Footer Placeholder -->
  <div id="footer-placeholder"></div>
  <script>
