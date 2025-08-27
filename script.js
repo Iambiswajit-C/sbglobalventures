@@ -124,9 +124,6 @@ document.addEventListener("DOMContentLoaded", function () {
  if (dots[i]) dots[i].classList.toggle("active", i === index);
  });
  }
-
-    AOS.refreshHard();
-}
  
  function nextSlide() {
  current = (current + 1) % slides.length;
