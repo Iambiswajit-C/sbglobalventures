@@ -125,6 +125,9 @@ document.addEventListener("DOMContentLoaded", function () {
  });
  }
 
+    AOS.refreshHard();
+}
+ 
  function nextSlide() {
  current = (current + 1) % slides.length;
  showSlide(current);
