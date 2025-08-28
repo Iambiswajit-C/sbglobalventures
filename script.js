@@ -46,18 +46,20 @@ document.addEventListener("DOMContentLoaded", function () {
  });
  }
 
- // === SCROLL BEHAVIOR ===
- function handleScroll() {
- if (window.scrollY > 50) {
- header.classList.add('scrolled');
- topBar && topBar.classList.add('hidden');
- } else {
- header.classList.remove('scrolled');
- topBar && topBar.classList.remove('hidden');
- }
- }
- window.addEventListener('scroll', handleScroll);
- handleScroll();
+ // === SCROLL BEHAVIOR & Sticky Header===
+function handleScroll() {
+  const topBarHeight = topBar ? topBar.offsetHeight : 0;
+
+  if (window.scrollY > topBarHeight) {
+    header.classList.add('sticky');
+    topBar && topBar.classList.add('hidden');
+  } else {
+    header.classList.remove('sticky');
+    topBar && topBar.classList.remove('hidden');
+  }
+}
+window.addEventListener('scroll', handleScroll);
+handleScroll();
 
  // === ACTIVE MENU ===
  const currentPath = window.location.pathname.replace(/\/$/, '').toLowerCase();
@@ -89,16 +91,6 @@ document.addEventListener("DOMContentLoaded", function () {
  }
  }
  });
-
- // Sticky header toggle
-  window.addEventListener('scroll', () => {
-    const header = document.querySelector('.header');
-    if (window.scrollY > 50) {
-      header.classList.add('sticky');
-    } else {
-      header.classList.remove('sticky');
-    }
-  });
 
  // ================= HERO SLIDER =================
  const slides = document.querySelectorAll(".hero-slide");
