@@ -80,16 +80,36 @@ header.header.sticky .nav-menu li a {
 }
 
 .logo {
-  height: 60px;
-  width: auto;
-  object-fit: contain;
+  height: 75px;        /* controls the visible size */
+  width: auto;         /* keeps proportions */
+  max-width: 100%;     /* prevents it from overflowing */
+  object-fit: contain; /* makes sure it fits neatly */
   display: block;
   transition: filter 0.3s ease;
 }
 
-.logo.sticky {
-  filter: brightness(0) saturate(100%) invert(18%) sepia(98%) saturate(745%) hue-rotate(176deg) brightness(93%) contrast(87%);
+/* Left: Logo */
+.footer-left .logo {
+height: 75px;
+filter: brightness(0) invert(1);
 }
+
+/* Adjust for tablets */
+@media (max-width: 1024px) {
+  .footer-left .logo,
+  .logo {
+    height: 60px;
+  }
+}
+
+/* Adjust for mobiles */
+@media (max-width: 768px) {
+  .footer-left .logo,
+  .logo {
+    height: 50px;
+  }
+}
+
 
 .header-right {
   display: flex;
@@ -1157,12 +1177,6 @@ justify-content: center;
 margin-top: 10px;
 }
 }
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .logo {
-    height: 50px;
-  }
 
   .menu-toggle {
     display: block;
