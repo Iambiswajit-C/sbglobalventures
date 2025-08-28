@@ -24,6 +24,10 @@ body {
   z-index: 1000;
   font-size: 0.9rem;
   flex-wrap: wrap;
+  transition: top 0.3s ease, transform 0.3s ease;
+}
+.top-bar.hidden {
+  display: none;
 }
 .top-bar .email,
 .top-bar .social-icons {
@@ -48,17 +52,25 @@ body {
 header.header {
   position: absolute;
   top: 35px; /* below top-bar */
+  left: 0;
+  right: 0;
   width: 100%;
   background-color: #ffffff;
   height: 75px;
   z-index: 1000;
   display: flex;
   align-items: center;
-  transition: all 0.3s ease;
+  box-sizing: border-box;
+  /* avoid 'all' transitions which affect layout — only animate visual properties */
+  transition: box-shadow 0.22s ease, background-color 0.22s ease;
+  will-change: transform; /* prevents odd sub-pixel stretching */
 }
+
 header.header.sticky {
   position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   box-shadow: 0 2px 5px rgba(0,0,0,0.08);
 }
 
@@ -75,8 +87,9 @@ header.header.sticky {
 }
 
 #header-spacer {
-  height: 75px; /* Adjust this value to match the height of your fixed header */
-  width: 100%; /* Optional: ensures it takes full width */
+  display: none;
+  height: 0;
+  width: 100%;
 }
 
 .logo {
