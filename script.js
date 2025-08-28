@@ -79,38 +79,41 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
   // ================= SCROLL BEHAVIOR & STICKY HEADER =================
-function handleScroll() {
+document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header.header');
-  if (!header) return;
-
   const topBar = document.querySelector('.top-bar');
   const hero = document.querySelector('.hero');
 
+  if (!header) return;
+
+  // Calculate max header height (header + top bar)
   const topBarHeight = topBar ? topBar.offsetHeight : 0;
   const headerHeight = header.offsetHeight;
+  const maxHeaderHeight = headerHeight + topBarHeight;
 
-  // Stick header when past the top bar; hide the top bar smoothly
-  if (window.scrollY > topBarHeight) {
-    header.classList.add('sticky');
-    if (topBar) topBar.classList.add('hidden');
-  } else {
-    header.classList.remove('sticky');
-    if (topBar) topBar.classList.remove('hidden');
+  // Initially pad hero so it never goes under header
+  if (hero) hero.style.paddingTop = maxHeaderHeight + 'px';
+
+  function handleScroll() {
+    const scrollY = window.scrollY;
+
+    // Stick header when past the top bar
+    if (scrollY > topBarHeight) {
+      header.classList.add('sticky');
+      if (topBar) topBar.classList.add('hidden'); // hide visually
+    } else {
+      header.classList.remove('sticky');
+      if (topBar) topBar.classList.remove('hidden'); // show visually
+    }
+
+    // Hero padding remains constant (maxHeaderHeight)
+    if (hero) hero.style.paddingTop = maxHeaderHeight + 'px';
   }
-
-  // Compute the **maximum header height** (header + topBar)
-  const maxHeaderHeight = headerHeight + (topBar ? topBarHeight : 0);
-
-  // Apply padding to hero based on max header height
-  if (hero) {
-    hero.style.paddingTop = maxHeaderHeight + 'px';
-  }
-}
-
 
   window.addEventListener('scroll', handleScroll, { passive: true });
-  window.addEventListener('load', handleScroll);
   window.addEventListener('resize', handleScroll);
+  window.addEventListener('load', handleScroll);
+});
 
   // ================= HERO SLIDER =================
   const slides = document.querySelectorAll(".hero-slide");
