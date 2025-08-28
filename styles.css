@@ -739,6 +739,9 @@ padding: 8px 10px;
   );
 }
 
+.contact-form-section h2 {
+  color: #1766c6;
+}
 /* Responsive layout */
 @media (min-width: 768px) {
   .contact-image-info, .contact-form-section {
