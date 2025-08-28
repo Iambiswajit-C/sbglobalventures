@@ -79,41 +79,35 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
   // ================= SCROLL BEHAVIOR & STICKY HEADER =================
-document.addEventListener('DOMContentLoaded', () => {
-  const header = document.querySelector('header.header');
-  const topBar = document.querySelector('.top-bar');
-  const hero = document.querySelector('.hero');
-
-  if (!header) return;
-
-  // Calculate max header height (header + top bar)
-  const topBarHeight = topBar ? topBar.offsetHeight : 0;
-  const headerHeight = header.offsetHeight;
-  const maxHeaderHeight = headerHeight + topBarHeight;
-
-  // Initially pad hero so it never goes under header
-  if (hero) hero.style.paddingTop = maxHeaderHeight + 'px';
-
   function handleScroll() {
-    const scrollY = window.scrollY;
+    const header = document.querySelector('header.header');
+    if (!header) return;
 
-    // Stick header when past the top bar
-    if (scrollY > topBarHeight) {
+    const topBar = document.querySelector('.top-bar');
+    const hero = document.querySelector('.hero');
+
+    const topBarHeight = topBar ? topBar.offsetHeight : 0;
+    const headerHeight = header.offsetHeight;
+
+    // Stick header when past the top bar; hide the top bar smoothly
+    if (window.scrollY > topBarHeight) {
       header.classList.add('sticky');
-      if (topBar) topBar.classList.add('hidden'); // hide visually
+      if (topBar) topBar.classList.add('hidden');
     } else {
       header.classList.remove('sticky');
-      if (topBar) topBar.classList.remove('hidden'); // show visually
+      if (topBar) topBar.classList.remove('hidden');
     }
 
-    // Hero padding remains constant (maxHeaderHeight)
-    if (hero) hero.style.paddingTop = maxHeaderHeight + 'px';
+    // If a hero exists, pad it so it never jumps under the header
+    if (hero) {
+      const topBarVisible = topBar && !topBar.classList.contains('hidden');
+      hero.style.paddingTop = (headerHeight + (topBarVisible ? topBarHeight : 0)) + 'px';
+    }
   }
 
   window.addEventListener('scroll', handleScroll, { passive: true });
-  window.addEventListener('resize', handleScroll);
   window.addEventListener('load', handleScroll);
-});
+  window.addEventListener('resize', handleScroll);
 
   // ================= HERO SLIDER =================
   const slides = document.querySelectorAll(".hero-slide");
