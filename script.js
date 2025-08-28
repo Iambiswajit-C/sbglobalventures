@@ -98,9 +98,12 @@ function handleScroll() {
     if (topBar) topBar.classList.remove('hidden');
   }
 
-  // Pad hero to stay below header (ignore top bar)
+  // Compute the total visible header height (including sticky state)
+  const totalHeaderHeight = header.offsetHeight;
+
+  // Apply padding to hero so it never goes under the header
   if (hero) {
-    hero.style.paddingTop = headerHeight + 'px';
+    hero.style.paddingTop = totalHeaderHeight + 'px';
   }
 }
 
