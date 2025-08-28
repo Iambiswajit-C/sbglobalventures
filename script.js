@@ -46,34 +46,18 @@ document.addEventListener("DOMContentLoaded", function () {
  });
  }
 
- // === SCROLL BEHAVIOR & Sticky Header===
-function handleScroll() {
-  const topBarHeight = topBar ? topBar.offsetHeight : 0;
-
-  if (window.scrollY > topBarHeight) {
-    header.classList.add('sticky');
-    topBar && topBar.classList.add('hidden');
-  } else {
-    header.classList.remove('sticky');
-    topBar && topBar.classList.remove('hidden');
-  }
-}
-window.addEventListener('scroll', handleScroll);
-handleScroll();
-
-  // ================= DYNAMIC HERO PADDING =================
-function updateHeroPadding() {
-  const topBarHeight = topBar ? topBar.offsetHeight : 0;
-  const headerHeight = header ? header.offsetHeight : 0;
-  const hero = document.querySelector('.hero');
-  if (hero) {
-    hero.style.paddingTop = `${topBarHeight + headerHeight}px`;
-  }
-}
-
-// Update on load and on window resize
-updateHeroPadding();
-window.addEventListener('resize', updateHeroPadding);
+ // === SCROLL BEHAVIOR ===
+ function handleScroll() {
+ if (window.scrollY > 50) {
+ header.classList.add('scrolled');
+ topBar && topBar.classList.add('hidden');
+ } else {
+ header.classList.remove('scrolled');
+ topBar && topBar.classList.remove('hidden');
+ }
+ }
+ window.addEventListener('scroll', handleScroll);
+ handleScroll();
 
  // === ACTIVE MENU ===
  const currentPath = window.location.pathname.replace(/\/$/, '').toLowerCase();
@@ -105,6 +89,39 @@ window.addEventListener('resize', updateHeroPadding);
  }
  }
  });
+
+// ================= SCROLL BEHAVIOR & STICKY HEADER =================
+function handleScroll() {
+  const header = document.querySelector('header.header');
+  const topBar = document.querySelector('.top-bar');
+  const hero = document.querySelector('.hero');
+
+  if (!header || !hero) return;
+
+  const topBarHeight = topBar ? topBar.offsetHeight : 0;
+  const headerHeight = header.offsetHeight;
+
+  // Add sticky class when scrolled past top bar
+  if (window.scrollY > topBarHeight) {
+    header.classList.add('sticky');
+    topBar && topBar.classList.add('hidden');
+  } else {
+    header.classList.remove('sticky');
+    topBar && topBar.classList.remove('hidden');
+  }
+
+  // Always keep hero content below header + top bar
+  const totalHeaderHeight = topBarHeight + headerHeight;
+  hero.style.paddingTop = totalHeaderHeight + 'px';
+}
+
+// Run on scroll
+window.addEventListener('scroll', handleScroll);
+// Run on load to set correct padding
+window.addEventListener('load', handleScroll);
+// Run on resize to adjust padding if header/top bar changes
+window.addEventListener('resize', handleScroll);
+
 
  // ================= HERO SLIDER =================
  const slides = document.querySelectorAll(".hero-slide");
