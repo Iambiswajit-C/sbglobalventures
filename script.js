@@ -61,6 +61,20 @@ function handleScroll() {
 window.addEventListener('scroll', handleScroll);
 handleScroll();
 
+  // ================= DYNAMIC HERO PADDING =================
+function updateHeroPadding() {
+  const topBarHeight = topBar ? topBar.offsetHeight : 0;
+  const headerHeight = header ? header.offsetHeight : 0;
+  const hero = document.querySelector('.hero');
+  if (hero) {
+    hero.style.paddingTop = `${topBarHeight + headerHeight}px`;
+  }
+}
+
+// Update on load and on window resize
+updateHeroPadding();
+window.addEventListener('resize', updateHeroPadding);
+
  // === ACTIVE MENU ===
  const currentPath = window.location.pathname.replace(/\/$/, '').toLowerCase();
  const navLinks = headerContainer.querySelectorAll('.nav-menu a');
