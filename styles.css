@@ -19,7 +19,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 5px 20px;
-  background-color: #1766c6;
+  background-color: #003366;
   position: relative;
   z-index: 1000;
   font-size: 0.9rem;
@@ -46,14 +46,16 @@ body {
 
 /* Header */
 header.header {
+  position: absolute;
+  top: 35px; /* below top-bar */
   width: 100%;
   background-color: #ffffff;
   height: 75px;
   z-index: 1000;
   display: flex;
   align-items: center;
+  transition: all 0.3s ease;
 }
-
 header.header.sticky {
   position: fixed;
   top: 0;
@@ -70,6 +72,11 @@ header.header.sticky {
 .header-left {
   display: flex;
   align-items: center;
+}
+
+#header-spacer {
+  height: 75px; /* Adjust this value to match the height of your fixed header */
+  width: 100%; /* Optional: ensures it takes full width */
 }
 
 .logo {
