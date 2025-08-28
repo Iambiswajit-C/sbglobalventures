@@ -79,31 +79,31 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
   // ================= SCROLL BEHAVIOR & STICKY HEADER =================
-  function handleScroll() {
-    const header = document.querySelector('header.header');
-    if (!header) return;
+function handleScroll() {
+  const header = document.querySelector('header.header');
+  if (!header) return;
 
-    const topBar = document.querySelector('.top-bar');
-    const hero = document.querySelector('.hero');
+  const topBar = document.querySelector('.top-bar');
+  const hero = document.querySelector('.hero');
 
-    const topBarHeight = topBar ? topBar.offsetHeight : 0;
-    const headerHeight = header.offsetHeight;
+  const topBarHeight = topBar ? topBar.offsetHeight : 0;
+  const headerHeight = header.offsetHeight;
 
-    // Stick header when past the top bar; hide the top bar smoothly
-    if (window.scrollY > topBarHeight) {
-      header.classList.add('sticky');
-      if (topBar) topBar.classList.add('hidden');
-    } else {
-      header.classList.remove('sticky');
-      if (topBar) topBar.classList.remove('hidden');
-    }
-
-    // If a hero exists, pad it so it never jumps under the header
-    if (hero) {
-      const topBarVisible = topBar && !topBar.classList.contains('hidden');
-      hero.style.paddingTop = (headerHeight + (topBarVisible ? topBarHeight : 0)) + 'px';
-    }
+  // Stick header when past the top bar; hide the top bar smoothly
+  if (window.scrollY > topBarHeight) {
+    header.classList.add('sticky');
+    if (topBar) topBar.classList.add('hidden');
+  } else {
+    header.classList.remove('sticky');
+    if (topBar) topBar.classList.remove('hidden');
   }
+
+  // Pad hero to stay below header (ignore top bar)
+  if (hero) {
+    hero.style.paddingTop = headerHeight + 'px';
+  }
+}
+
 
   window.addEventListener('scroll', handleScroll, { passive: true });
   window.addEventListener('load', handleScroll);
