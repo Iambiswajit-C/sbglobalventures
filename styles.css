@@ -86,6 +86,7 @@ header.header.sticky {
 
 /* Adjust for tablets */
 @media (max-width: 1024px) {
+  .footer-left .logo,
   .logo {
     height: 60px;
   }
@@ -93,6 +94,7 @@ header.header.sticky {
 
 /* Adjust for mobiles */
 @media (max-width: 768px) {
+  .footer-left .logo,
   .logo {
     height: 50px;
   }
@@ -1062,7 +1064,7 @@ gap: 40px; /* spacing between columns */
 
 /* Left: Logo */
 .footer-left .logo {
-height: 50px;
+height: 75px;
 filter: brightness(0) invert(1);
 }
 
