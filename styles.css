@@ -46,15 +46,12 @@ body {
 
 /* Header */
 header.header {
-  position: absolute;
-  top: 35px; /* right under top-bar */
   width: 100%;
   background-color: #ffffff;
   height: 75px;
   z-index: 1000;
   display: flex;
   align-items: center;
-  transition: all 0.3s ease;
 }
 
 header.header.sticky {
