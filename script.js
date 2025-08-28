@@ -101,7 +101,7 @@ function handleScroll() {
   const topBarHeight = topBar ? topBar.offsetHeight : 0;
   const headerHeight = header.offsetHeight;
 
-  // Add sticky class when scrolled past top bar
+  // sticky header
   if (window.scrollY > topBarHeight) {
     header.classList.add('sticky');
     topBar && topBar.classList.add('hidden');
@@ -110,9 +110,9 @@ function handleScroll() {
     topBar && topBar.classList.remove('hidden');
   }
 
-  // Always keep hero content below header + top bar
-  const totalHeaderHeight = topBarHeight + headerHeight;
-  hero.style.paddingTop = totalHeaderHeight + 'px';
+  // hero padding = header + (top bar if visible)
+  const topBarVisible = topBar && !topBar.classList.contains('hidden');
+  hero.style.paddingTop = (headerHeight + (topBarVisible ? topBarHeight : 0)) + 'px';
 }
 
 // Run on scroll
