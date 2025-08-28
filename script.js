@@ -47,15 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
  }
 
  // === SCROLL BEHAVIOR ===
- function handleScroll() {
- if (window.scrollY > 50) {
- header.classList.add('scrolled');
- topBar && topBar.classList.add('hidden');
- } else {
- header.classList.remove('scrolled');
- topBar && topBar.classList.remove('hidden');
- }
- }
  window.addEventListener('scroll', handleScroll);
  handleScroll();
 
@@ -91,14 +82,36 @@ document.addEventListener("DOMContentLoaded", function () {
  });
 
  // Sticky header toggle
-  window.addEventListener('scroll', () => {
-    const header = document.querySelector('.header');
-    if (window.scrollY > 50) {
-      header.classList.add('sticky');
-    } else {
-      header.classList.remove('sticky');
-    }
-  });
+  function handleScroll() {
+  const header = document.querySelector('header.header');
+  const topBar = document.querySelector('.top-bar');
+  const hero = document.querySelector('.hero');
+
+  if (!header || !hero) return;
+
+  const topBarHeight = topBar ? topBar.offsetHeight : 0;
+  const headerHeight = header.offsetHeight;
+
+  // sticky header logic
+  if (window.scrollY > topBarHeight) {
+    header.classList.add('sticky');
+    topBar && topBar.classList.add('hidden');
+  } else {
+    header.classList.remove('sticky');
+    topBar && topBar.classList.remove('hidden');
+  }
+
+  // hero padding = header + top bar (if visible)
+  const topBarVisible = topBar && !topBar.classList.contains('hidden');
+  hero.style.paddingTop = (headerHeight + (topBarVisible ? topBarHeight : 0)) + 'px';
+}
+
+// Run on scroll
+window.addEventListener('scroll', handleScroll);
+// Run on load
+window.addEventListener('load', handleScroll);
+// Run on resize
+window.addEventListener('resize', handleScroll);
 
  // ================= HERO SLIDER =================
  const slides = document.querySelectorAll(".hero-slide");
