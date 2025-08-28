@@ -46,10 +46,6 @@ document.addEventListener("DOMContentLoaded", function () {
  });
  }
 
- // === SCROLL BEHAVIOR ===
- window.addEventListener('scroll', handleScroll);
- handleScroll();
-
  // === ACTIVE MENU ===
  const currentPath = window.location.pathname.replace(/\/$/, '').toLowerCase();
  const navLinks = headerContainer.querySelectorAll('.nav-menu a');
