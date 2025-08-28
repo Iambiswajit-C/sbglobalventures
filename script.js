@@ -98,12 +98,12 @@ function handleScroll() {
     if (topBar) topBar.classList.remove('hidden');
   }
 
-  // Compute the total visible header height (including sticky state)
-  const totalHeaderHeight = header.offsetHeight;
+  // Compute the **maximum header height** (header + topBar)
+  const maxHeaderHeight = headerHeight + (topBar ? topBarHeight : 0);
 
-  // Apply padding to hero so it never goes under the header
+  // Apply padding to hero based on max header height
   if (hero) {
-    hero.style.paddingTop = totalHeaderHeight + 'px';
+    hero.style.paddingTop = maxHeaderHeight + 'px';
   }
 }
 
