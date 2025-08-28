@@ -1046,6 +1046,13 @@ padding: 8px 10px;
   transform: translateY(-2px);
 }
 
+.underline {
+  text-decoration: underline;
+  text-decoration-thickness: 2px; /* optional: control line thickness */
+  text-underline-offset: 4px;     /* optional: push underline slightly below text */
+}
+
+
 /* Footer Styles */
 .footer {
 background-color: #003366;
