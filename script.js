@@ -82,23 +82,39 @@ document.addEventListener("DOMContentLoaded", function () {
   const header = document.querySelector('header.header');
   const topBar = document.querySelector('.top-bar');
   const hero = document.querySelector('.hero');
+  const headerSpacer = document.getElementById('header-spacer');
 
   if (!header || !hero) return;
 
   const topBarHeight = topBar ? topBar.offsetHeight : 0;
-  const headerHeight = header.offsetHeight;
+  const scrollTrigger = topBarHeight; // when we've scrolled past the top bar
 
-  // sticky header logic
-  if (window.scrollY > topBarHeight) {
-    header.classList.add('sticky');
-    topBar && topBar.classList.add('hidden');
+  if (window.scrollY > scrollTrigger) {
+    if (!header.classList.contains('sticky')) {
+      header.classList.add('sticky');
+      topBar && topBar.classList.add('hidden');
+
+      // Show spacer and set exact height to prevent layout shift
+      if (headerSpacer) {
+        headerSpacer.style.display = 'block';
+        headerSpacer.style.height = header.offsetHeight + 'px';
+      }
+    }
   } else {
-    header.classList.remove('sticky');
-    topBar && topBar.classList.remove('hidden');
+    if (header.classList.contains('sticky')) {
+      header.classList.remove('sticky');
+      topBar && topBar.classList.remove('hidden');
+
+      if (headerSpacer) {
+        headerSpacer.style.display = 'none';
+        headerSpacer.style.height = '0px';
+      }
+    }
   }
 
-  // hero padding = header + top bar (if visible)
+  // Make sure hero (or whatever immediately follows) has padding so content doesn't slide under header
   const topBarVisible = topBar && !topBar.classList.contains('hidden');
+  const headerHeight = header.offsetHeight;
   hero.style.paddingTop = (headerHeight + (topBarVisible ? topBarHeight : 0)) + 'px';
 }
 
