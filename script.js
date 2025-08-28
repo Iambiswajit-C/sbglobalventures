@@ -79,26 +79,29 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
   // ================= SCROLL BEHAVIOR & STICKY HEADER =================
-window.addEventListener('DOMContentLoaded', () => {
   const topBar = document.querySelector('.top-bar');
   const header = document.querySelector('header.header');
   const spacer = document.getElementById('header-spacer');
 
   function handleScroll() {
-    if (window.scrollY > topBar.offsetHeight) {
+    if (!header || !spacer) return;
+
+    const topBarHeight = topBar ? topBar.offsetHeight : 0;
+
+    if (window.scrollY > topBarHeight) {
       header.classList.add('sticky');
-      topBar.classList.add('hidden');
+      if (topBar) topBar.classList.add('hidden');
       spacer.style.height = header.offsetHeight + 'px';
     } else {
       header.classList.remove('sticky');
-      topBar.classList.remove('hidden');
+      if (topBar) topBar.classList.remove('hidden');
       spacer.style.height = '0';
     }
   }
 
-  window.addEventListener('scroll', handleScroll);
-  handleScroll(); // check on load
-});
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  window.addEventListener('load', handleScroll);
+  window.addEventListener('resize', handleScroll);
 
   // ================= HERO SLIDER =================
   const slides = document.querySelectorAll(".hero-slide");
