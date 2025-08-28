@@ -1073,12 +1073,6 @@ flex-wrap: wrap;
 gap: 40px; /* spacing between columns */
 }
 
-/* Left: Logo */
-.footer-left .logo {
-height: 50px;
-filter: brightness(0) invert(1);
-}
-
 /* Middle: Products */
 .footer-products {
 min-width: 150px;
