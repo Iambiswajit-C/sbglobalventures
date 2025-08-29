@@ -15,9 +15,9 @@ jobs:
         uses: cicirello/generate-sitemap@v1
         with:
           base-url-path: "https://sbglobalventures.com"
-          include-html: true
+          include-html: true 
           sitemap-path: "sitemap.xml"
-          include-lastmod: true
+          include-lastmod: true 
 
       - name: Commit sitemap
         run: |
