@@ -255,7 +255,6 @@ display: flex;
   position: relative;
   z-index: 2;
   color: white;
-  transform: translateY(-15%); /* move up 15% of its height */
 }
 
 .hero-slide.active {
