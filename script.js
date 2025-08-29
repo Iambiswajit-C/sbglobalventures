@@ -46,6 +46,19 @@ document.addEventListener("DOMContentLoaded", function () {
  });
  }
 
+ // === SCROLL BEHAVIOR ===
+ function handleScroll() {
+ if (window.scrollY > 50) {
+ header.classList.add('scrolled');
+ topBar && topBar.classList.add('hidden');
+ } else {
+ header.classList.remove('scrolled');
+ topBar && topBar.classList.remove('hidden');
+ }
+ }
+ window.addEventListener('scroll', handleScroll);
+ handleScroll();
+
  // === ACTIVE MENU ===
  const currentPath = window.location.pathname.replace(/\/$/, '').toLowerCase();
  const navLinks = headerContainer.querySelectorAll('.nav-menu a');
@@ -78,35 +91,14 @@ document.addEventListener("DOMContentLoaded", function () {
  });
 
  // Sticky header toggle
- function handleScroll() {
-  const header = document.querySelector('header.header');
-  const topBar = document.querySelector('.top-bar');
-  const hero = document.querySelector('.hero');
-  if (!header || !hero) return;
-
-  const topBarHeight = topBar ? topBar.offsetHeight : 0;
-  const headerHeight = header.offsetHeight;
-
-  // Only apply sticky & hide top-bar on desktop
-  const isDesktop = window.innerWidth > 1024;
-  if (window.scrollY > topBarHeight && isDesktop) {
-    header.classList.add('sticky');
-    topBar && topBar.classList.add('hidden');
-  } else {
-    header.classList.remove('sticky');
-    topBar && topBar.classList.remove('hidden');
-  }
-
-  // Adjust hero padding for header + top-bar height
-  const topBarVisible = topBar && !topBar.classList.contains('hidden');
-  hero.style.paddingTop = (headerHeight + (topBarVisible ? topBarHeight : 0)) + 'px';
-}
-// Run on scroll
-window.addEventListener('scroll', handleScroll);
-// Run on load
-window.addEventListener('load', handleScroll);
-// Run on resize
-window.addEventListener('resize', handleScroll);
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector('.header');
+    if (window.scrollY > 50) {
+      header.classList.add('sticky');
+    } else {
+      header.classList.remove('sticky');
+    }
+  });
 
  // ================= HERO SLIDER =================
  const slides = document.querySelectorAll(".hero-slide");
