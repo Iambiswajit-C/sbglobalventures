@@ -78,18 +78,18 @@ document.addEventListener("DOMContentLoaded", function () {
  });
 
  // Sticky header toggle
-  function handleScroll() {
+ function handleScroll() {
   const header = document.querySelector('header.header');
   const topBar = document.querySelector('.top-bar');
   const hero = document.querySelector('.hero');
-
   if (!header || !hero) return;
 
   const topBarHeight = topBar ? topBar.offsetHeight : 0;
   const headerHeight = header.offsetHeight;
 
-  // sticky header logic
-  if (window.scrollY > topBarHeight) {
+  // Only apply sticky & hide top-bar on desktop
+  const isDesktop = window.innerWidth > 1024;
+  if (window.scrollY > topBarHeight && isDesktop) {
     header.classList.add('sticky');
     topBar && topBar.classList.add('hidden');
   } else {
@@ -97,11 +97,10 @@ document.addEventListener("DOMContentLoaded", function () {
     topBar && topBar.classList.remove('hidden');
   }
 
-  // hero padding = header + top bar (if visible)
+  // Adjust hero padding for header + top-bar height
   const topBarVisible = topBar && !topBar.classList.contains('hidden');
   hero.style.paddingTop = (headerHeight + (topBarVisible ? topBarHeight : 0)) + 'px';
 }
-
 // Run on scroll
 window.addEventListener('scroll', handleScroll);
 // Run on load
