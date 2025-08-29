@@ -60,7 +60,6 @@ header.header {
   /* avoid 'all' transitions which affect layout — only animate visual properties */
   transition: box-shadow 0.22s ease, background-color 0.22s ease;
   will-change: transform;
-  overflow: hidden; /* prevents odd sub-pixel stretching */
 }
 header.header.sticky {
   position: fixed;
