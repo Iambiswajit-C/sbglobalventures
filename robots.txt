@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+Disallow: /header.html
+Disallow: /footer.html
+
+# Sitemap location
 Sitemap: https://sbglobalventures.com/sitemap.xml
