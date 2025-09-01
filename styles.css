@@ -254,7 +254,7 @@ display: flex;
   position: relative;
   z-index: 2;
   color: white;
-  transform: translateY(-15%); /* move up 15% of its height */
+  transform: translateY(-27%); /* move up 15% of its height */
 }
 
 .hero-slide.active {
@@ -1044,7 +1044,6 @@ padding: 8px 10px;
 .hero-contact-btn {
   display: inline-block;
   padding: 12px 28px;
-  margin-bottom: 1.8rem;
   background-color: #1766c6;
   color: white;
   font-size: 1.1rem;
@@ -1265,7 +1264,6 @@ cursor: pointer;
 .hero-contact-btn {
   display: inline-block;
   padding: 12px 28px;
-  margin-bottom: 1.8rem;
   background-color: #0077cc;
   color: white;
   font-size: 1.1rem;
