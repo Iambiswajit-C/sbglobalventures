@@ -130,13 +130,17 @@
   transform: rotate(180deg);
 }
 .blog-page .faq-answer {
-  display: none;
-  padding: 10px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+  padding: 0 10px; /* collapsed state has no vertical padding */
   background: #f9f9f9;
   border-left: 3px solid #0077cc;
 }
+
 .blog-page .faq-item.active .faq-answer {
-  display: block;
+  max-height: 500px; /* enough space for most answers */
+  padding: 10px; /* add padding when expanded */
 }
 
 /* Author */
