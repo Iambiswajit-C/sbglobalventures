@@ -466,8 +466,15 @@
     faqs.forEach(item => {
       const question = item.querySelector(".faq-question");
       question.addEventListener("click", () => {
-        faqs.forEach(f => f.classList.remove("active"));
-        item.classList.add("active");
+        // If this item is already active → collapse it
+        if (item.classList.contains("active")) {
+          item.classList.remove("active");
+        } else {
+          // Otherwise, close all first
+          faqs.forEach(f => f.classList.remove("active"));
+          // Then open the clicked one
+          item.classList.add("active");
+        }
       });
     });
   });
