@@ -460,14 +460,14 @@
         document.getElementById('footer-placeholder').innerHTML = data;
       });
   </script>
-  <script>
+<script>
   document.addEventListener("DOMContentLoaded", function() {
     const faqs = document.querySelectorAll(".faq-item");
-
     faqs.forEach(item => {
       const question = item.querySelector(".faq-question");
       question.addEventListener("click", () => {
-        item.classList.toggle("active");
+        faqs.forEach(f => f.classList.remove("active"));
+        item.classList.add("active");
       });
     });
   });
