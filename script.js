@@ -441,38 +441,44 @@ goTo(index, false);
  });
 })();
 
-// ================= FAQ ACCORDION =================
+// ================= FAQ ACCORDION (delegated & robust) =================
 (function () {
-  document.addEventListener("DOMContentLoaded", function () {
-    const faqs = document.querySelectorAll(".faq-item");
-    if (!faqs.length) return;
+  // Clicks anywhere in the document; only handles .faq-question
+  document.addEventListener("click", function (e) {
+    const question = e.target.closest(".faq-question");
+    if (!question) return;
 
-    faqs.forEach(item => {
-      const question = item.querySelector(".faq-question");
-      const answer = item.querySelector(".faq-answer");
+    const item = question.closest(".faq-item");
+    if (!item) return;
 
-      question.addEventListener("click", () => {
-        const isActive = item.classList.contains("active");
+    const answer = item.querySelector(".faq-answer");
+    if (!answer) return;
 
-        // Close all FAQs
-        faqs.forEach(f => {
-          f.classList.remove("active");
-          const ans = f.querySelector(".faq-answer");
-          ans.style.maxHeight = null;
-        });
+    const faqs = Array.from(document.querySelectorAll(".faq-item"));
+    const isActive = item.classList.contains("active");
 
-        // If not active, expand clicked one
-        if (!isActive) {
-          item.classList.add("active");
-          answer.style.maxHeight = answer.scrollHeight + "px";
-
-          // Smooth scroll into view
-          item.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
-        }
-      });
+    // Close all
+    faqs.forEach(f => {
+      f.classList.remove("active");
+      const ans = f.querySelector(".faq-answer");
+      if (ans) ans.style.maxHeight = null;
     });
+
+    // Toggle the clicked one (open if it was closed)
+    if (!isActive) {
+      item.classList.add("active");
+      // allow layout to apply .active styles before measuring
+      requestAnimationFrame(() => {
+        answer.style.maxHeight = answer.scrollHeight + "px";
+      });
+      // Smooth scroll (simple, no header offset)
+      item.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+  // Keep height correct on resize for the open item
+  window.addEventListener("resize", () => {
+    const open = document.querySelector(".faq-item.active .faq-answer");
+    if (open) open.style.maxHeight = open.scrollHeight + "px";
+  });
 })();
 });
