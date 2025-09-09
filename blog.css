@@ -1,0 +1,147 @@
+/* Blog-specific body + container */
+.blog-page {
+  font-family: Arial, sans-serif;
+  background: #fafafa;
+  color: #333;
+  line-height: 1.6;
+}
+
+.blog-page .container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Layout with TOC */
+.blog-page .blog-layout {
+  display: flex;
+  margin-top: 30px;
+}
+.blog-page .blog-toc {
+  width: 20%;
+  padding-right: 20px;
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+}
+.blog-page .blog-toc h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+.blog-page .blog-toc ul {
+  list-style: none;
+  padding: 0;
+}
+.blog-page .blog-toc li {
+  margin-bottom: 8px;
+}
+.blog-page .blog-toc a {
+  text-decoration: none;
+  color: #0077cc;
+}
+.blog-page .blog-toc a:hover {
+  text-decoration: underline;
+}
+
+.blog-page .blog-content {
+  width: 75%;
+}
+
+/* Headings */
+.blog-page .blog-content h1,
+.blog-page .blog-content h2 {
+  background: #eef6ff;
+  padding: 8px;
+  border-left: 4px solid #0077cc;
+}
+.blog-page .blog-content h3 {
+  margin-top: 20px;
+  font-size: 1.3rem;
+}
+.blog-page .blog-content h4 {
+  margin-top: 15px;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* Tables */
+.blog-page .blog-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+.blog-page .blog-content th, .blog-content td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+.blog-page .blog-content th {
+  background: #f0f0f0;
+}
+
+/* Images alternating */
+.blog-page .image-block {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  gap: 20px;
+}
+.blog-page .image-block img {
+  max-width: 400px;
+  border-radius: 8px;
+}
+.blog-page .image-block.left {
+  flex-direction: row;
+}
+.blog-page .image-block.right {
+  flex-direction: row-reverse;
+}
+
+/* FAQ Accordion */
+.blog-page .faq-item {
+  margin: 15px 0;
+}
+.blog-page .faq-question {
+  width: 100%;
+  padding: 12px;
+  background: #0077cc;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 1rem;
+}
+.blog-page .faq-answer {
+  display: none;
+  padding: 10px;
+  background: #f9f9f9;
+  border-left: 3px solid #0077cc;
+}
+.blog-page .faq-item.active .faq-answer {
+  display: block;
+}
+
+/* Author */
+.blog-page .blog-author {
+  margin-top: 30px;
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+ .blog-page .blog-layout {
+    flex-direction: column;
+  }
+  .blog-page .blog-toc {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .blog-page .blog-content {
+    width: 100%;
+  }
+}
