@@ -467,4 +467,47 @@ goTo(index, false);
       });
     });
 })();
+
+ // ================= TOC HIGHLIGHT + SMOOTH SCROLL =================
+(function () {
+  const tocLinks = document.querySelectorAll(".blog-toc a");
+  const sections = Array.from(tocLinks).map(link => {
+    const id = link.getAttribute("href").slice(1);
+    return document.getElementById(id);
+  });
+
+  const header = document.querySelector(".header");
+  const headerOffset = header ? header.offsetHeight + 20 : 100; // adjust offset
+
+  // Smooth scroll on click
+  tocLinks.forEach(link => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault(); // prevent instant jump & hash in URL
+      const targetId = this.getAttribute("href").slice(1);
+      const target = document.getElementById(targetId);
+      if (!target) return;
+
+      const elementPosition = target.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    });
+  });
+
+  // Highlight active section on scroll
+  function highlightSection() {
+    let index = sections.length;
+
+    while (--index && window.scrollY + headerOffset < sections[index].offsetTop) {}
+
+    tocLinks.forEach(link => link.classList.remove("active"));
+    if (tocLinks[index]) tocLinks[index].classList.add("active");
+  }
+
+  highlightSection();
+  window.addEventListener("scroll", highlightSection);
+})();
 });
