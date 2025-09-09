@@ -463,17 +463,26 @@
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const faqs = document.querySelectorAll(".faq-item");
+    const headerOffset = 80; // adjust to your sticky header height (px)
     faqs.forEach(item => {
       const question = item.querySelector(".faq-question");
+      const answer = item.querySelector(".faq-answer");
       question.addEventListener("click", () => {
-        // If this item is already active → collapse it
-        if (item.classList.contains("active")) {
-          item.classList.remove("active");
-        } else {
-          // Otherwise, close all first
-          faqs.forEach(f => f.classList.remove("active"));
-          // Then open the clicked one
+        const isActive = item.classList.contains("active");
+        faqs.forEach(f => {
+          f.classList.remove("active");
+          const ans = f.querySelector(".faq-answer");
+          ans.style.maxHeight = null;
+        });
+        if (!isActive) {
           item.classList.add("active");
+          answer.style.maxHeight = answer.scrollHeight + "px";
+          const elementPosition = item.getBoundingClientRect().top + window.scrollY;
+          const offsetPosition = elementPosition - headerOffset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
         }
       });
     });
