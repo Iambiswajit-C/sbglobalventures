@@ -47,7 +47,24 @@
 .blog-page .blog-toc a:hover {
   text-decoration: underline;
 }
+.blog-page .blog-toc a {
+  text-decoration: none;
+  color: #0077cc;
+  padding: 6px 10px;
+  border-radius: 5px;
+  display: block;
+  transition: background 0.3s, color 0.3s;
+}
 
+.blog-page .blog-toc a:hover {
+  text-decoration: underline; /* hover underline only */
+}
+
+.blog-page .blog-toc a.active {
+  background: #e6f3ff; /* active section background */
+  font-weight: bold;
+  color: #004b80;
+}
 .blog-page .blog-content {
   width: 75%;
 }
