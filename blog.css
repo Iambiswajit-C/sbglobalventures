@@ -16,6 +16,7 @@
 .blog-page .blog-layout {
   display: flex;
   margin-top: 30px;
+  gap: 40px;
 }
 .blog-page .blog-toc {
   width: 20%;
@@ -143,5 +144,10 @@
   }
   .blog-page .blog-content {
     width: 100%;
+  }
+}
+@media (max-width: 991px) {
+  .blog-page .blog-toc {
+    display: none; /* ✅ removes TOC on mobile */
   }
 }
