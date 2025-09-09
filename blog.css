@@ -106,6 +106,8 @@
   margin: 15px 0;
 }
 .blog-page .faq-question {
+  position: relative;
+  padding-right: 30px;
   width: 100%;
   padding: 12px;
   background: #0077cc;
@@ -115,6 +117,17 @@
   cursor: pointer;
   text-align: left;
   font-size: 1rem;
+}
+.blog-page .faq-question::after {
+  content: "+";
+  position: absolute;
+  right: 12px;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+.blog-page .faq-item.active .faq-question::after {
+  content: "–";
+  transform: rotate(180deg);
 }
 .blog-page .faq-answer {
   display: none;
