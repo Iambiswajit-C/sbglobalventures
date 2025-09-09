@@ -441,41 +441,38 @@ goTo(index, false);
  });
 })();
 
- // ================= FAQ ACCORDION =================
+// ================= FAQ ACCORDION =================
 (function () {
-  const header = document.querySelector('.header');
-  const headerOffset = header ? header.offsetHeight + 10 : 80; // auto-detect or fallback to 80px
-  const faqs = document.querySelectorAll(".faq-item");
+  document.addEventListener("DOMContentLoaded", function () {
+    const faqs = document.querySelectorAll(".faq-item");
+    if (!faqs.length) return;
 
-  if (!faqs.length) return; // exit if no FAQ section on page
+    faqs.forEach(item => {
+      const question = item.querySelector(".faq-question");
+      const answer = item.querySelector(".faq-answer");
 
-  faqs.forEach(item => {
-    const question = item.querySelector(".faq-question");
-    const answer = item.querySelector(".faq-answer");
+      question.addEventListener("click", () => {
+        const isActive = item.classList.contains("active");
 
-    question.addEventListener("click", () => {
-      const isActive = item.classList.contains("active");
-
-      // Close all
-      faqs.forEach(f => {
-        f.classList.remove("active");
-        const ans = f.querySelector(".faq-answer");
-        ans.style.maxHeight = null;
-      });
-
-      if (!isActive) {
-        item.classList.add("active");
-        answer.style.maxHeight = answer.scrollHeight + "px";
-
-        // Smooth scroll with sticky header offset
-        const elementPosition = item.getBoundingClientRect().top + window.scrollY;
-        const offsetPosition = elementPosition - headerOffset;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth"
+        // Close all FAQs
+        faqs.forEach(f => {
+          f.classList.remove("active");
+          const ans = f.querySelector(".faq-answer");
+          ans.style.maxHeight = null;
         });
-      }
+
+        // If not active, expand clicked one
+        if (!isActive) {
+          item.classList.add("active");
+          answer.style.maxHeight = answer.scrollHeight + "px";
+
+          // Smooth scroll into view
+          item.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }
+      });
     });
   });
 })();
