@@ -468,104 +468,46 @@ goTo(index, false);
     });
 })();
 
-// ================= TOC: single active item + auto-scroll TOC + smooth clicks =================
+ // ================= TOC HIGHLIGHT + SMOOTH SCROLL =================
 (function () {
-  const toc = document.querySelector('.blog-toc');
-  if (!toc) return;
+  const tocLinks = document.querySelectorAll(".blog-toc a");
+  const sections = Array.from(tocLinks).map(link => {
+    const id = link.getAttribute("href").slice(1);
+    return document.getElementById(id);
+  });
 
-  const tocLinks = Array.from(toc.querySelectorAll('a[href^="#"]'));
-  if (!tocLinks.length) return;
+  const header = document.querySelector(".header");
+  const headerOffset = header ? header.offsetHeight + 20 : 100; // adjust offset
 
-  // Map link -> section element (skip missing sections)
-  const sections = tocLinks
-    .map(link => {
-      const id = link.getAttribute('href').slice(1);
-      return document.getElementById(id) || null;
-    });
+  // Smooth scroll on click
+  tocLinks.forEach(link => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault(); // prevent instant jump & hash in URL
+      const targetId = this.getAttribute("href").slice(1);
+      const target = document.getElementById(targetId);
+      if (!target) return;
 
-  // remove pairs where section doesn't exist
-  const pairs = tocLinks
-    .map((link, i) => ({ link, section: sections[i] }))
-    .filter(p => p.section);
+      const elementPosition = target.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - headerOffset;
 
-  if (!pairs.length) return;
-
-  // Smooth scroll on click (prevents hash in URL)
-  pairs.forEach(({ link, section }) => {
-    link.addEventListener('click', function (e) {
-      e.preventDefault();
-      const header = document.querySelector('.header');
-      const headerOffset = (header && header.offsetHeight) ? header.offsetHeight : 80;
-      const top = section.getBoundingClientRect().top + window.scrollY - headerOffset - 8; // small gap
-      window.scrollTo({ top, behavior: 'smooth' });
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
     });
   });
 
-  // Highlight logic using IntersectionObserver for precise single-active behavior
-  if ('IntersectionObserver' in window) {
-    // compute header offset (to align observation with what's actually visible under header)
-    const header = document.querySelector('.header');
-    const headerOffset = (header && header.offsetHeight) ? header.offsetHeight + 8 : 88;
+  // Highlight active section on scroll
+  function highlightSection() {
+    let index = sections.length;
 
-    const observerOptions = {
-      root: null,
-      rootMargin: `-${headerOffset}px 0px -40% 0px`, // top offset and bottom margin so mid/upper section is preferred
-      threshold: [0, 0.25, 0.5, 0.75, 1]
-    };
+    while (--index && window.scrollY + headerOffset < sections[index].offsetTop) {}
 
-    // keep a map of visibility ratios
-    const visibility = new Map();
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const id = entry.target.id;
-        visibility.set(id, entry.intersectionRatio);
-      });
-
-      // choose the section with largest intersectionRatio
-      let bestId = null;
-      let bestRatio = 0;
-      for (const [id, ratio] of visibility.entries()) {
-        if (ratio > bestRatio) {
-          bestRatio = ratio;
-          bestId = id;
-        }
-      }
-
-      // apply active class (only to the best one)
-      pairs.forEach(({ link, section }) => {
-        const isActive = (section.id === bestId);
-        link.classList.toggle('active', isActive);
-        if (isActive) {
-          // make sure the active link is visible in the TOC scroll area (nearest avoids jumps)
-          link.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-        }
-      });
-
-    }, observerOptions);
-
-    // observe each section and init visibility map
-    pairs.forEach(({ section }) => {
-      visibility.set(section.id, 0);
-      observer.observe(section);
-    });
-
-  } else {
-    // fallback: simple scroll listener (older browsers)
-    const header = document.querySelector('.header');
-    const headerOffset = (header && header.offsetHeight) ? header.offsetHeight + 8 : 88;
-    function onScrollFallback() {
-      const scrollPos = window.scrollY + headerOffset;
-      let current = pairs[0]; // default
-      pairs.forEach(pair => {
-        if (pair.section.offsetTop <= scrollPos) current = pair;
-      });
-      pairs.forEach(({ link, section }) => link.classList.toggle('active', section === current.section));
-      // show active in TOC
-      current.link.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-    }
-    window.addEventListener('scroll', onScrollFallback);
-    onScrollFallback();
+    tocLinks.forEach(link => link.classList.remove("active"));
+    if (tocLinks[index]) tocLinks[index].classList.add("active");
   }
+
+  highlightSection();
+  window.addEventListener("scroll", highlightSection);
 })();
 });
