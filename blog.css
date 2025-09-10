@@ -1,11 +1,14 @@
 /* Blog-specific body + container */
 .blog-page {
-  font-family: Arial, sans-serif;
   background: #fafafa;
+}
+.blog-page .blog-content,
+.blog-page .blog-toc,
+.blog-page .hero {
+  font-family: Arial, sans-serif;
   color: #333;
   line-height: 1.6;
 }
-
 .blog-page .container {
   max-width: 1400px;
   margin: 0 auto;
