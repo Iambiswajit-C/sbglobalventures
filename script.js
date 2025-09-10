@@ -468,46 +468,111 @@ goTo(index, false);
     });
 })();
 
- // ================= TOC HIGHLIGHT + SMOOTH SCROLL =================
+// ================= TOC: single active item + auto-scroll TOC + smooth clicks =================
 (function () {
-  const tocLinks = document.querySelectorAll(".blog-toc a");
-  const sections = Array.from(tocLinks).map(link => {
-    const id = link.getAttribute("href").slice(1);
-    return document.getElementById(id);
-  });
+  const toc = document.querySelector('.blog-toc');
+  if (!toc) return;
 
-  const header = document.querySelector(".header");
-  const headerOffset = header ? header.offsetHeight + 20 : 100; // adjust offset
+  const tocLinks = Array.from(toc.querySelectorAll('a[href^="#"]'));
+  if (!tocLinks.length) return;
 
-  // Smooth scroll on click
-  tocLinks.forEach(link => {
-    link.addEventListener("click", function (e) {
-      e.preventDefault(); // prevent instant jump & hash in URL
-      const targetId = this.getAttribute("href").slice(1);
-      const target = document.getElementById(targetId);
-      if (!target) return;
+  // Map link -> section element (skip missing sections)
+  const sections = tocLinks
+    .map(link => {
+      const id = link.getAttribute('href').slice(1);
+      return document.getElementById(id) || null;
+    });
 
-      const elementPosition = target.getBoundingClientRect().top + window.scrollY;
-      const offsetPosition = elementPosition - headerOffset;
+  const pairs = tocLinks
+    .map((link, i) => ({ link, section: sections[i] }))
+    .filter(p => p.section);
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
+  if (!pairs.length) return;
+
+  // Smooth scroll on click (prevents hash in URL)
+  pairs.forEach(({ link, section }) => {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      const header = document.querySelector('.header');
+      const headerOffset = (header && header.offsetHeight) ? header.offsetHeight : 80;
+      const top = section.getBoundingClientRect().top + window.scrollY - headerOffset - 8; // small gap
+      window.scrollTo({ top, behavior: 'smooth' });
     });
   });
 
-  // Highlight active section on scroll
-  function highlightSection() {
-    let index = sections.length;
+  // ---- Active highlight logic ----
+  if ('IntersectionObserver' in window) {
+    const header = document.querySelector('.header');
+    const headerOffset = (header && header.offsetHeight) ? header.offsetHeight + 8 : 88;
 
-    while (--index && window.scrollY + headerOffset < sections[index].offsetTop) {}
+    const observerOptions = {
+      root: null,
+      rootMargin: `-${headerOffset}px 0px -40% 0px`, // top offset and bottom margin so mid/upper section is preferred
+      threshold: [0, 0.25, 0.5, 0.75, 1]
+    };
 
-    tocLinks.forEach(link => link.classList.remove("active"));
-    if (tocLinks[index]) tocLinks[index].classList.add("active");
+    const visibility = new Map();
+
+    function applyHighlight() {
+      let bestId = null;
+      let bestRatio = 0;
+      for (const [id, ratio] of visibility.entries()) {
+        if (ratio > bestRatio) {
+          bestRatio = ratio;
+          bestId = id;
+        }
+      }
+      // Fallback: if nothing visible yet, use the first section
+      if (!bestId && pairs.length) {
+        bestId = pairs[0].section.id;
+      }
+
+      pairs.forEach(({ link, section }) => {
+        const isActive = (section.id === bestId);
+        link.classList.toggle('active', isActive);
+        if (isActive && toc.scrollHeight > toc.clientHeight) {
+          link.scrollIntoView({ block: 'nearest' });
+        }
+      });
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        visibility.set(entry.target.id, entry.intersectionRatio);
+      });
+      applyHighlight();
+    }, observerOptions);
+
+    pairs.forEach(({ section }) => {
+      visibility.set(section.id, 0);
+      observer.observe(section);
+    });
+
+    // ✅ Force initial highlight once DOM is ready
+    window.addEventListener('load', () => {
+      setTimeout(applyHighlight, 100);
+    });
+
+  } else {
+    // ---- Fallback: scroll listener ----
+    const header = document.querySelector('.header');
+    const headerOffset = (header && header.offsetHeight) ? header.offsetHeight + 8 : 88;
+
+    function onScrollFallback() {
+      const scrollPos = window.scrollY + headerOffset;
+      let current = pairs[0]; // default
+      pairs.forEach(pair => {
+        if (pair.section.offsetTop <= scrollPos) current = pair;
+      });
+      pairs.forEach(({ link, section }) =>
+        link.classList.toggle('active', section === current.section)
+      );
+      if (toc.scrollHeight > toc.clientHeight) {
+        current.link.scrollIntoView({ block: 'nearest' });
+      }
+    }
+    window.addEventListener('scroll', onScrollFallback);
+    window.addEventListener('load', onScrollFallback);
   }
-
-  highlightSection();
-  window.addEventListener("scroll", highlightSection);
 })();
 });
