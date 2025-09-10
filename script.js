@@ -483,37 +483,34 @@ goTo(index, false);
       return document.getElementById(id) || null;
     });
 
-  // remove pairs where section doesn't exist
   const pairs = tocLinks
     .map((link, i) => ({ link, section: sections[i] }))
     .filter(p => p.section);
 
   if (!pairs.length) return;
 
-  // Smooth scroll on click (prevents hash in URL)
+  // Smooth scroll on click
   pairs.forEach(({ link, section }) => {
     link.addEventListener('click', function (e) {
       e.preventDefault();
       const header = document.querySelector('.header');
       const headerOffset = (header && header.offsetHeight) ? header.offsetHeight : 80;
-      const top = section.getBoundingClientRect().top + window.scrollY - headerOffset - 8; // small gap
+      const top = section.getBoundingClientRect().top + window.scrollY - headerOffset - 8;
       window.scrollTo({ top, behavior: 'smooth' });
     });
   });
 
-  // Highlight logic using IntersectionObserver for precise single-active behavior
+  // Highlight logic
   if ('IntersectionObserver' in window) {
-    // compute header offset (to align observation with what's actually visible under header)
     const header = document.querySelector('.header');
     const headerOffset = (header && header.offsetHeight) ? header.offsetHeight + 8 : 88;
 
     const observerOptions = {
       root: null,
-      rootMargin: `-${headerOffset}px 0px -40% 0px`, // top offset and bottom margin so mid/upper section is preferred
+      rootMargin: `-${headerOffset}px 0px -60% 0px`,
       threshold: [0, 0.25, 0.5, 0.75, 1]
     };
 
-    // keep a map of visibility ratios
     const visibility = new Map();
 
     const observer = new IntersectionObserver((entries) => {
@@ -522,7 +519,6 @@ goTo(index, false);
         visibility.set(id, entry.intersectionRatio);
       });
 
-      // choose the section with largest intersectionRatio
       let bestId = null;
       let bestRatio = 0;
       for (const [id, ratio] of visibility.entries()) {
@@ -532,36 +528,35 @@ goTo(index, false);
         }
       }
 
-      // apply active class (only to the best one)
       pairs.forEach(({ link, section }) => {
         const isActive = (section.id === bestId);
         link.classList.toggle('active', isActive);
-        if (isActive) {
-          // make sure the active link is visible in the TOC scroll area (nearest avoids jumps)
+        if (isActive && toc.scrollHeight > toc.clientHeight) {
           link.scrollIntoView({ block: 'nearest', inline: 'nearest' });
         }
       });
-
     }, observerOptions);
 
-    // observe each section and init visibility map
     pairs.forEach(({ section }) => {
       visibility.set(section.id, 0);
       observer.observe(section);
     });
 
+    // ✅ NEW: force highlight of the first section on load
+    pairs[0].link.classList.add("active");
+
   } else {
-    // fallback: simple scroll listener (older browsers)
+    // fallback: simple scroll listener
     const header = document.querySelector('.header');
     const headerOffset = (header && header.offsetHeight) ? header.offsetHeight + 8 : 88;
+
     function onScrollFallback() {
       const scrollPos = window.scrollY + headerOffset;
-      let current = pairs[0]; // default
+      let current = pairs[0];
       pairs.forEach(pair => {
         if (pair.section.offsetTop <= scrollPos) current = pair;
       });
       pairs.forEach(({ link, section }) => link.classList.toggle('active', section === current.section));
-      // show active in TOC
       current.link.scrollIntoView({ block: 'nearest', inline: 'nearest' });
     }
     window.addEventListener('scroll', onScrollFallback);
