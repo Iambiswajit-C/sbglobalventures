@@ -476,12 +476,11 @@ goTo(index, false);
   const tocLinks = Array.from(toc.querySelectorAll('a[href^="#"]'));
   if (!tocLinks.length) return;
 
-  // Map link -> section element (skip missing sections)
-  const sections = tocLinks
-    .map(link => {
-      const id = link.getAttribute('href').slice(1);
-      return document.getElementById(id) || null;
-    });
+  // Map link -> section element
+  const sections = tocLinks.map(link => {
+    const id = link.getAttribute('href').slice(1);
+    return document.getElementById(id) || null;
+  });
 
   const pairs = tocLinks
     .map((link, i) => ({ link, section: sections[i] }))
@@ -500,7 +499,30 @@ goTo(index, false);
     });
   });
 
-  // Highlight logic
+  // --- Helper: activate best matching section ---
+  function setActiveByScroll() {
+    const header = document.querySelector('.header');
+    const headerOffset = (header && header.offsetHeight) ? header.offsetHeight + 8 : 88;
+    const scrollPos = window.scrollY + headerOffset;
+
+    let current = pairs[0]; // default
+    pairs.forEach(pair => {
+      if (pair.section.offsetTop <= scrollPos) {
+        current = pair;
+      }
+    });
+
+    pairs.forEach(({ link, section }) => {
+      link.classList.toggle('active', section === current.section);
+    });
+
+    // ensure visibility only if TOC is scrollable
+    if (toc.scrollHeight > toc.clientHeight) {
+      current.link.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    }
+  }
+
+  // IntersectionObserver highlighting
   if ('IntersectionObserver' in window) {
     const header = document.querySelector('.header');
     const headerOffset = (header && header.offsetHeight) ? header.offsetHeight + 8 : 88;
@@ -542,25 +564,13 @@ goTo(index, false);
       observer.observe(section);
     });
 
-    // ✅ NEW: force highlight of the first section on load
-    pairs[0].link.classList.add("active");
+    // ✅ Force initial check (highlight correct section on page load)
+    setActiveByScroll();
 
   } else {
-    // fallback: simple scroll listener
-    const header = document.querySelector('.header');
-    const headerOffset = (header && header.offsetHeight) ? header.offsetHeight + 8 : 88;
-
-    function onScrollFallback() {
-      const scrollPos = window.scrollY + headerOffset;
-      let current = pairs[0];
-      pairs.forEach(pair => {
-        if (pair.section.offsetTop <= scrollPos) current = pair;
-      });
-      pairs.forEach(({ link, section }) => link.classList.toggle('active', section === current.section));
-      current.link.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-    }
-    window.addEventListener('scroll', onScrollFallback);
-    onScrollFallback();
+    // Fallback: scroll listener
+    window.addEventListener('scroll', setActiveByScroll);
+    setActiveByScroll(); // run once on load
   }
 })();
 });
