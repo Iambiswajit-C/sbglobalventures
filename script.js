@@ -476,7 +476,6 @@ goTo(index, false);
   const tocLinks = Array.from(toc.querySelectorAll('a[href^="#"]'));
   if (!tocLinks.length) return;
 
-  // Map link -> section element
   const sections = tocLinks.map(link => {
     const id = link.getAttribute('href').slice(1);
     return document.getElementById(id) || null;
@@ -488,7 +487,7 @@ goTo(index, false);
 
   if (!pairs.length) return;
 
-  // Smooth scroll on click
+  // Smooth scroll
   pairs.forEach(({ link, section }) => {
     link.addEventListener('click', function (e) {
       e.preventDefault();
@@ -499,13 +498,13 @@ goTo(index, false);
     });
   });
 
-  // --- Helper: activate best matching section ---
-  function setActiveByScroll() {
+  // --- Helper to manually pick the best visible section ---
+  function pickActiveSection() {
     const header = document.querySelector('.header');
     const headerOffset = (header && header.offsetHeight) ? header.offsetHeight + 8 : 88;
     const scrollPos = window.scrollY + headerOffset;
 
-    let current = pairs[0]; // default
+    let current = pairs[0]; // fallback to first
     pairs.forEach(pair => {
       if (pair.section.offsetTop <= scrollPos) {
         current = pair;
@@ -516,13 +515,13 @@ goTo(index, false);
       link.classList.toggle('active', section === current.section);
     });
 
-    // ensure visibility only if TOC is scrollable
+    // keep active link in view only if scrollable
     if (toc.scrollHeight > toc.clientHeight) {
-      current.link.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      current.link.scrollIntoView({ block: 'nearest' });
     }
   }
 
-  // IntersectionObserver highlighting
+  // IntersectionObserver
   if ('IntersectionObserver' in window) {
     const header = document.querySelector('.header');
     const headerOffset = (header && header.offsetHeight) ? header.offsetHeight + 8 : 88;
@@ -537,8 +536,7 @@ goTo(index, false);
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        const id = entry.target.id;
-        visibility.set(id, entry.intersectionRatio);
+        visibility.set(entry.target.id, entry.intersectionRatio);
       });
 
       let bestId = null;
@@ -554,23 +552,22 @@ goTo(index, false);
         const isActive = (section.id === bestId);
         link.classList.toggle('active', isActive);
         if (isActive && toc.scrollHeight > toc.clientHeight) {
-          link.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+          link.scrollIntoView({ block: 'nearest' });
         }
       });
     }, observerOptions);
 
-    pairs.forEach(({ section }) => {
-      visibility.set(section.id, 0);
-      observer.observe(section);
-    });
+    pairs.forEach(({ section }) => observer.observe(section));
 
-    // ✅ Force initial check (highlight correct section on page load)
-    setActiveByScroll();
+    // ✅ Force highlight once on load
+    window.addEventListener('load', () => {
+      setTimeout(pickActiveSection, 50); // small delay so layout settles
+    });
 
   } else {
     // Fallback: scroll listener
-    window.addEventListener('scroll', setActiveByScroll);
-    setActiveByScroll(); // run once on load
+    window.addEventListener('scroll', pickActiveSection);
+    window.addEventListener('load', pickActiveSection);
   }
 })();
 });
