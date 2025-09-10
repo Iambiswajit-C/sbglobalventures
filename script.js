@@ -468,46 +468,59 @@ goTo(index, false);
     });
 })();
 
- // ================= TOC HIGHLIGHT + SMOOTH SCROLL =================
+// ================= TOC ACTIVE LINK + AUTO-SCROLL =================
 (function () {
   const tocLinks = document.querySelectorAll(".blog-toc a");
   const sections = Array.from(tocLinks).map(link => {
-    const id = link.getAttribute("href").slice(1);
+    const id = link.getAttribute("href").substring(1);
     return document.getElementById(id);
   });
 
-  const header = document.querySelector(".header");
-  const headerOffset = header ? header.offsetHeight + 20 : 100; // adjust offset
+  if (!tocLinks.length || !sections.length) return;
 
-  // Smooth scroll on click
+  function onScroll() {
+    const scrollPos = window.scrollY + 150; // offset to match sticky header
+    let currentIndex = 0;
+
+    sections.forEach((section, i) => {
+      if (section && section.offsetTop <= scrollPos) {
+        currentIndex = i;
+      }
+    });
+
+    tocLinks.forEach((link, i) => {
+      if (i === currentIndex) {
+        link.classList.add("active");
+
+        // Ensure active item is visible inside TOC
+        link.scrollIntoView({
+          block: "nearest", // keeps it in view without jumping
+          inline: "nearest"
+        });
+      } else {
+        link.classList.remove("active");
+      }
+    });
+  }
+  window.addEventListener("scroll", onScroll);
+  onScroll();
+  // Smooth scroll behavior when clicking TOC links
   tocLinks.forEach(link => {
     link.addEventListener("click", function (e) {
-      e.preventDefault(); // prevent instant jump & hash in URL
-      const targetId = this.getAttribute("href").slice(1);
+      e.preventDefault();
+      const targetId = this.getAttribute("href").substring(1);
       const target = document.getElementById(targetId);
-      if (!target) return;
+      if (target) {
+        const headerOffset = document.querySelector('.header')?.offsetHeight || 80;
+        const elementPos = target.getBoundingClientRect().top + window.scrollY;
+        const offsetPos = elementPos - headerOffset;
 
-      const elementPosition = target.getBoundingClientRect().top + window.scrollY;
-      const offsetPosition = elementPosition - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
+        window.scrollTo({
+          top: offsetPos,
+          behavior: "smooth"
+        });
+      }
     });
   });
-
-  // Highlight active section on scroll
-  function highlightSection() {
-    let index = sections.length;
-
-    while (--index && window.scrollY + headerOffset < sections[index].offsetTop) {}
-
-    tocLinks.forEach(link => link.classList.remove("active"));
-    if (tocLinks[index]) tocLinks[index].classList.add("active");
-  }
-
-  highlightSection();
-  window.addEventListener("scroll", highlightSection);
 })();
 });
