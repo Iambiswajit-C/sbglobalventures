@@ -586,5 +586,4 @@ goTo(index, false);
       document.getElementById("reading-time").textContent =
         `⏱ ${readingTime} min read`;
     }
-  });
 });
