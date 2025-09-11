@@ -494,24 +494,23 @@ goTo(index, false);
       e.preventDefault();
       const header = document.querySelector('.header');
       const headerOffset = (header && header.offsetHeight) ? header.offsetHeight : 80;
-      const top = section.getBoundingClientRect().top + window.scrollY - headerOffset - 8; // small gap
+      const top = section.getBoundingClientRect().top + window.scrollY - headerOffset - 8;
       window.scrollTo({ top, behavior: 'smooth' });
     });
   });
 
   // ---- Highlight helper ----
-  function highlightLink(activeId) {
+  function highlightLink(activeId, skipScroll = false) {
     pairs.forEach(({ link, section }) => {
       const isActive = (section.id === activeId);
       link.classList.toggle('active', isActive);
 
-      // only auto-scroll TOC after initial load
       if (
         isActive &&
         toc.scrollHeight > toc.clientHeight &&
-        document.body.dataset.initialLoad === "done"
+        !skipScroll // only skip during first highlight
       ) {
-        link.scrollIntoView({ block: 'nearest' });
+        link.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }
     });
   }
@@ -528,6 +527,7 @@ goTo(index, false);
     };
 
     const visibility = new Map();
+    let firstHighlightDone = false;
 
     function applyHighlight() {
       let bestId = null;
@@ -541,7 +541,9 @@ goTo(index, false);
       if (!bestId && pairs.length) {
         bestId = pairs[0].section.id;
       }
-      highlightLink(bestId);
+
+      highlightLink(bestId, !firstHighlightDone);
+      firstHighlightDone = true;
     }
 
     const observer = new IntersectionObserver((entries) => {
@@ -556,32 +558,30 @@ goTo(index, false);
       observer.observe(section);
     });
 
-    // ✅ Force initial highlight without scrolling page
+    // ✅ First highlight (no scroll) on load
     window.addEventListener('load', () => {
-      setTimeout(() => {
-        applyHighlight();
-        document.body.dataset.initialLoad = "done";
-      }, 100);
+      setTimeout(() => applyHighlight(), 100);
     });
 
   } else {
     // ---- Fallback: scroll listener ----
     const header = document.querySelector('.header');
     const headerOffset = (header && header.offsetHeight) ? header.offsetHeight + 8 : 88;
+    let firstHighlightDone = false;
 
     function onScrollFallback() {
       const scrollPos = window.scrollY + headerOffset;
-      let current = pairs[0]; // default
+      let current = pairs[0];
       pairs.forEach(pair => {
         if (pair.section.offsetTop <= scrollPos) current = pair;
       });
-      highlightLink(current.section.id);
+      highlightLink(current.section.id, !firstHighlightDone);
+      firstHighlightDone = true;
     }
 
     window.addEventListener('scroll', onScrollFallback);
     window.addEventListener('load', () => {
-      onScrollFallback();
-      document.body.dataset.initialLoad = "done";
+      onScrollFallback(); // first highlight without scrolling TOC
     });
   }
 })();
