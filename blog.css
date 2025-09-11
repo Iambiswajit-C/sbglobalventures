@@ -47,7 +47,7 @@
   max-width: 100%;       /* don’t overflow on mobile */
   max-height: 600px;     /* taller than before for desktop */
   object-fit: contain;   /* show full image without cropping */
-  border-radius: 8px;
+  border-radius: 40px;
   display: block;
   margin: 0 auto;
 }
