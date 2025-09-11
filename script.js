@@ -510,12 +510,7 @@ goTo(index, false);
         toc.scrollHeight > toc.clientHeight &&
         !skipScroll
       ) {
-        // ✅ Don’t auto-scroll TOC if we’re at bottom OR at last section
-        const nearBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 150;
-        const isLast = activeId === pairs[pairs.length - 1].section.id;
-        if (!nearBottom && !isLast) {
-          link.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-        }
+        link.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }
     });
   }
@@ -547,6 +542,17 @@ goTo(index, false);
         bestId = pairs[0].section.id;
       }
 
+      // ✅ Stop forcing FAQ highlight when user scrolls past last section
+      const lastSection = pairs[pairs.length - 1].section;
+      const lastBottom = lastSection.offsetTop + lastSection.offsetHeight;
+      const viewportBottom = window.scrollY + window.innerHeight;
+
+      if (viewportBottom > lastBottom + 100) {
+        // Don’t highlight anything once past FAQ → free scroll for Author/Contact
+        pairs.forEach(({ link }) => link.classList.remove('active'));
+        return;
+      }
+
       highlightLink(bestId, !firstHighlightDone);
       firstHighlightDone = true;
     }
@@ -576,6 +582,16 @@ goTo(index, false);
 
     function onScrollFallback() {
       const scrollPos = window.scrollY + headerOffset;
+
+      const lastSection = pairs[pairs.length - 1].section;
+      const lastBottom = lastSection.offsetTop + lastSection.offsetHeight;
+      const viewportBottom = window.scrollY + window.innerHeight;
+
+      if (viewportBottom > lastBottom + 100) {
+        pairs.forEach(({ link }) => link.classList.remove('active'));
+        return;
+      }
+
       let current = pairs[0];
       pairs.forEach(pair => {
         if (pair.section.offsetTop <= scrollPos) current = pair;
