@@ -170,7 +170,7 @@
 
 .blog-page .image-block img {
   width: 100%;           /* full blog content width */
-  height: 300px;         /* fixed height (adjustable: 250–400px) */
+  height: 450px;         /* fixed height (adjustable: 250–400px) */
   object-fit: cover;     /* crop to fit fixed height */
   border-radius: 8px;
   display: block;
