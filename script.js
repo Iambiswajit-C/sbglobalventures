@@ -468,7 +468,7 @@ goTo(index, false);
     });
 })();
 
-// ================= TOC: single active item + auto-scroll TOC + smooth clicks =================
+// ================= TOC: single active item + auto-scroll TOC (safe at bottom) =================
 (function () {
   const toc = document.querySelector('.blog-toc');
   if (!toc) return;
@@ -476,7 +476,7 @@ goTo(index, false);
   const tocLinks = Array.from(toc.querySelectorAll('a[href^="#"]'));
   if (!tocLinks.length) return;
 
-  // Map link -> section element (skip missing sections)
+  // Map links to sections
   const sections = tocLinks.map(link => {
     const id = link.getAttribute('href').slice(1);
     return document.getElementById(id) || null;
@@ -488,7 +488,7 @@ goTo(index, false);
 
   if (!pairs.length) return;
 
-  // Smooth scroll on click (prevents hash in URL)
+  // Smooth scroll on click (no hash in URL)
   pairs.forEach(({ link, section }) => {
     link.addEventListener('click', function (e) {
       e.preventDefault();
@@ -508,9 +508,13 @@ goTo(index, false);
       if (
         isActive &&
         toc.scrollHeight > toc.clientHeight &&
-        !skipScroll // only skip during first highlight
+        !skipScroll // don’t auto-scroll on first highlight
       ) {
-        link.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        // ✅ bottom check: only scroll TOC if not at bottom of page
+        const nearBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 100;
+        if (!nearBottom) {
+          link.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }
       }
     });
   }
@@ -558,13 +562,13 @@ goTo(index, false);
       observer.observe(section);
     });
 
-    // ✅ First highlight (no scroll) on load
+    // First highlight after load
     window.addEventListener('load', () => {
       setTimeout(() => applyHighlight(), 100);
     });
 
   } else {
-    // ---- Fallback: scroll listener ----
+    // ---- Fallback for older browsers ----
     const header = document.querySelector('.header');
     const headerOffset = (header && header.offsetHeight) ? header.offsetHeight + 8 : 88;
     let firstHighlightDone = false;
@@ -581,7 +585,7 @@ goTo(index, false);
 
     window.addEventListener('scroll', onScrollFallback);
     window.addEventListener('load', () => {
-      onScrollFallback(); // first highlight without scrolling TOC
+      onScrollFallback();
     });
   }
 })();
@@ -595,5 +599,4 @@ goTo(index, false);
     document.getElementById("reading-time").textContent =
       `⏱ ${readingTime} min read`;
   }
-
 });
