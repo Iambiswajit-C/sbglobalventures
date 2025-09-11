@@ -575,4 +575,16 @@ goTo(index, false);
     window.addEventListener('load', onScrollFallback);
   }
 })();
+
+  // ---- Blog page reading time ----
+   function() {
+    const content = document.querySelector(".blog-content");
+    if (content) {
+      const text = content.innerText;
+      const words = text.trim().split(/\s+/).length;
+      const readingTime = Math.ceil(words / 200); // avg 200 wpm
+      document.getElementById("reading-time").textContent =
+        `⏱ ${readingTime} min read`;
+    }
+  });
 });
