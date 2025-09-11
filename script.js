@@ -477,11 +477,10 @@ goTo(index, false);
   if (!tocLinks.length) return;
 
   // Map link -> section element (skip missing sections)
-  const sections = tocLinks
-    .map(link => {
-      const id = link.getAttribute('href').slice(1);
-      return document.getElementById(id) || null;
-    });
+  const sections = tocLinks.map(link => {
+    const id = link.getAttribute('href').slice(1);
+    return document.getElementById(id) || null;
+  });
 
   const pairs = tocLinks
     .map((link, i) => ({ link, section: sections[i] }))
@@ -500,6 +499,23 @@ goTo(index, false);
     });
   });
 
+  // ---- Highlight helper ----
+  function highlightLink(activeId) {
+    pairs.forEach(({ link, section }) => {
+      const isActive = (section.id === activeId);
+      link.classList.toggle('active', isActive);
+
+      // only auto-scroll TOC after initial load
+      if (
+        isActive &&
+        toc.scrollHeight > toc.clientHeight &&
+        document.body.dataset.initialLoad === "done"
+      ) {
+        link.scrollIntoView({ block: 'nearest' });
+      }
+    });
+  }
+
   // ---- Active highlight logic ----
   if ('IntersectionObserver' in window) {
     const header = document.querySelector('.header');
@@ -507,7 +523,7 @@ goTo(index, false);
 
     const observerOptions = {
       root: null,
-      rootMargin: `-${headerOffset}px 0px -40% 0px`, // top offset and bottom margin so mid/upper section is preferred
+      rootMargin: `-${headerOffset}px 0px -40% 0px`,
       threshold: [0, 0.25, 0.5, 0.75, 1]
     };
 
@@ -522,18 +538,10 @@ goTo(index, false);
           bestId = id;
         }
       }
-      // Fallback: if nothing visible yet, use the first section
       if (!bestId && pairs.length) {
         bestId = pairs[0].section.id;
       }
-
-      pairs.forEach(({ link, section }) => {
-        const isActive = (section.id === bestId);
-        link.classList.toggle('active', isActive);
-        if (isActive && toc.scrollHeight > toc.clientHeight) {
-          link.scrollIntoView({ block: 'nearest' });
-        }
-      });
+      highlightLink(bestId);
     }
 
     const observer = new IntersectionObserver((entries) => {
@@ -548,9 +556,12 @@ goTo(index, false);
       observer.observe(section);
     });
 
-    // ✅ Force initial highlight once DOM is ready
+    // ✅ Force initial highlight without scrolling page
     window.addEventListener('load', () => {
-      setTimeout(applyHighlight, 100);
+      setTimeout(() => {
+        applyHighlight();
+        document.body.dataset.initialLoad = "done";
+      }, 100);
     });
 
   } else {
@@ -564,15 +575,14 @@ goTo(index, false);
       pairs.forEach(pair => {
         if (pair.section.offsetTop <= scrollPos) current = pair;
       });
-      pairs.forEach(({ link, section }) =>
-        link.classList.toggle('active', section === current.section)
-      );
-      if (toc.scrollHeight > toc.clientHeight) {
-        current.link.scrollIntoView({ block: 'nearest' });
-      }
+      highlightLink(current.section.id);
     }
+
     window.addEventListener('scroll', onScrollFallback);
-    window.addEventListener('load', onScrollFallback);
+    window.addEventListener('load', () => {
+      onScrollFallback();
+      document.body.dataset.initialLoad = "done";
+    });
   }
 })();
 
