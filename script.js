@@ -468,7 +468,6 @@ goTo(index, false);
     });
 })();
 
-// ================= TOC: single active item + auto-scroll TOC (safe at bottom) =================
 (function () {
   const toc = document.querySelector('.blog-toc');
   if (!toc) return;
@@ -476,7 +475,7 @@ goTo(index, false);
   const tocLinks = Array.from(toc.querySelectorAll('a[href^="#"]'));
   if (!tocLinks.length) return;
 
-  // Map links to sections
+  // Map link -> section element (skip missing sections)
   const sections = tocLinks.map(link => {
     const id = link.getAttribute('href').slice(1);
     return document.getElementById(id) || null;
@@ -488,7 +487,7 @@ goTo(index, false);
 
   if (!pairs.length) return;
 
-  // Smooth scroll on click (no hash in URL)
+  // Smooth scroll on click (prevents hash in URL)
   pairs.forEach(({ link, section }) => {
     link.addEventListener('click', function (e) {
       e.preventDefault();
@@ -508,11 +507,12 @@ goTo(index, false);
       if (
         isActive &&
         toc.scrollHeight > toc.clientHeight &&
-        !skipScroll // don’t auto-scroll on first highlight
+        !skipScroll
       ) {
-        // ✅ bottom check: only scroll TOC if not at bottom of page
-        const nearBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 100;
-        if (!nearBottom) {
+        // ✅ Don’t auto-scroll TOC if we’re at bottom OR at last section
+        const nearBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 150;
+        const isLast = activeId === pairs[pairs.length - 1].section.id;
+        if (!nearBottom && !isLast) {
           link.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
         }
       }
@@ -562,13 +562,13 @@ goTo(index, false);
       observer.observe(section);
     });
 
-    // First highlight after load
+    // ✅ First highlight (no scroll) on load
     window.addEventListener('load', () => {
       setTimeout(() => applyHighlight(), 100);
     });
 
   } else {
-    // ---- Fallback for older browsers ----
+    // ---- Fallback: scroll listener ----
     const header = document.querySelector('.header');
     const headerOffset = (header && header.offsetHeight) ? header.offsetHeight + 8 : 88;
     let firstHighlightDone = false;
@@ -585,7 +585,7 @@ goTo(index, false);
 
     window.addEventListener('scroll', onScrollFallback);
     window.addEventListener('load', () => {
-      onScrollFallback();
+      onScrollFallback(); // first highlight without scrolling TOC
     });
   }
 })();
