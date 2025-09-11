@@ -24,34 +24,33 @@
 
 .blog-page .blog-hero .breadcrumb {
   font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 12px;
-}
-.blog-page .blog-hero .breadcrumb a {
-  color: #0077cc;
-  text-decoration: none;
-}
-.blog-page .blog-hero .breadcrumb a:hover {
-  text-decoration: underline;
-}
-
-.blog-page .blog-hero .blog-title {
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin: 10px 0 20px;
-  color: #222;
-  line-height: 1.3;
-}
-
-.blog-page .blog-hero .featured-image {
-  margin: 20px 0;
+  color: #222222;
+  margin-bottom: 8px;
   text-align: center;
 }
-.blog-page .blog-hero .featured-image img {
-  max-width: 100%;
-  border-radius: 8px;
+
+.blog-page .blog-hero .breadcrumb a {
+  color: #1766c6;
+  text-decoration: none;
+  pointer-events: auto; /* clickable again */
+}
+.blog-page .blog-hero .blog-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 800px;
 }
 
+.blog-page .blog-hero .featured-image img {
+  width: auto;           /* let width shrink naturally */
+  max-width: 100%;       /* don’t overflow on mobile */
+  max-height: 600px;     /* taller than before for desktop */
+  object-fit: contain;   /* show full image without cropping */
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+}
 .blog-page .blog-hero .blog-meta {
   display: flex;
   justify-content: space-between;
@@ -70,10 +69,14 @@
 }
 
 /* Layout with TOC */
-.blog-page .blog-page .blog-layout {
+.blog-page .blog-layout {
   display: flex;
-  margin-top: 30px;
   gap: 30px;
+  margin-top: 30px;
+  width: 90%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .blog-page .blog-toc {
   width: 22%; /* slightly wider for balance */
@@ -86,6 +89,7 @@
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  flex-shrink: 0;
 }
 .blog-page .blog-toc h2 {
   font-size: 1.1rem;
@@ -126,6 +130,7 @@
 /* Content column — give more width */
 .blog-page .blog-content {
   width: 70%; /* take more space, less whitespace */
+  flex: 1; 
 }
 
 /* Headings */
@@ -250,5 +255,18 @@
 @media (max-width: 991px) {
   .blog-page .blog-toc {
     display: none; /* ✅ removes TOC on mobile */
+  }
+}
+/* Desktop: image not full width */
+@media (min-width: 992px) {
+  .blog-page .blog-hero .featured-image img {
+    max-width: 80%;   /* narrower on big screens */
+  }
+}
+
+/* Tablet & Mobile: full width */
+@media (max-width: 991px) {
+  .blog-page .blog-hero .featured-image img {
+    max-width: 100%;
   }
 }
