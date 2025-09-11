@@ -468,6 +468,7 @@ goTo(index, false);
     });
 })();
 
+ // ================= TOC: single active item + safe bottom behavior =================
 (function () {
   const toc = document.querySelector('.blog-toc');
   if (!toc) return;
