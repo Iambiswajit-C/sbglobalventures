@@ -24,22 +24,46 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "SB Global Ventures",
-  "url": "https://sbglobalventures.com/",
-  "logo": "https://sbglobalventures.com/images/sb-global-ventures-logo.png",
-  "sameAs": [
-    "https://www.facebook.com/sbglobalventuresindia",
-    "https://www.linkedin.com/company/sb-global-ventures-india",
-    "https://www.instagram.com/sbglobalventures"
-  ],
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "email": "info@sbglobalventures.com",
-    "contactType": "customer service",
-    "areaServed": ["IN", "US", "EU", "CN"],
-    "availableLanguage": ["English"]
-  }
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://sbglobalventures.com/#website",
+      "url": "https://sbglobalventures.com/",
+      "name": "SB Global Ventures",
+      "publisher": {
+        "@id": "https://sbglobalventures.com/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://sbglobalventures.com/?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://sbglobalventures.com/#organization",
+      "name": "SB Global Ventures",
+      "url": "https://sbglobalventures.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sbglobalventures.com/images/sb-global-ventures-logo.png",
+        "width": 500,
+        "height": 500
+      },
+      "sameAs": [
+        "https://www.facebook.com/sbglobalventuresindia",
+        "https://www.linkedin.com/company/sb-global-ventures-india",
+        "https://www.instagram.com/sbglobalventures"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "info@sbglobalventures.com",
+        "contactType": "customer service",
+        "areaServed": ["IN", "US", "EU", "CN"],
+        "availableLanguage": ["English"]
+      }
+    }
+  ]
 }
 </script>
 <!-- Google tag (gtag.js) -->
