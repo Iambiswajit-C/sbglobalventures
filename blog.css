@@ -265,3 +265,10 @@
     max-width: 100%;
   }
 }
+@media (max-width: 991px) {
+  .blog-page .image-block img {
+    height: auto;         /* let height grow naturally */
+    max-height: 500px;    /* optional cap */
+    object-fit: contain;  /* show the whole graph */
+  }
+}
