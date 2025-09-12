@@ -132,6 +132,17 @@
   width: 70%; /* take more space, less whitespace */
   flex: 1; 
 }
+/* Blog hyperlinks */
+.blog-page .blog-content a {
+  color: #1766c6;            /* link color */
+  text-decoration: none;     /* no underline by default */
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.blog-page .blog-content a:hover {
+  color: #1766c6;            /* keep same color */
+  text-decoration: underline;/* underline on hover */
+}
 
 /* Headings */
 .blog-page .blog-content h1,
