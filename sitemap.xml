@@ -49,4 +49,16 @@
     <priority>0.8</priority>
   </url>
 
+    <url>
+    <loc>https://sbglobalventures.com/blogs/</loc>
+    <lastmod>2025-09-12</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://sbglobalventures.com/blogs/indian-coffee-varieties-and-exports/</loc>
+    <lastmod>2025-09-12</lastmod>
+    <priority>0.6</priority>
+  </url>
+
 </urlset>
