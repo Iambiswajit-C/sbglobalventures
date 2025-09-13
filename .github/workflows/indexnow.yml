@@ -1,0 +1,26 @@
+name: IndexNow Submit
+
+on:
+ workflow_dispatch:  # run manually OR when you push changes
+  push:
+    branches:
+      - main
+
+jobs:
+  notify-indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Submit URLs to IndexNow
+        run: |
+          curl -X POST "https://api.indexnow.org/IndexNow" \
+          -H "Content-Type: application/json; charset=utf-8" \
+          -d '{
+            "host": "sbglobalventures.com",
+            "key": "b779c55fd0c64626adc2475126e27d60",
+            "keyLocation": "https://sbglobalventures.com/Yb779c55fd0c64626adc2475126e27d60.txt",
+            "urlList": [
+              "https://sbglobalventures.com/",
+              "https://sbglobalventures.com/blogs/",
+              "https://sbglobalventures.com/blogs/indian-coffee-varieties-and-exports/"
+            ]
+          }'
