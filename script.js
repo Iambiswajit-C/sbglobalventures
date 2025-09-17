@@ -500,20 +500,20 @@ goTo(index, false);
   });
 
   // ---- Highlight helper ----
-  function highlightLink(activeId, skipScroll = false) {
-    pairs.forEach(({ link, section }) => {
-      const isActive = (section.id === activeId);
-      link.classList.toggle('active', isActive);
+function highlightLink(activeId, skipScroll = false) {
+  pairs.forEach(({ link, section }) => {
+    const isActive = (section.id === activeId);
+    link.classList.toggle('active', isActive);
 
-      if (
-        isActive &&
-        toc.scrollHeight > toc.clientHeight &&
-        !skipScroll
-      ) {
-        link.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-      }
-    });
-  }
+    if (isActive && toc.scrollHeight > toc.clientHeight && !skipScroll) {
+      // Scroll only the TOC, not the page
+      toc.scrollTo({
+        top: link.offsetTop - toc.clientHeight / 2,
+        behavior: 'smooth'
+      });
+    }
+  });
+}
 
   // ---- Active highlight logic ----
   if ('IntersectionObserver' in window) {
