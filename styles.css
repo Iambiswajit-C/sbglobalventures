@@ -1228,11 +1228,14 @@ text-decoration: none;
 
 /* Bottom copyright */
 .footer-bottom{
+border-top:1px solid rgba(255,255,255,0.15);
+padding:15px 0;
+}
+
+.footer-bottom-inner{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:15px 0;
-border-top:1px solid rgba(255,255,255,0.15);
 }
 
 .footer-bottom p{
@@ -1252,7 +1255,7 @@ text-decoration:underline;
 /* Mobile */
 @media (max-width:768px){
 
-.footer-bottom{
+.footer-bottom-inner{
 flex-direction:column;
 text-align:center;
 gap:8px;
